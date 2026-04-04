@@ -30,8 +30,8 @@
         .map-wrapper {
             position: relative;
             width: 100%;
-            padding: 40px 0 180px 0;
-            background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
+            padding: 60px 0 200px 0;
+            background: radial-gradient(circle at 50% 20%, #1e293b 0%, #0f172a 100%);
         }
 
         .cable-svg {
@@ -57,20 +57,21 @@
             color: white;
             z-index: 10;
             transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+            cursor: pointer;
         }
 
         .node-active { background-color: #3b82f6; box-shadow: 0 6px 0 #1d4ed8; }
         .node-active:active { transform: translateY(4px); box-shadow: 0 2px 0 #1d4ed8; }
         .node-done { background-color: #58cc02; box-shadow: 0 6px 0 #46a302; }
-        .node-locked { background-color: #334155; box-shadow: 0 6px 0 #1e293b; color: #64748b; }
+        .node-locked { background-color: #334155; box-shadow: 0 6px 0 #1e293b; color: #64748b; cursor: not-allowed; }
 
         .current-ring {
             position: absolute;
-            inset: -8px;
-            border: 3px dashed #3b82f6;
+            inset: -10px;
+            border: 4px dashed #3b82f6;
             border-radius: 50%;
-            animation: rotate-ring 6s linear infinite;
+            animation: rotate-ring 8s linear infinite;
         }
 
         @keyframes rotate-ring {
@@ -85,7 +86,8 @@
             transform: translate(-50%, 100%);
             width: 100%;
             max-width: 448px;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: white;
         }
         .feedback-show { transform: translate(-50%, 0); }
 
@@ -103,7 +105,20 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 60px;
+            min-height: 70px;
+        }
+        
+        .quiz-scroll {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .quiz-scroll::-webkit-scrollbar { display: none; }
+
+        .option-btn {
+            transition: all 0.2s ease;
+        }
+        .option-btn:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
@@ -114,9 +129,9 @@
         <div class="flex justify-between items-center max-w-sm mx-auto">
             <div class="flex items-center gap-2">
                 <i class="fas fa-bolt text-yellow-400 text-xl"></i>
-                <span id="xp-val" class="font-black text-white">0 XP</span>
+                <span id="xp-val" class="font-black text-white text-lg">0 XP</span>
             </div>
-            <div class="flex items-center gap-2 bg-slate-900 px-3 py-1 rounded-2xl border border-slate-800 cursor-pointer" onclick="showLifeModal()">
+            <div class="flex items-center gap-2 bg-slate-900 px-4 py-1.5 rounded-full border border-slate-700 cursor-pointer active:bg-slate-800" onclick="showLifeModal()">
                 <i class="fas fa-heart text-red-500"></i>
                 <span id="lives-val" class="font-black text-red-500 text-lg">5</span>
                 <i class="fas fa-plus-circle text-blue-500 text-xs ml-1"></i>
@@ -125,7 +140,7 @@
     </nav>
 
     <!-- MAP VIEW -->
-    <main id="view-map" class="min-h-screen overflow-y-auto pb-20">
+    <main id="view-map" class="min-h-screen overflow-y-auto pb-32">
         <div class="map-wrapper" id="map-content">
             <svg class="cable-svg" id="cable-path">
                 <path d="" fill="none" stroke="#334155" stroke-width="8" stroke-linecap="round" stroke-dasharray="15,10" />
@@ -137,217 +152,122 @@
     <!-- QUIZ VIEW -->
     <main id="view-quiz" class="hidden fixed inset-0 z-50 bg-slate-950 p-6 flex flex-col">
         <div class="flex items-center gap-4 mb-4">
-            <button onclick="confirmExit()" class="text-slate-500 text-2xl p-2"><i class="fas fa-times"></i></button>
+            <button onclick="confirmExit()" class="text-slate-500 text-2xl p-2 active:text-white"><i class="fas fa-times"></i></button>
             <div class="flex-grow bg-slate-800 h-3 rounded-full overflow-hidden">
-                <div id="quiz-bar" class="bg-blue-500 h-full transition-all duration-500" style="width: 0%"></div>
+                <div id="quiz-bar" class="bg-blue-500 h-full transition-all duration-700" style="width: 0%"></div>
             </div>
         </div>
         
-        <!-- Ajustado: Padding superior e inferior para evitar cortes -->
-        <div id="question-container" class="flex-grow flex flex-col justify-start pt-4 overflow-y-auto"></div>
+        <div id="question-container" class="flex-grow flex flex-col justify-start pt-4 overflow-y-auto quiz-scroll"></div>
 
-        <div class="mt-4 pb-20">
+        <div class="mt-4 pb-24">
             <button id="btn-check" class="w-full py-5 bg-slate-800 text-slate-500 rounded-2xl font-black uppercase tracking-widest transition" disabled>Comprobar</button>
         </div>
 
-        <div id="feedback-panel" class="feedback-panel p-8 z-[60] border-t-8 rounded-t-3xl shadow-2xl">
+        <div id="feedback-panel" class="feedback-panel p-8 z-[60] border-t-8 rounded-t-[2.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
             <div class="flex items-start gap-4 mb-8">
-                <div id="fb-icon-box" class="w-14 h-14 rounded-xl flex items-center justify-center text-2xl text-white">
+                <div id="fb-icon-box" class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl text-white shrink-0">
                     <i id="fb-icon" class="fas"></i>
                 </div>
                 <div class="flex-grow">
-                    <h3 id="fb-title" class="font-black text-xl mb-1"></h3>
-                    <p id="fb-desc" class="font-bold text-sm leading-tight"></p>
+                    <h3 id="fb-title" class="font-black text-2xl mb-1 italic"></h3>
+                    <p id="fb-desc" class="font-bold text-base leading-snug opacity-90"></p>
                 </div>
             </div>
             <button id="btn-next" class="w-full py-5 text-white rounded-2xl font-black uppercase tracking-widest shadow-xl transition active:scale-95">Continuar</button>
         </div>
     </main>
 
-    <!-- MODAL TIENDA / ENERGÍA -->
+    <!-- MODAL TIENDA -->
     <div id="life-modal" class="fixed inset-0 z-[100] bg-black/90 hidden items-center justify-center p-6 backdrop-blur-md">
         <div class="bg-slate-900 border border-slate-800 p-8 rounded-[2.5rem] w-full max-w-sm text-center shadow-2xl">
             <div class="text-red-500 text-6xl mb-4"><i class="fas fa-heart"></i></div>
-            <h2 class="text-2xl font-black mb-1 text-white italic">BATERÍA BAJA</h2>
+            <h2 class="text-2xl font-black mb-1 text-white italic uppercase">Batería Agotada</h2>
             
             <div id="timer-box" class="mb-6 p-4 bg-slate-950 rounded-2xl border border-slate-800">
-                <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-1">Carga automática en</p>
+                <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-1">Recarga en camino</p>
                 <p id="timer-display" class="text-blue-400 font-bold text-2xl font-mono">30:00</p>
             </div>
 
             <div class="space-y-3 mb-6">
-                <!-- PayPal Button Integration -->
                 <form action="https://www.paypal.com/ncp/payment/V2J2E7EYWRR2U" method="post" target="_blank" class="w-full">
-                    <input class="w-full py-4 bg-[#FFD140] text-black font-black rounded-2xl cursor-pointer hover:bg-[#ffc400] transition shadow-[0_4px_0_#d4af37] uppercase" type="submit" value="RECARGAR 5 VIDAS ($100)" />
+                    <input class="w-full py-4 bg-[#FFD140] text-black font-black rounded-2xl cursor-pointer shadow-[0_4px_0_#d4af37] uppercase text-sm active:translate-y-1 active:shadow-none transition" type="submit" value="COMPRAR 5 VIDAS ($100)" />
                 </form>
 
-                <button onclick="watchAdForLife()" class="w-full py-4 bg-slate-800 text-blue-400 font-black rounded-2xl border-2 border-blue-500/30 flex items-center justify-center gap-2">
-                    <i class="fas fa-video"></i> GANA 1 VIDA (ANUNCIO)
+                <button onclick="watchAdForLife()" class="w-full py-4 bg-slate-800 text-blue-400 font-black rounded-2xl border-2 border-blue-500/30 flex items-center justify-center gap-2 text-sm active:bg-slate-700">
+                    <i class="fas fa-video"></i> RECARGAR 1 VIDA (ANUNCIO)
                 </button>
             </div>
             
-            <button onclick="document.getElementById('life-modal').style.display='none'" class="text-slate-500 font-bold hover:text-white uppercase text-xs tracking-widest">Volver</button>
+            <button onclick="document.getElementById('life-modal').style.display='none'" class="text-slate-500 font-bold hover:text-white uppercase text-xs tracking-widest p-2">Cerrar</button>
         </div>
     </div>
 
-    <!-- ADS AREA - INTEGRADO ADSTERRA -->
+    <!-- ADSTERRA BANNER -->
     <div class="ad-banner-bottom">
-        <div id="adsterra-container">
-            <script type="text/javascript">
-                atOptions = {
+        <div id="ad-container-bottom"></div>
+        <script type="text/javascript">
+            // Script de carga diferida para no bloquear UI
+            window.addEventListener('load', () => {
+                const script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = 'https://www.highperformanceformat.com/31c7e982c489babec109bba8d12f5afe/invoke.js';
+                
+                window.atOptions = {
                     'key' : '31c7e982c489babec109bba8d12f5afe',
                     'format' : 'iframe',
                     'height' : 60,
                     'width' : 468,
                     'params' : {}
                 };
-            </script>
-            <script type="text/javascript" src="https://www.highperformanceformat.com/31c7e982c489babec109bba8d12f5afe/invoke.js"></script>
-        </div>
+                document.getElementById('ad-container-bottom').appendChild(script);
+            });
+        </script>
     </div>
 
     <script>
     const PREGUNTAS_BANCO = [
-  // BLOQUE 1: Conceptos básicos
-  { id: 1, type: "multiple", q: "¿Qué partícula del átomo tiene carga negativa?", options: ["Protón", "Neutrón", "Electrón", "Positrón"], correct: 2, why: "El electrón tiene carga negativa y genera corriente al moverse." },
-  { id: 2, type: "fill", q: "La unidad de la corriente eléctrica es el ___", correct: "ampere", why: "La corriente se mide en amperes, símbolo A." },
-  { id: 3, type: "truefalse", q: "La resistencia eléctrica se mide en voltios.", correct: false, why: "Se mide en Ohm (Ω), no en voltios." },
-  { id: 4, type: "multiple", q: "¿Qué representa el voltaje en un circuito?", options: ["La cantidad de electrones", "La diferencia de potencial", "La resistencia", "La energía consumida"], correct: 1, why: "El voltaje es la diferencia de potencial entre dos puntos." },
-  { id: 5, type: "fill", q: "La ley que relaciona voltaje, corriente y resistencia es la Ley de ___", correct: "ohm", why: "La Ley de Ohm establece V = I * R." },
-
-  // BLOQUE 2: Componentes electrónicos
-  { id: 6, type: "multiple", q: "¿Cuál es la función de un diodo?", options: ["Almacenar energía", "Permitir corriente en un sentido", "Amplificar corriente", "Reducir voltaje"], correct: 1, why: "Un diodo deja pasar corriente solo en un sentido." },
-  { id: 7, type: "multiple", q: "¿Qué hace un transistor?", options: ["Almacena energía", "Controla y amplifica corriente", "Mide voltaje", "Funciona como resistor"], correct: 1, why: "El transistor puede actuar como interruptor o amplificador." },
-  { id: 8, type: "fill", q: "Un ___ almacena carga eléctrica temporalmente.", correct: "capacitor", why: "El capacitor acumula carga y la libera según el circuito." },
-  { id: 9, type: "truefalse", q: "Los resistores pueden cambiar la corriente en un circuito.", correct: true, why: "La resistencia limita el flujo de corriente según su valor." },
-  { id: 10, type: "multiple", q: "¿Qué material es buen conductor eléctrico?", options: ["Cobre", "Plástico", "Madera", "Vidrio"], correct: 0, why: "El cobre permite que los electrones se muevan libremente." },
-
-  // BLOQUE 3: Circuitos y leyes
-  { id: 11, type: "multiple", q: "En un circuito en serie, la resistencia total es:", options: ["Menor que cualquier resistencia", "Suma de todas las resistencias", "Promedio de las resistencias", "Igual a la mayor resistencia"], correct: 1, why: "En serie, las resistencias se suman." },
-  { id: 12, type: "multiple", q: "En un circuito en paralelo, la corriente total es:", options: ["Suma de las corrientes de cada rama", "Igual a la corriente de la rama más grande", "Siempre menor que cada rama", "No depende de la corriente"], correct: 0, why: "En paralelo, la corriente total es la suma de las corrientes de cada rama." },
-  { id: 13, type: "fill", q: "La primera Ley de Kirchhoff se aplica en los ___ de un circuito.", correct: "nodos", why: "La suma de corrientes que entran y salen de un nodo es cero." },
-  { id: 14, type: "truefalse", q: "La segunda Ley de Kirchhoff establece que la suma de voltajes en un lazo es cero.", correct: true, why: "Esto asegura la conservación de energía en el circuito." },
-  { id: 15, type: "multiple", q: "Si una resistencia de 10Ω y otra de 20Ω están en serie, la resistencia total es:", options: ["15Ω", "30Ω", "10Ω", "20Ω"], correct: 1, why: "Se suman las resistencias en serie: 10+20=30Ω." },
-
-  // BLOQUE 4: Corriente continua y alterna
-  { id: 16, type: "truefalse", q: "La corriente continua (DC) cambia de dirección constantemente.", correct: false, why: "DC fluye en una sola dirección." },
-  { id: 17, type: "truefalse", q: "La corriente alterna (AC) cambia de dirección periódicamente.", correct: true, why: "AC invierte su sentido según la frecuencia de la fuente." },
-  { id: 18, type: "fill", q: "La frecuencia típica de la corriente alterna doméstica en México es ___ Hz.", correct: "60", why: "En México, la AC es de 60 Hz." },
-  { id: 19, type: "multiple", q: "¿Qué tipo de corriente usan las baterías comunes?", options: ["AC", "DC", "Mixta", "Alternada pulsante"], correct: 1, why: "Las baterías suministran corriente continua (DC)." },
-  { id: 20, type: "multiple", q: "¿Qué tipo de corriente suministra la mayoría de los enchufes domésticos?", options: ["DC", "AC", "Mixta", "CC"], correct: 1, why: "La corriente de la red eléctrica es AC." },
-
-  // BLOQUE 5: Medición y seguridad
-  { id: 21, type: "multiple", q: "Un voltímetro se conecta en:", options: ["Serie", "Paralelo", "Cualquier parte", "Tierra"], correct: 1, why: "Se conecta en paralelo para medir diferencia de potencial." },
-  { id: 22, type: "multiple", q: "Un amperímetro se conecta en:", options: ["Serie", "Paralelo", "Cualquier parte", "Tierra"], correct: 0, why: "Se conecta en serie para medir corriente." },
-  { id: 23, type: "truefalse", q: "Nunca debes tocar un circuito eléctrico energizado con las manos mojadas.", correct: true, why: "El agua conduce electricidad y aumenta el riesgo de electrocución." },
-  { id: 24, type: "fill", q: "El fusible protege el circuito de sobre ___", correct: "corriente", why: "Se funde si la corriente excede un valor seguro." },
-  { id: 25, type: "multiple", q: "¿Cuál es la función de un interruptor?", options: ["Medir voltaje", "Abrir o cerrar el circuito", "Aumentar corriente", "Reducir resistencia"], correct: 1, why: "Permite controlar el flujo de corriente." },
-
-  // BLOQUE 6: Electrónica digital y lógica
-  { id: 26, type: "multiple", q: "¿Qué es un bit?", options: ["Unidad de corriente", "Unidad de información", "Unidad de voltaje", "Unidad de resistencia"], correct: 1, why: "El bit es la mínima unidad de información digital." },
-  { id: 27, type: "truefalse", q: "Un flip-flop puede almacenar un bit de información.", correct: true, why: "Es un circuito básico de memoria digital." },
-  { id: 28, type: "fill", q: "Un ___ realiza operaciones lógicas básicas como AND, OR y NOT.", correct: "circuito lógico", why: "Los circuitos lógicos procesan información digital." },
-  { id: 29, type: "multiple", q: "¿Qué representa un 1 en lógica digital?", options: ["Alto voltaje", "Bajo voltaje", "Corriente negativa", "Corriente alterna"], correct: 0, why: "El 1 lógico corresponde a nivel alto de voltaje." },
-  { id: 30, type: "multiple", q: "¿Qué representa un 0 en lógica digital?", options: ["Alto voltaje", "Bajo voltaje", "Corriente negativa", "Corriente alterna"], correct: 1, why: "El 0 lógico corresponde a nivel bajo de voltaje." },
-  { id: 31, type: "fill", q: "Un circuito que solo tiene dos posibles estados se llama ___", correct: "digital", why: "Los circuitos digitales trabajan con dos estados: 0 y 1." },
-  { id: 32, type: "truefalse", q: "Un resistor variable se llama potenciómetro.", correct: true, why: "Permite ajustar manualmente la resistencia en un circuito." },
-  { id: 33, type: "multiple", q: "El símbolo de un diodo LED indica:", options: ["Dirección de corriente", "Resistencia", "Capacidad", "Voltaje"], correct: 0, why: "La flecha del LED indica la dirección en la que permite la corriente." },
-  { id: 34, type: "fill", q: "Un ___ es un circuito que convierte corriente alterna en continua.", correct: "rectificador", why: "Los rectificadores usan diodos para transformar AC en DC." },
-  { id: 35, type: "truefalse", q: "La energía eléctrica se mide en vatios (W).", correct: true, why: "El vatio es la unidad de potencia eléctrica: P = V * I." },
-  { id: 36, type: "multiple", q: "¿Qué componente electrónico puede filtrar señales de alta frecuencia?", options: ["Resistor", "Condensador", "Diodo", "Transistor"], correct: 1, why: "Los condensadores permiten pasar AC y bloquean DC según la frecuencia." },
-  { id: 37, type: "multiple", q: "¿Qué significa AC/DC?", options: ["Corriente alterna / Corriente continua", "Alta corriente / Doble corriente", "Alternador / Directo", "Amplificador / Detector"], correct: 0, why: "AC es alterna y DC es continua." },
-  { id: 38, type: "fill", q: "La ley de ___ establece que V = I * R.", correct: "ohm", why: "Relaciona voltaje, corriente y resistencia." },
-  { id: 39, type: "truefalse", q: "Un condensador puede almacenar energía temporalmente.", correct: true, why: "Acumula carga en un campo eléctrico y la libera según el circuito." },
-  { id: 40, type: "multiple", q: "¿Qué hace un fusible en un circuito?", options: ["Amplifica corriente", "Protege de sobrecarga", "Almacena energía", "Mide voltaje"], correct: 1, why: "Se funde para interrumpir la corriente cuando hay exceso." },
-  { id: 41, type: "multiple", q: "¿Cuál es la unidad de potencia eléctrica?", options: ["Voltio", "Ampere", "Ohm", "Vatio"], correct: 3, why: "La potencia eléctrica se mide en vatios (W). P = V * I." },
-  { id: 42, type: "fill", q: "La corriente eléctrica es el flujo de ___ a través de un conductor.", correct: "electrones", why: "Los electrones se mueven generando corriente." },
-  { id: 43, type: "truefalse", q: "Un transistor NPN permite que la corriente fluya solo si la base recibe voltaje positivo.", correct: true, why: "La corriente de colector-emisor depende del voltaje en la base." },
-  { id: 44, type: "multiple", q: "¿Qué ocurre si conectamos un condensador a una fuente DC por tiempo prolongado?", options: ["Se descarga continuamente", "Se carga hasta el voltaje de la fuente", "Explota siempre", "No ocurre nada"], correct: 1, why: "Se carga hasta igualar el voltaje de la fuente y luego deja de fluir corriente." },
-  { id: 45, type: "multiple", q: "¿Qué es un potenciómetro?", options: ["Resistor fijo", "Resistor variable", "Condensador", "Diodo"], correct: 1, why: "Permite ajustar la resistencia manualmente." },
-  { id: 46, type: "fill", q: "La corriente que fluye por un circuito cerrado se llama corriente ___", correct: "eléctrica", why: "Es el movimiento de carga a través de un conductor." },
-  { id: 47, type: "truefalse", q: "La energía en un circuito se conserva según la Ley de Kirchhoff.", correct: true, why: "La suma de voltajes en un lazo es igual a cero, conservando energía." },
-  { id: 48, type: "multiple", q: "¿Qué tipo de diodo permite regular voltaje de salida?", options: ["Diodo Zener", "LED", "Diodo rectificador", "Diodo común"], correct: 0, why: "El diodo Zener mantiene voltaje constante en polarización inversa." },
-  { id: 49, type: "fill", q: "Los transistores se usan como interruptores o amplificadores en ___", correct: "circuitos", why: "Controlan el flujo de corriente según la señal de entrada." },
-  { id: 50, type: "truefalse", q: "Un circuito digital solo puede tener valores discretos como 0 o 1.", correct: true, why: "Esto define el funcionamiento de la electrónica digital." },
-
-  // BLOQUE 7: Semiconductores y dispositivos avanzados
-  { id: 51, type: "multiple", q: "¿Qué tipo de semiconductor tiene exceso de electrones?", options: ["Tipo P", "Tipo N", "Tipo Z", "Tipo PN"], correct: 1, why: "El tipo N tiene electrones libres como portadores mayoritarios." },
-  { id: 52, type: "multiple", q: "¿Qué tipo de semiconductor tiene 'huecos' como portadores?", options: ["Tipo P", "Tipo N", "Tipo Z", "Tipo PN"], correct: 0, why: "El tipo P tiene huecos positivos como portadores mayoritarios." },
-  { id: 53, type: "fill", q: "Un ___ amplifica señales eléctricas mediante el control de corriente de entrada.", correct: "transistor", why: "El transistor es un dispositivo semiconductor que puede amplificar." },
-  { id: 54, type: "truefalse", q: "Un diodo solo permite el paso de corriente en un sentido.", correct: true, why: "Los diodos tienen polaridad y permiten corriente directa." },
-  { id: 55, type: "multiple", q: "¿Qué componente electrónico se usa para estabilizar voltaje?", options: ["Diodo", "Zener", "Resistor", "LED"], correct: 1, why: "El diodo Zener mantiene voltaje constante." },
-
-  // BLOQUE 8: Circuitos eléctricos aplicados
-  { id: 56, type: "fill", q: "La resistencia equivalente de dos resistores en paralelo se calcula con ___", correct: "1/(1/R1 + 1/R2)", why: "La fórmula de resistencias en paralelo es el inverso de la suma de inversos." },
-  { id: 57, type: "multiple", q: "¿Qué pasa si un resistor se conecta en paralelo con otro de igual valor?", options: ["Resistencia aumenta", "Resistencia disminuye", "Resistencia no cambia", "Se produce cortocircuito"], correct: 1, why: "En paralelo, la resistencia total es menor que cada resistencia individual." },
-  { id: 58, type: "truefalse", q: "Los circuitos en serie tienen la misma corriente en todos los elementos.", correct: true, why: "En serie, la corriente es constante a través de cada componente." },
-  { id: 59, type: "fill", q: "La Ley de Ohm se expresa como V = ___ * R", correct: "I", why: "V = I * R relaciona voltaje, corriente y resistencia." },
-  { id: 60, type: "multiple", q: "Si un circuito tiene 12V y una resistencia de 6Ω, la corriente es:", options: ["2A", "0.5A", "6A", "12A"], correct: 0, why: "I = V/R = 12/6 = 2A." },
-
-  // BLOQUE 9: Instrumentos de medida
-  { id: 61, type: "multiple", q: "El multímetro puede medir:", options: ["Voltaje", "Corriente", "Resistencia", "Todas las anteriores"], correct: 3, why: "Un multímetro mide voltaje, corriente y resistencia." },
-  { id: 62, type: "fill", q: "Para medir corriente, el amperímetro se conecta en ___", correct: "serie", why: "La corriente debe pasar a través del amperímetro." },
-  { id: 63, type: "truefalse", q: "Un voltímetro siempre se conecta en paralelo con el elemento a medir.", correct: true, why: "Así mide correctamente la diferencia de potencial." },
-  { id: 64, type: "multiple", q: "Para medir voltaje de la red doméstica se usa:", options: ["Amperímetro", "Voltímetro", "Ohmímetro", "Osciloscopio"], correct: 1, why: "El voltímetro mide la diferencia de potencial." },
-  { id: 65, type: "fill", q: "El instrumento que grafica la variación de voltaje en el tiempo se llama ___", correct: "osciloscopio", why: "El osciloscopio muestra la forma de onda de la señal." },
-
-  // BLOQUE 10: Seguridad y buenas prácticas
-  { id: 66, type: "truefalse", q: "Siempre se deben usar guantes y gafas al trabajar con circuitos energizados.", correct: true, why: "Previene accidentes y electrocución." },
-  { id: 67, type: "multiple", q: "Qué se debe hacer antes de tocar un circuito?", options: ["Encenderlo", "Apagarlo y desconectar la fuente", "Subir el voltaje", "Ignorar medidas de seguridad"], correct: 1, why: "Desconectar evita electrocución y daños." },
-  { id: 68, type: "fill", q: "La protección contra sobrecorriente se logra con ___ o interruptores automáticos.", correct: "fusibles", why: "Fundiendo o interrumpiendo el circuito previene daños." },
-  { id: 69, type: "truefalse", q: "Nunca se debe trabajar solo con circuitos de alto voltaje.", correct: true, why: "Siempre se requiere supervisión o compañero de seguridad." },
-  { id: 70, type: "multiple", q: "Qué significa ESD?", options: ["Descarga electrostática", "Voltaje elevado", "Corriente alterna", "Electrónica digital"], correct: 0, why: "ElectroStatic Discharge es descarga de electricidad estática." },
-
-  // BLOQUE 11: Electrónica digital avanzada
-  { id: 71, type: "fill", q: "Un ___ convierte señales analógicas a digitales.", correct: "ADC", why: "Analog-to-Digital Converter transforma señales continuas en discretas." },
-  { id: 72, type: "fill", q: "Un ___ convierte señales digitales a analógicas.", correct: "DAC", why: "Digital-to-Analog Converter convierte valores discretos en continuos." },
-  { id: 73, type: "multiple", q: "¿Qué hace un contador digital?", options: ["Almacena voltaje", "Cuenta pulsos", "Genera corriente", "Filtra señal"], correct: 1, why: "Cuenta eventos o pulsos en circuitos digitales." },
-  { id: 74, type: "truefalse", q: "Un flip-flop puede usarse para temporización.", correct: true, why: "Se puede usar como base de temporizador o memoria." },
-  { id: 75, type: "multiple", q: "Un multiplexor permite:", options: ["Elegir entre varias señales", "Aumentar voltaje", "Disminuir corriente", "Convertir AC a DC"], correct: 0, why: "Permite seleccionar una de varias señales de entrada." },
-
-  // BLOQUE 12: Señales y filtros
-  { id: 76, type: "multiple", q: "Un filtro pasa bajas frecuencias permite:", options: ["Pasar altas frecuencias", "Pasar bajas frecuencias", "Bloquear DC", "Aumentar voltaje"], correct: 1, why: "Permite pasar frecuencias bajas y atenúa las altas." },
-  { id: 77, type: "multiple", q: "Un filtro pasa altas frecuencias bloquea:", options: ["Frecuencias bajas", "Frecuencias altas", "Corriente continua", "Voltaje"], correct: 0, why: "Bloquea señales de baja frecuencia y deja pasar altas." },
-  { id: 78, type: "fill", q: "La señal de referencia para sincronización se llama ___", correct: "clock", why: "El clock marca la frecuencia de sincronización en circuitos digitales." },
-  { id: 79, type: "truefalse", q: "Un oscilador genera una señal periódica.", correct: true, why: "Oscilador produce ondas senoidales o cuadradas." },
-  { id: 80, type: "multiple", q: "¿Qué es un comparador?", options: ["Amplificador", "Circuito que compara voltajes", "Resistor especial", "Condensador activo"], correct: 1, why: "Compara dos niveles de voltaje y da salida lógica." },
-
-  // BLOQUE 13: Microcontroladores y sistemas embebidos
-  { id: 81, type: "multiple", q: "Un microcontrolador integra:", options: ["CPU, memoria y periféricos", "Solo memoria", "Solo CPU", "Solo entradas"], correct: 0, why: "Contiene CPU, memoria y periféricos en un chip." },
-  { id: 82, type: "fill", q: "El lenguaje más común para programar microcontroladores es ___", correct: "C", why: "C es estándar para sistemas embebidos." },
-  { id: 83, type: "truefalse", q: "Arduino es un ejemplo de plataforma de prototipado.", correct: true, why: "Arduino permite desarrollar y programar microcontroladores fácilmente." },
-  { id: 84, type: "multiple", q: "¿Qué significa GPIO?", options: ["Entrada y salida de propósito general", "Puerto de internet", "Gestor de potencia", "Oscilador interno"], correct: 0, why: "General Purpose Input/Output son los pines configurables." },
-  { id: 85, type: "fill", q: "La memoria ___ retiene los datos sin energía eléctrica.", correct: "flash", why: "La memoria Flash es no volátil y almacena el programa." },
-
-  // BLOQUE 14: Comunicación Serial
-  { id: 86, type: "multiple", q: "¿Cuál es un protocolo de comunicación serial de 2 hilos?", options: ["I2C", "Paralelo", "S-Video", "PCIe"], correct: 0, why: "I2C utiliza solo SDA y SCL." },
-  { id: 87, type: "truefalse", q: "El baudrate define la velocidad de comunicación serial.", correct: true, why: "Indica el número de bits por segundo transmitidos." },
-  { id: 88, type: "fill", q: "En comunicación UART, el pin para transmitir es ___", correct: "tx", why: "TX viene de Transmit." },
-  { id: 89, type: "multiple", q: "¿Qué protocolo usa una arquitectura Maestro-Esclavo con pin SS/CS?", options: ["UART", "SPI", "I2C", "Bluetooth"], correct: 1, why: "SPI usa Select para elegir al esclavo." },
-  { id: 90, type: "truefalse", q: "USB significa Universal Serial Bus.", correct: true, why: "Es el estándar más común de comunicación serial externa." },
-
-  // BLOQUE 15: Sensores y Actuadores
-  { id: 91, type: "multiple", q: "¿Qué sensor mide la distancia mediante rebote de sonido?", options: ["Infrarrojo", "Ultrasónico", "LDR", "Giroscopio"], correct: 1, why: "El sensor ultrasónico calcula el tiempo de eco." },
-  { id: 92, type: "fill", q: "Un ___ es un resistor cuya resistencia varía con la luz.", correct: "ldr", why: "Light Dependent Resistor." },
-  { id: 93, type: "truefalse", q: "Un servomotor puede controlar su posición angular con precisión.", correct: true, why: "Usa retroalimentación interna para mantener un ángulo." },
-  { id: 94, type: "multiple", q: "¿Qué mide un acelerómetro?", options: ["Presión", "Humedad", "Aceleración y orientación", "Luz"], correct: 2, why: "Mide fuerzas de aceleración en 3 ejes." },
-  { id: 95, type: "fill", q: "El sensor DHT11 sirve para medir temperatura y ___", correct: "humedad", why: "Es un sensor ambiental dual." },
-
-  // BLOQUE 16: Electrónica de Potencia
-  { id: 96, type: "multiple", q: "¿Qué componente permite controlar cargas AC con señales DC?", options: ["Relé", "Condensador", "Inductor", "Zener"], correct: 0, why: "El relé electromecánico aísla y conmuta cargas de potencia." },
-  { id: 97, type: "truefalse", q: "Un MOSFET es un transistor controlado por voltaje.", correct: true, why: "Su compuerta (Gate) responde a la tensión aplicada." },
-  { id: 98, type: "fill", q: "El componente que reduce o eleva el voltaje AC se llama ___", correct: "transformador", why: "Usa inducción magnética para cambiar niveles de AC." },
-  { id: 99, type: "multiple", q: "¿Qué técnica se usa para controlar la velocidad de un motor DC?", options: ["ADC", "PWM", "AM", "Lógica difusa"], correct: 1, why: "Pulse Width Modulation varía el ciclo de trabajo." },
-  { id: 100, type: "multiple", q: "¿Cuál es la función de un optoacoplador?", options: ["Aumentar luz", "Aislamiento eléctrico", "Rectificar", "Filtrar ruido"], correct: 1, why: "Usa luz para transferir señales sin conexión eléctrica física." }
-];
-
-
-    // Asegurar que existan todas las preguntas (del bloque anterior)
-    for(let i=21; i<=100; i++) {
-        if(!PREGUNTAS_BANCO.find(p => p.id === i)) {
-            PREGUNTAS_BANCO.push({ id: i, type: "multiple", q: `Pregunta de Refuerzo #${i}`, options: ["Opción A", "Opción B", "Opción C", "Opción D"], correct: 0, why: "Explicación de refuerzo." });
-        }
-    }
+        { id: 1, q: "¿Qué partícula del átomo tiene carga negativa?", options: ["Protón", "Neutrón", "Electrón", "Positrón"], correct: 2, why: "El electrón posee carga negativa y orbita el núcleo." },
+        { id: 2, q: "¿Dónde se encuentran los protones en un átomo?", options: ["Órbitas", "Núcleo", "Nube electrónica", "Exterior"], correct: 1, why: "Protones y neutrones forman el núcleo central estable." },
+        { id: 3, q: "¿Qué ocurre cuando un átomo pierde un electrón?", options: ["Se vuelve neutro", "Carga positiva (Ion+)", "Carga negativa (Ion-)", "Explota"], correct: 1, why: "Al perder carga negativa, el balance resulta en un Ion positivo." },
+        { id: 4, q: "Material que permite el libre paso de electrones:", options: ["Aislante", "Conductor", "Semiconductor", "Vidrio"], correct: 1, why: "Los conductores tienen electrones libres en su capa de valencia." },
+        { id: 5, q: "Ejemplo de un excelente aislante eléctrico:", options: ["Cobre", "Oro", "Porcelana", "Aluminio"], correct: 2, why: "La porcelana tiene una resistencia altísima al flujo eléctrico." },
+        { id: 6, q: "¿Qué es la corriente eléctrica?", options: ["Voltaje estático", "Flujo de electrones", "Resistencia", "Calor"], correct: 1, why: "Es el movimiento ordenado de cargas a través de un conductor." },
+        { id: 7, q: "Unidad de medida de la Corriente Eléctrica:", options: ["Voltio", "Ohmio", "Amperio", "Vatio"], correct: 2, why: "El Amperio (A) cuantifica la intensidad del flujo." },
+        { id: 8, q: "Unidad de medida de la Tensión o Voltaje:", options: ["Amperio", "Voltio", "Julio", "Hertz"], correct: 1, why: "El Voltio (V) mide la diferencia de potencial." },
+        { id: 9, q: "Unidad de medida de la Resistencia:", options: ["Amperio", "Voltio", "Ohmio", "Faradio"], correct: 2, why: "El Ohmio (Ω) mide la oposición al paso de corriente." },
+        { id: 10, q: "La Ley de Ohm establece la relación entre:", options: ["V, I, R", "P, T, V", "R, C, L", "I, P, W"], correct: 0, why: "Establece que V = I × R." },
+        { id: 11, q: "Si sube el voltaje y la resistencia se mantiene:", options: ["I baja", "I sube", "I es igual", "R desaparece"], correct: 1, why: "A mayor presión eléctrica, fluye más corriente (proporcional)." },
+        { id: 12, q: "Si sube la resistencia y el voltaje es constante:", options: ["I sube", "I baja", "I se detiene", "V baja"], correct: 1, why: "La resistencia frena el flujo; son inversamente proporcionales." },
+        { id: 13, q: "Fórmula para calcular Potencia Eléctrica:", options: ["P = V / I", "P = V * I", "P = R * I", "P = V + I"], correct: 1, why: "Vatios = Voltios x Amperios (Ley de Watt)." },
+        { id: 14, q: "¿En qué unidad se mide la Potencia Eléctrica?", options: ["Vatio (Watt)", "HP", "Lumen", "Ohmio"], correct: 0, why: "El Watt (W) es la unidad del Sistema Internacional." },
+        { id: 15, q: "Un circuito cerrado permite que:", options: ["No pase nada", "Circule la corriente", "Se queme", "El voltaje sea 0"], correct: 1, why: "Requiere un camino continuo de ida y vuelta a la fuente." },
+        { id: 16, q: "Un cortocircuito ocurre cuando:", options: ["R es infinita", "R es casi cero", "V es cero", "I es muy baja"], correct: 1, why: "Sin resistencia, la intensidad tiende a infinito, causando calor." },
+        { id: 17, q: "¿Qué tipo de corriente entregan las pilas?", options: ["Alterna", "Continua", "Trifásica", "Pulsante"], correct: 1, why: "Las pilas mantienen una polaridad fija y estable (DC)." },
+        { id: 18, q: "Tipo de corriente en los enchufes de casa:", options: ["Continua", "Alterna", "Solar", "Galvánica"], correct: 1, why: "La red eléctrica usa corriente alterna para transporte eficiente." },
+        { id: 19, q: "¿Qué frecuencia tiene la AC en la mayoría de América?", options: ["50 Hz", "60 Hz", "100 Hz", "120 Hz"], correct: 1, why: "Se estandariza en 60 ciclos por segundo en la región." },
+        { id: 20, q: "¿Qué componente limita la corriente intencionalmente?", options: ["Cable", "Resistor", "Batería", "Interruptor"], correct: 1, why: "Los resistores se usan para controlar niveles de corriente." },
+        { id: 21, q: "Un voltímetro se conecta en:", options: ["Serie", "Paralelo", "Tierra", "No importa"], correct: 1, why: "Para medir la diferencia entre dos puntos sin interrumpir el flujo." },
+        { id: 22, q: "Un amperímetro se conecta en:", options: ["Serie", "Paralelo", "Cualquier parte", "Puente"], correct: 0, why: "Debe ser parte del lazo para que la corriente pase a través de él." },
+        { id: 23, q: "¿Es seguro tocar circuitos con manos mojadas?", options: ["Sí, si es bajo V", "No, el agua conduce", "Sólo con guantes", "Depende del clima"], correct: 1, why: "El agua reduce la resistencia de la piel, aumentando el riesgo." },
+        { id: 24, q: "El fusible protege el circuito de:", options: ["Bajo voltaje", "Sobrecorriente", "Humedad", "Luz solar"], correct: 1, why: "Se funde cuando la corriente excede el límite seguro." },
+        { id: 25, q: "¿Cuál es la función de un interruptor?", options: ["Medir voltaje", "Abrir o cerrar el circuito", "Aumentar corriente", "Reducir resistencia"], correct: 1, why: "Controla mecánicamente la continuidad del circuito." },
+        { id: 26, q: "¿Qué es un Bit en electrónica digital?", options: ["Unidad de carga", "Unidad de información", "Un microchip", "Un cable"], correct: 1, why: "Es el estado mínimo (0 o 1) de información binaria." },
+        { id: 27, q: "Componente que almacena carga en campo eléctrico:", options: ["Resistor", "Inductor", "Capacitor", "Diodo"], correct: 2, why: "El capacitor (condensador) almacena energía temporalmente." },
+        { id: 28, q: "¿Qué hace un Diodo?", options: ["Amplifica", "Permite flujo en un solo sentido", "Genera energía", "Mide ohmios"], correct: 1, why: "Actúa como una válvula de una sola vía para electrones." },
+        { id: 29, q: "Representación de un '1' lógico común:", options: ["0 Voltios", "5 Voltios", "-5 Voltios", "Infinito"], correct: 1, why: "En lógica TTL, 5V suele representar el estado Alto (High)." },
+        { id: 30, q: "Un transistor puede funcionar como:", options: ["Solo cable", "Interruptor o Amplificador", "Solo batería", "Lámpara"], correct: 1, why: "Es el pilar de la electrónica moderna por su versatilidad." },
+        { id: 31, q: "Un potenciómetro es un:", options: ["Motor", "Resistor variable", "Sensor de luz", "Generador"], correct: 1, why: "Permite ajustar la resistencia girando un eje." },
+        { id: 32, q: "Símbolo de la unidad de medida de frecuencia:", options: ["Hz", "V", "W", "Ω"], correct: 0, why: "Hertz (Hz) indica ciclos por segundo." },
+        { id: 33, q: "Un LED es un diodo que:", options: ["Frena el paso", "Emite luz", "Calienta el aire", "Detecta radio"], correct: 1, why: "Light Emitting Diode transforma electricidad en fotones." },
+        { id: 34, q: "Circuito que convierte AC en DC:", options: ["Oscilador", "Rectificador", "Inversor", "Transformador"], correct: 1, why: "Usa diodos para 'enderezar' la corriente alterna." },
+        { id: 35, q: "La energía eléctrica consumida se mide en:", options: ["Amperios", "kWh", "Voltios/hora", "Vatios/segundo"], correct: 1, why: "Kilovatios-hora es la medida estándar de facturación." },
+        { id: 36, q: "Componente que se opone a cambios de corriente:", options: ["Resistor", "Inductor", "Capacitor", "Diodo"], correct: 1, why: "La bobina (inductor) almacena energía en campo magnético." },
+        { id: 37, q: "¿Qué significa AC/DC?", options: ["Alterna/Continua", "Alta/Baja", "Activa/Directa", "Aérea/Cableada"], correct: 0, why: "Describe los dos tipos fundamentales de flujo eléctrico." },
+        { id: 38, q: "Si R1=10 y R2=10 en serie, la total es:", options: ["5 Ω", "10 Ω", "20 Ω", "0 Ω"], correct: 2, why: "En serie, las resistencias se suman directamente." },
+        { id: 39, q: "Si R1=10 y R2=10 en paralelo, la total es:", options: ["5 Ω", "10 Ω", "20 Ω", "100 Ω"], correct: 0, why: "En paralelo de valores iguales, la total es la mitad." },
+        { id: 40, q: "Dispositivo que cambia el nivel de voltaje AC:", options: ["Motor", "Transformador", "Batería", "Alternador"], correct: 1, why: "Usa inducción para subir o bajar la tensión." }
+    ];
 
     let state = {
         xp: parseInt(localStorage.getItem('em_xp')) || 0,
@@ -403,38 +323,47 @@
             const isLocked = q.id > state.progress;
             const isDone = q.id < state.progress;
             const isCurrent = q.id === state.progress;
-            const offset = Math.sin(idx * 0.8) * 80;
+            // Zig-zag offset
+            const offset = Math.sin(idx * 0.9) * 75;
 
             const nodeBtn = document.createElement('button');
             nodeBtn.className = `level-node ${isLocked ? 'node-locked' : (isDone ? 'node-done' : 'node-active')}`;
-            nodeBtn.style.left = `${offset}px`;
+            nodeBtn.style.transform = `translateX(${offset}px)`;
             
-            if (isCurrent) nodeBtn.innerHTML = `<div class="current-ring"></div><i class="fas fa-play"></i>`;
-            else if (isDone) nodeBtn.innerHTML = `<i class="fas fa-check"></i>`;
-            else nodeBtn.innerHTML = q.id;
+            if (isCurrent) {
+                nodeBtn.innerHTML = `<div class="current-ring"></div><i class="fas fa-bolt text-yellow-300"></i>`;
+            } else if (isDone) {
+                nodeBtn.innerHTML = `<i class="fas fa-check"></i>`;
+            } else {
+                nodeBtn.innerHTML = q.id;
+            }
 
             nodeBtn.onclick = () => { if (!isLocked) startQuiz(q); };
             container.appendChild(nodeBtn);
             nodesData.push({el: nodeBtn, offset: offset});
         });
 
-        setTimeout(() => drawCable(nodesData), 100);
+        // Delay para asegurar que el DOM esté listo para medir offsets
+        setTimeout(() => drawCable(nodesData), 150);
     }
 
     function drawCable(nodes) {
         const path = document.querySelector('#cable-path path');
         const svg = document.getElementById('cable-path');
         const mapContent = document.getElementById('map-content');
-        if(!mapContent) return;
+        if(!mapContent || nodes.length === 0) return;
+        
         svg.setAttribute('height', mapContent.scrollHeight);
         
         let d = "";
         const mid = svg.clientWidth / 2;
+        
         nodes.forEach((n, i) => {
             const x = mid + n.offset;
             const y = n.el.offsetTop + 35;
-            if (i === 0) d += `M ${x} ${y}`;
-            else {
+            if (i === 0) {
+                d += `M ${x} ${y}`;
+            } else {
                 const prevX = mid + nodes[i-1].offset;
                 const prevY = nodes[i-1].el.offsetTop + 35;
                 const cpY = (prevY + y) / 2;
@@ -453,21 +382,20 @@
         document.getElementById('view-quiz').classList.remove('hidden');
         
         const container = document.getElementById('question-container');
-        // Agregada clase text-white y font-black para máxima visibilidad
         container.innerHTML = `
-            <div class="animate-in fade-in slide-in-from-bottom-4 duration-300 w-full">
-                <h2 class="text-3xl font-black text-white mb-8 text-center leading-tight drop-shadow-lg">${q.q}</h2>
-                <div class="space-y-3">
+            <div class="animate-in fade-in slide-in-from-bottom-6 duration-500 w-full">
+                <h2 class="text-2xl font-black text-white mb-10 text-center leading-tight drop-shadow-lg p-5 bg-slate-900/80 rounded-3xl border border-slate-700/50 shadow-inner">${q.q}</h2>
+                <div class="space-y-4">
                     ${q.options.map((opt, i) => `
-                        <button onclick="selectOpt(${i})" id="opt-${i}" class="w-full p-4 rounded-2xl border-2 border-slate-800 bg-slate-900/50 text-left font-bold text-slate-300 transition-all flex items-center gap-3">
-                            <span class="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-800 border border-slate-700 text-xs">${i+1}</span>
-                            <span class="flex-grow">${opt}</span>
+                        <button onclick="selectOpt(${i})" id="opt-${i}" class="option-btn w-full p-5 rounded-3xl border-2 border-slate-800 bg-slate-900/60 text-left font-bold text-slate-100 transition-all flex items-center gap-4 hover:border-slate-600">
+                            <span class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-800 border border-slate-700 text-sm font-black text-slate-400 shrink-0">${String.fromCharCode(65+i)}</span>
+                            <span class="flex-grow text-lg">${opt}</span>
                         </button>
                     `).join('')}
                 </div>
             </div>
         `;
-        document.getElementById('quiz-bar').style.width = `${(q.id / 100) * 100}%`;
+        document.getElementById('quiz-bar').style.width = `${(q.id / PREGUNTAS_BANCO.length) * 100}%`;
         
         const btn = document.getElementById('btn-check');
         btn.disabled = true;
@@ -476,17 +404,17 @@
 
     function selectOpt(idx) {
         state.selected = idx;
-        document.querySelectorAll('#question-container button').forEach(b => {
-            b.classList.remove('border-blue-500', 'bg-blue-900/20', 'text-blue-400');
-            b.classList.add('border-slate-800', 'text-slate-300');
+        document.querySelectorAll('.option-btn').forEach(b => {
+            b.classList.remove('border-blue-500', 'bg-blue-950/40', 'text-blue-100');
+            b.classList.add('border-slate-800', 'text-slate-100');
         });
         const sel = document.getElementById(`opt-${idx}`);
-        sel.classList.remove('border-slate-800', 'text-slate-300');
-        sel.classList.add('border-blue-500', 'bg-blue-900/20', 'text-blue-400');
+        sel.classList.remove('border-slate-800');
+        sel.classList.add('border-blue-500', 'bg-blue-950/40', 'text-blue-100');
         
         const btn = document.getElementById('btn-check');
         btn.disabled = false;
-        btn.className = "w-full py-5 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-widest shadow-[0_4px_0_#1d4ed8] active:translate-y-1 active:shadow-none";
+        btn.className = "w-full py-5 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-widest shadow-[0_5px_0_#1d4ed8] active:translate-y-1 active:shadow-none transition-all";
     }
 
     document.getElementById('btn-check').onclick = () => {
@@ -499,21 +427,21 @@
             panel.style.borderColor = "#58cc02";
             iconBox.style.backgroundColor = "#58cc02";
             document.getElementById('fb-icon').className = "fas fa-check";
-            document.getElementById('fb-title').innerText = "¡EXCELENTE!";
+            document.getElementById('fb-title').innerText = "¡IMPRESIONANTE!";
             document.getElementById('fb-title').style.color = "#46a302";
             document.getElementById('fb-desc').innerText = state.activeQ.why;
             document.getElementById('fb-desc').style.color = "#46a302";
             state.xp += 15;
             if(state.activeQ.id === state.progress) state.progress++;
-            confetti({ particleCount: 50, spread: 60, origin: { y: 0.8 } });
+            confetti({ particleCount: 80, spread: 80, origin: { y: 0.8 }, colors: ['#58cc02', '#ffffff'] });
         } else {
             panel.style.backgroundColor = "#ffdfe0";
             panel.style.borderColor = "#ff4b4b";
             iconBox.style.backgroundColor = "#ff4b4b";
             document.getElementById('fb-icon').className = "fas fa-bolt";
-            document.getElementById('fb-title').innerText = "CORRECCIÓN";
+            document.getElementById('fb-title').innerText = "¡CORTO CIRCUITO!";
             document.getElementById('fb-title').style.color = "#ea2b2b";
-            document.getElementById('fb-desc').innerText = state.activeQ.why;
+            document.getElementById('fb-desc').innerText = `La respuesta correcta era: ${state.activeQ.options[state.activeQ.correct]}`;
             document.getElementById('fb-desc').style.color = "#ea2b2b";
             if(state.lives === 5) state.lastDeath = Date.now();
             state.lives--;
@@ -522,7 +450,7 @@
         save();
         updateStats();
         panel.classList.add('feedback-show');
-        document.getElementById('btn-next').className = `w-full py-5 text-white rounded-2xl font-black uppercase tracking-widest shadow-lg ${isCorrect ? 'bg-[#58cc02]' : 'bg-[#ff4b4b]'}`;
+        document.getElementById('btn-next').className = `w-full py-5 text-white rounded-2xl font-black uppercase tracking-widest shadow-lg ${isCorrect ? 'bg-[#58cc02] shadow-[#46a302]' : 'bg-[#ff4b4b] shadow-[#ea2b2b]'}`;
     };
 
     document.getElementById('btn-next').onclick = () => {
@@ -534,13 +462,11 @@
         document.getElementById('view-quiz').classList.add('hidden');
         document.getElementById('view-map').classList.remove('hidden');
         renderMap();
-        window.scrollTo(0, 0);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function confirmExit() {
-        if(confirm("¿Seguro que quieres salir? Perderás el progreso de este nivel.")) {
-            exitQuiz();
-        }
+        if(confirm("¿Quieres abandonar? Se perderá el progreso de esta pregunta.")) exitQuiz();
     }
 
     function showLifeModal() {
@@ -549,21 +475,39 @@
     }
 
     function watchAdForLife() {
-        // Enlace directo de Adsterra proporcionado por el usuario
+        // Abrir link de Adsterra
         window.open("https://www.profitablecpmratenetwork.com/yt9pjia2en?key=4b88d642b785f6e2cd7ff0cc2b3b9470", "_blank");
+        
+        // Simulación de validación
+        const btn = event.currentTarget;
+        const originalHtml = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> VERIFICANDO...`;
+
         setTimeout(() => {
-            state.lives = Math.min(state.lives + 1, 5);
-            save();
-            updateStats();
-            document.getElementById('life-modal').style.display = 'none';
-            confetti({ particleCount: 30, colors: ['#3b82f6'] });
-        }, 500);
+            if(state.lives < 5) {
+                state.lives++;
+                save();
+                updateStats();
+                document.getElementById('life-modal').style.display = 'none';
+                confetti({ particleCount: 40, colors: ['#3b82f6', '#ffffff'], gravity: 1.2 });
+            }
+            btn.disabled = false;
+            btn.innerHTML = originalHtml;
+        }, 3000);
     }
 
     window.onload = () => {
         renderMap();
         updateStats();
         setInterval(checkRegeneration, 1000);
+        
+        // Redraw on resize
+        window.onresize = () => {
+            if(!document.getElementById('view-map').classList.contains('hidden')) {
+                renderMap();
+            }
+        };
     };
     </script>
 </body>
