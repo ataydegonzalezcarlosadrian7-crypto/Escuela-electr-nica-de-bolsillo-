@@ -266,8 +266,88 @@
         { id: 37, q: "¿Qué significa AC/DC?", options: ["Alterna/Continua", "Alta/Baja", "Activa/Directa", "Aérea/Cableada"], correct: 0, why: "Describe los dos tipos fundamentales de flujo eléctrico." },
         { id: 38, q: "Si R1=10 y R2=10 en serie, la total es:", options: ["5 Ω", "10 Ω", "20 Ω", "0 Ω"], correct: 2, why: "En serie, las resistencias se suman directamente." },
         { id: 39, q: "Si R1=10 y R2=10 en paralelo, la total es:", options: ["5 Ω", "10 Ω", "20 Ω", "100 Ω"], correct: 0, why: "En paralelo de valores iguales, la total es la mitad." },
-        { id: 40, q: "Dispositivo que cambia el nivel de voltaje AC:", options: ["Motor", "Transformador", "Batería", "Alternador"], correct: 1, why: "Usa inducción para subir o bajar la tensión." }
-    ];
+          { id: 40, type: "multiple", q: "¿Qué hace un fusible en un circuito?", options: ["Amplifica corriente", "Protege de sobrecarga", "Almacena energía", "Mide voltaje"], correct: 1, why: "Se funde para interrumpir la corriente cuando hay exceso." },
+  { id: 41, type: "multiple", q: "¿Cuál es la unidad de potencia eléctrica?", options: ["Voltio", "Ampere", "Ohm", "Vatio"], correct: 3, why: "La potencia eléctrica se mide en vatios (W). P = V * I." },
+  { id: 42, type: "fill", q: "La corriente eléctrica es el flujo de ___ a través de un conductor.", correct: "electrones", why: "Los electrones se mueven generando corriente." },
+  { id: 43, type: "truefalse", q: "Un transistor NPN permite que la corriente fluya solo si la base recibe voltaje positivo.", correct: true, why: "La corriente de colector-emisor depende del voltaje en la base." },
+  { id: 44, type: "multiple", q: "¿Qué ocurre si conectamos un condensador a una fuente DC por tiempo prolongado?", options: ["Se descarga continuamente", "Se carga hasta el voltaje de la fuente", "Explota siempre", "No ocurre nada"], correct: 1, why: "Se carga hasta igualar el voltaje de la fuente y luego deja de fluir corriente." },
+  { id: 45, type: "multiple", q: "¿Qué es un potenciómetro?", options: ["Resistor fijo", "Resistor variable", "Condensador", "Diodo"], correct: 1, why: "Permite ajustar la resistencia manualmente." },
+  { id: 46, type: "fill", q: "La corriente que fluye por un circuito cerrado se llama corriente ___", correct: "eléctrica", why: "Es el movimiento de carga a través de un conductor." },
+  { id: 47, type: "truefalse", q: "La energía en un circuito se conserva según la Ley de Kirchhoff.", correct: true, why: "La suma de voltajes en un lazo es igual a cero, conservando energía." },
+  { id: 48, type: "multiple", q: "¿Qué tipo de diodo permite regular voltaje de salida?", options: ["Diodo Zener", "LED", "Diodo rectificador", "Diodo común"], correct: 0, why: "El diodo Zener mantiene voltaje constante en polarización inversa." },
+  { id: 49, type: "fill", q: "Los transistores se usan como interruptores o amplificadores en ___", correct: "circuitos", why: "Controlan el flujo de corriente según la señal de entrada." },
+  { id: 50, type: "truefalse", q: "Un circuito digital solo puede tener valores discretos como 0 o 1.", correct: true, why: "Esto define el funcionamiento de la electrónica digital." },
+
+  // BLOQUE 7: Semiconductores y dispositivos avanzados
+  { id: 51, type: "multiple", q: "¿Qué tipo de semiconductor tiene exceso de electrones?", options: ["Tipo P", "Tipo N", "Tipo Z", "Tipo PN"], correct: 1, why: "El tipo N tiene electrones libres como portadores mayoritarios." },
+  { id: 52, type: "multiple", q: "¿Qué tipo de semiconductor tiene 'huecos' como portadores?", options: ["Tipo P", "Tipo N", "Tipo Z", "Tipo PN"], correct: 0, why: "El tipo P tiene huecos positivos como portadores mayoritarios." },
+  { id: 53, type: "fill", q: "Un ___ amplifica señales eléctricas mediante el control de corriente de entrada.", correct: "transistor", why: "El transistor es un dispositivo semiconductor que puede amplificar." },
+  { id: 54, type: "truefalse", q: "Un diodo solo permite el paso de corriente en un sentido.", correct: true, why: "Los diodos tienen polaridad y permiten corriente directa." },
+  { id: 55, type: "multiple", q: "¿Qué componente electrónico se usa para estabilizar voltaje?", options: ["Diodo", "Zener", "Resistor", "LED"], correct: 1, why: "El diodo Zener mantiene voltaje constante." },
+
+  // BLOQUE 8: Circuitos eléctricos aplicados
+  { id: 56, type: "fill", q: "La resistencia equivalente de dos resistores en paralelo se calcula con ___", correct: "1/(1/R1 + 1/R2)", why: "La fórmula de resistencias en paralelo es el inverso de la suma de inversos." },
+  { id: 57, type: "multiple", q: "¿Qué pasa si un resistor se conecta en paralelo con otro de igual valor?", options: ["Resistencia aumenta", "Resistencia disminuye", "Resistencia no cambia", "Se produce cortocircuito"], correct: 1, why: "En paralelo, la resistencia total es menor que cada resistencia individual." },
+  { id: 58, type: "truefalse", q: "Los circuitos en serie tienen la misma corriente en todos los elementos.", correct: true, why: "En serie, la corriente es constante a través de cada componente." },
+  { id: 59, type: "fill", q: "La Ley de Ohm se expresa como V = ___ * R", correct: "I", why: "V = I * R relaciona voltaje, corriente y resistencia." },
+  { id: 60, type: "multiple", q: "Si un circuito tiene 12V y una resistencia de 6Ω, la corriente es:", options: ["2A", "0.5A", "6A", "12A"], correct: 0, why: "I = V/R = 12/6 = 2A." },
+
+  // BLOQUE 9: Instrumentos de medida
+  { id: 61, type: "multiple", q: "El multímetro puede medir:", options: ["Voltaje", "Corriente", "Resistencia", "Todas las anteriores"], correct: 3, why: "Un multímetro mide voltaje, corriente y resistencia." },
+  { id: 62, type: "fill", q: "Para medir corriente, el amperímetro se conecta en ___", correct: "serie", why: "La corriente debe pasar a través del amperímetro." },
+  { id: 63, type: "truefalse", q: "Un voltímetro siempre se conecta en paralelo con el elemento a medir.", correct: true, why: "Así mide correctamente la diferencia de potencial." },
+  { id: 64, type: "multiple", q: "Para medir voltaje de la red doméstica se usa:", options: ["Amperímetro", "Voltímetro", "Ohmímetro", "Osciloscopio"], correct: 1, why: "El voltímetro mide la diferencia de potencial." },
+  { id: 65, type: "fill", q: "El instrumento que grafica la variación de voltaje en el tiempo se llama ___", correct: "osciloscopio", why: "El osciloscopio muestra la forma de onda de la señal." },
+
+  // BLOQUE 10: Seguridad y buenas prácticas
+  { id: 66, type: "truefalse", q: "Siempre se deben usar guantes y gafas al trabajar con circuitos energizados.", correct: true, why: "Previene accidentes y electrocución." },
+  { id: 67, type: "multiple", q: "Qué se debe hacer antes de tocar un circuito?", options: ["Encenderlo", "Apagarlo y desconectar la fuente", "Subir el voltaje", "Ignorar medidas de seguridad"], correct: 1, why: "Desconectar evita electrocución y daños." },
+  { id: 68, type: "fill", q: "La protección contra sobrecorriente se logra con ___ o interruptores automáticos.", correct: "fusibles", why: "Fundiendo o interrumpiendo el circuito previene daños." },
+  { id: 69, type: "truefalse", q: "Nunca se debe trabajar solo con circuitos de alto voltaje.", correct: true, why: "Siempre se requiere supervisión o compañero de seguridad." },
+  { id: 70, type: "multiple", q: "Qué significa ESD?", options: ["Descarga electrostática", "Voltaje elevado", "Corriente alterna", "Electrónica digital"], correct: 0, why: "ElectroStatic Discharge es descarga de electricidad estática." },
+
+  // BLOQUE 11: Electrónica digital avanzada
+  { id: 71, type: "fill", q: "Un ___ convierte señales analógicas a digitales.", correct: "ADC", why: "Analog-to-Digital Converter transforma señales continuas en discretas." },
+  { id: 72, type: "fill", q: "Un ___ convierte señales digitales a analógicas.", correct: "DAC", why: "Digital-to-Analog Converter convierte valores discretos en continuos." },
+  { id: 73, type: "multiple", q: "¿Qué hace un contador digital?", options: ["Almacena voltaje", "Cuenta pulsos", "Genera corriente", "Filtra señal"], correct: 1, why: "Cuenta eventos o pulsos en circuitos digitales." },
+  { id: 74, type: "truefalse", q: "Un flip-flop puede usarse para temporización.", correct: true, why: "Se puede usar como base de temporizador o memoria." },
+  { id: 75, type: "multiple", q: "Un multiplexor permite:", options: ["Elegir entre varias señales", "Aumentar voltaje", "Disminuir corriente", "Convertir AC a DC"], correct: 0, why: "Permite seleccionar una de varias señales de entrada." },
+
+  // BLOQUE 12: Señales y filtros
+  { id: 76, type: "multiple", q: "Un filtro pasa bajas frecuencias permite:", options: ["Pasar altas frecuencias", "Pasar bajas frecuencias", "Bloquear DC", "Aumentar voltaje"], correct: 1, why: "Permite pasar frecuencias bajas y atenúa las altas." },
+  { id: 77, type: "multiple", q: "Un filtro pasa altas frecuencias bloquea:", options: ["Frecuencias bajas", "Frecuencias altas", "Corriente continua", "Voltaje"], correct: 0, why: "Bloquea señales de baja frecuencia y deja pasar altas." },
+  { id: 78, type: "fill", q: "La señal de referencia para sincronización se llama ___", correct: "clock", why: "El clock marca la frecuencia de sincronización en circuitos digitales." },
+  { id: 79, type: "truefalse", q: "Un oscilador genera una señal periódica.", correct: true, why: "Oscilador produce ondas senoidales o cuadradas." },
+  { id: 80, type: "multiple", q: "¿Qué es un comparador?", options: ["Amplificador", "Circuito que compara voltajes", "Resistor especial", "Condensador activo"], correct: 1, why: "Compara dos niveles de voltaje y da salida lógica." },
+
+  // BLOQUE 13: Microcontroladores y sistemas embebidos
+  { id: 81, type: "multiple", q: "Un microcontrolador integra:", options: ["CPU, memoria y periféricos", "Solo memoria", "Solo CPU", "Solo entradas"], correct: 0, why: "Contiene CPU, memoria y periféricos en un chip." },
+  { id: 82, type: "fill", q: "El lenguaje más común para programar microcontroladores es ___", correct: "C", why: "C es estándar para sistemas embebidos." },
+  { id: 83, type: "truefalse", q: "Arduino es un ejemplo de plataforma de prototipado.", correct: true, why: "Arduino permite desarrollar y programar microcontroladores fácilmente." },
+  { id: 84, type: "multiple", q: "¿Qué significa GPIO?", options: ["Entrada y salida de propósito general", "Puerto de internet", "Gestor de potencia", "Oscilador interno"], correct: 0, why: "General Purpose Input/Output son los pines configurables." },
+  { id: 85, type: "fill", q: "La memoria ___ retiene los datos sin energía eléctrica.", correct: "flash", why: "La memoria Flash es no volátil y almacena el programa." },
+
+  // BLOQUE 14: Comunicación Serial
+  { id: 86, type: "multiple", q: "¿Cuál es un protocolo de comunicación serial de 2 hilos?", options: ["I2C", "Paralelo", "S-Video", "PCIe"], correct: 0, why: "I2C utiliza solo SDA y SCL." },
+  { id: 87, type: "truefalse", q: "El baudrate define la velocidad de comunicación serial.", correct: true, why: "Indica el número de bits por segundo transmitidos." },
+  { id: 88, type: "fill", q: "En comunicación UART, el pin para transmitir es ___", correct: "tx", why: "TX viene de Transmit." },
+  { id: 89, type: "multiple", q: "¿Qué protocolo usa una arquitectura Maestro-Esclavo con pin SS/CS?", options: ["UART", "SPI", "I2C", "Bluetooth"], correct: 1, why: "SPI usa Select para elegir al esclavo." },
+  { id: 90, type: "truefalse", q: "USB significa Universal Serial Bus.", correct: true, why: "Es el estándar más común de comunicación serial externa." },
+
+  // BLOQUE 15: Sensores y Actuadores
+  { id: 91, type: "multiple", q: "¿Qué sensor mide la distancia mediante rebote de sonido?", options: ["Infrarrojo", "Ultrasónico", "LDR", "Giroscopio"], correct: 1, why: "El sensor ultrasónico calcula el tiempo de eco." },
+  { id: 92, type: "fill", q: "Un ___ es un resistor cuya resistencia varía con la luz.", correct: "ldr", why: "Light Dependent Resistor." },
+  { id: 93, type: "truefalse", q: "Un servomotor puede controlar su posición angular con precisión.", correct: true, why: "Usa retroalimentación interna para mantener un ángulo." },
+  { id: 94, type: "multiple", q: "¿Qué mide un acelerómetro?", options: ["Presión", "Humedad", "Aceleración y orientación", "Luz"], correct: 2, why: "Mide fuerzas de aceleración en 3 ejes." },
+  { id: 95, type: "fill", q: "El sensor DHT11 sirve para medir temperatura y ___", correct: "humedad", why: "Es un sensor ambiental dual." },
+
+  // BLOQUE 16: Electrónica de Potencia
+  { id: 96, type: "multiple", q: "¿Qué componente permite controlar cargas AC con señales DC?", options: ["Relé", "Condensador", "Inductor", "Zener"], correct: 0, why: "El relé electromecánico aísla y conmuta cargas de potencia." },
+  { id: 97, type: "truefalse", q: "Un MOSFET es un transistor controlado por voltaje.", correct: true, why: "Su compuerta (Gate) responde a la tensión aplicada." },
+  { id: 98, type: "fill", q: "El componente que reduce o eleva el voltaje AC se llama ___", correct: "transformador", why: "Usa inducción magnética para cambiar niveles de AC." },
+  { id: 99, type: "multiple", q: "¿Qué técnica se usa para controlar la velocidad de un motor DC?", options: ["ADC", "PWM", "AM", "Lógica difusa"], correct: 1, why: "Pulse Width Modulation varía el ciclo de trabajo." },
+  { id: 100, type: "multiple", q: "¿Cuál es la función de un optoacoplador?", options: ["Aumentar luz", "Aislamiento eléctrico", "Rectificar", "Filtrar ruido"], correct: 1, why: "Usa luz para transferir señales sin conexión eléctrica física." }
+];
 
     let state = {
         xp: parseInt(localStorage.getItem('em_xp')) || 0,
