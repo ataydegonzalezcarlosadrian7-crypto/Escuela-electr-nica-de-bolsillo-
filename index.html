@@ -3,22 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>ElectroMaster PRO | Curso Completo</title>
-    
-    <!-- PayPal SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=BAAfL26d5SicSjimR9qBK_7H7To8HiLp0a8OllLcR7_WNeyZaXxHZrIhsBLlUT96GMSBhLuN0un3kw-aK8&components=hosted-buttons&disable-funding=venmo&currency=MXN"></script>
+    <title>ElectroMaster PRO | MasterElectroClass</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Playfair+Display:wght@700&display=swap');
         
         :root {
             --primary: #58cc02;
             --secondary: #1cb0f6;
-            --danger: #ff4b4b;
+            --gold: #ffc107;
             --bg: #131f24;
             --card: #202f36;
             --border: #37464f;
@@ -29,20 +26,12 @@
             background-color: var(--bg);
             color: white;
             margin: 0;
+            overflow-x: hidden;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
-            overflow-x: hidden;
         }
 
-        .btn-3d {
-            border-bottom: 5px solid rgba(0,0,0,0.3);
-            transition: all 0.1s;
-        }
-        .btn-3d:active {
-            border-bottom-width: 0;
-            transform: translateY(5px);
-        }
-
+        /* Mapa Zig-Zag Estilo Duolingo */
         .map-container {
             display: flex;
             flex-direction: column-reverse; 
@@ -65,22 +54,44 @@
             transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .node-active {
-            background: var(--primary);
-            border-bottom: 8px solid #46a302;
-            box-shadow: 0 0 25px rgba(88, 204, 2, 0.4);
+        .node-active { background: var(--primary); border-bottom: 8px solid #46a302; }
+        .node-locked { background: #37464f; border-bottom: 8px solid #202f36; color: #52656d; }
+        .node-completed { background: var(--secondary); border-bottom: 8px solid #1899d6; }
+        .node-gold { 
+            background: var(--gold); 
+            border-bottom: 8px solid #c79100; 
+            color: #5d4400;
+            box-shadow: 0 0 30px rgba(255, 193, 7, 0.5);
         }
 
-        .node-locked {
+        .level-tag {
+            position: absolute;
+            top: -25px;
             background: #37464f;
-            border-bottom: 8px solid #202f36;
-            color: #52656d;
-            cursor: not-allowed;
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 900;
+            white-space: nowrap;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .node-completed {
-            background: var(--secondary);
-            border-bottom: 8px solid #1899d6;
+        .btn-3d {
+            border-bottom: 5px solid rgba(0,0,0,0.3);
+            transition: all 0.1s;
+        }
+        .btn-3d:active {
+            border-bottom-width: 0;
+            transform: translateY(5px);
+        }
+
+        /* PayPal Buttons Styles */
+        .pp-SU7KHJFE9XH4C, .pp-GY3P7P4GFZXRL {
+            text-align:center; border:none; border-radius:1.5rem; min-width:11.625rem; 
+            padding:0 2rem; height:2.625rem; font-weight:bold; background-color:#000000; 
+            color:#ffffff; font-family:"Helvetica Neue",Arial,sans-serif; font-size:1rem; 
+            line-height:1.25rem; cursor:pointer;
         }
 
         .quiz-overlay {
@@ -100,13 +111,12 @@
             padding: 18px;
             text-align: left;
             font-weight: 800;
-            transition: 0.1s;
             display: flex;
             align-items: center;
             gap: 12px;
             width: 100%;
+            transition: transform 0.1s;
         }
-
         .option-card.selected {
             background: rgba(28, 176, 246, 0.1);
             border-color: var(--secondary);
@@ -114,30 +124,33 @@
         }
 
         @keyframes bounce {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-8px) scale(1.05); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
-        .current-anim {
-            animation: bounce 2s infinite ease-in-out;
+        .current-anim { animation: bounce 2s infinite ease-in-out; }
+
+        /* Estilos del Certificado */
+        .cert-paper {
+            background: #fff;
+            color: #1a1a1a;
+            width: 100%;
+            max-width: 800px;
+            padding: 40px;
+            border: 15px solid #1a1a1a;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            margin: 20px auto;
+        }
+        .cert-border-inner {
+            border: 2px solid #c79100;
+            padding: 20px;
+            height: 100%;
         }
 
-        .feedback-panel {
-            transform: translateY(100%);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .feedback-panel.show {
-            transform: translateY(0);
-        }
-
-        .level-tag {
-            position: absolute;
-            top: -25px;
-            background: #37464f;
-            padding: 2px 10px;
-            border-radius: 10px;
-            font-size: 10px;
-            font-weight: 900;
-            white-space: nowrap;
+        @media print {
+            body * { visibility: hidden; }
+            #printable-cert, #printable-cert * { visibility: visible; }
+            #printable-cert { position: absolute; left: 0; top: 0; width: 100%; }
         }
     </style>
 </head>
@@ -150,19 +163,19 @@
             <span id="xp-count" class="font-black text-orange-500 text-lg">0</span>
         </div>
         <div class="flex items-center gap-4">
-            <div onclick="openStore()" class="flex items-center gap-2 bg-[#202f36] px-4 py-1.5 rounded-2xl border-b-2 border-[#37464f] cursor-pointer">
+            <div onclick="openStore()" class="flex items-center gap-2 bg-[#202f36] px-4 py-1.5 rounded-2xl border-b-2 border-[#37464f] cursor-pointer hover:bg-[#2a3c44]">
                 <i class="fas fa-heart text-red-500"></i>
                 <span id="life-count" class="font-black text-red-500">5</span>
             </div>
         </div>
     </nav>
 
-    <!-- Mapa -->
-    <div id="game-map" class="overflow-y-auto h-screen">
+    <!-- Mapa Principal -->
+    <div id="game-map" class="overflow-y-auto h-screen pt-10">
         <div id="nodes-container" class="map-container"></div>
     </div>
 
-    <!-- Pantalla Quiz -->
+    <!-- Interfaz de Quiz -->
     <div id="quiz-screen" class="quiz-overlay">
         <div class="p-4 flex items-center gap-4">
             <button onclick="confirmExit()" class="text-gray-500 text-3xl px-2">×</button>
@@ -170,201 +183,227 @@
                 <div id="quiz-progress" class="h-full bg-[#58cc02] w-0 transition-all duration-500"></div>
             </div>
         </div>
-
         <div class="flex-1 px-6 py-8 overflow-y-auto">
-            <div id="category-label" class="text-blue-400 font-black text-sm uppercase mb-2">NIVEL BÁSICO</div>
+            <div id="category-label" class="text-blue-400 font-black text-sm uppercase mb-2"></div>
             <h2 id="question-text" class="text-2xl font-black mb-8 leading-tight"></h2>
             <div id="options-container" class="grid gap-4"></div>
         </div>
-
         <div class="p-6 border-t-2 border-[#37464f] bg-[#131f24]">
-            <button id="check-btn" onclick="validateAnswer()" disabled class="btn-3d w-full bg-[#37464f] py-4 rounded-2xl font-black text-white text-lg opacity-50">
-                COMPROBAR
-            </button>
+            <button id="check-btn" onclick="validateAnswer()" disabled class="btn-3d w-full bg-[#37464f] py-4 rounded-2xl font-black text-white text-lg opacity-50">COMPROBAR</button>
         </div>
-
-        <div id="feedback-panel" class="feedback-panel fixed bottom-0 left-0 w-full p-6 z-[110] border-t-4">
+        
+        <!-- Feedback Panel -->
+        <div id="feedback-panel" class="fixed bottom-0 left-0 w-full p-6 z-[110] border-t-4 transition-transform translate-y-full">
             <div class="flex items-center gap-4 mb-6">
-                <div id="feedback-icon" class="w-12 h-12 rounded-full flex items-center justify-center bg-white shadow-lg"></div>
+                <div id="feedback-icon" class="w-12 h-12 rounded-full flex items-center justify-center bg-white shadow-lg text-2xl"></div>
                 <div>
-                    <h3 id="feedback-title" class="text-2xl font-black"></h3>
-                    <p id="feedback-msg" class="font-bold opacity-90"></p>
+                    <h3 id="feedback-title" class="text-2xl font-black text-black"></h3>
+                    <p id="feedback-msg" class="font-bold opacity-90 text-black"></p>
                 </div>
             </div>
             <button id="next-btn" class="btn-3d w-full py-4 rounded-2xl font-black text-lg text-white shadow-lg"></button>
         </div>
     </div>
 
-    <!-- Modal de Tienda (Opciones: Gratis vs Pago) -->
-    <div id="store-modal" class="fixed inset-0 z-[200] bg-black/95 hidden flex items-center justify-center p-6 backdrop-blur-md">
-        <div class="bg-[#202f36] w-full max-w-sm rounded-3xl p-8 border-2 border-[#37464f] text-center shadow-2xl">
-            <div class="relative inline-block mb-4">
-                <i class="fas fa-heart text-red-500 text-6xl"></i>
-            </div>
-            <h2 class="text-2xl font-black mb-1 text-white">Recarga Energía</h2>
-            <p class="text-gray-400 mb-6 font-bold text-sm italic">Elige tu método preferido</p>
+    <!-- Modal de Tienda / Vidas -->
+    <div id="store-modal" class="fixed inset-0 z-[200] bg-black/95 hidden flex items-center justify-center p-6 backdrop-blur-md overflow-y-auto">
+        <div class="bg-[#202f36] w-full max-w-sm rounded-3xl p-8 border-2 border-[#37464f] text-center my-10">
+            <i class="fas fa-heart text-red-500 text-5xl mb-4"></i>
+            <h2 class="text-2xl font-black mb-2">¿Sin energía?</h2>
+            <p class="text-gray-400 mb-6 font-bold">Recupera vidas para seguir aprendiendo:</p>
             
-            <!-- OPCIÓN 1: GRATIS CON ANUNCIO -->
-            <div class="mb-8 p-4 bg-[#131f24] rounded-2xl border border-[#37464f]">
-                <p class="text-xs font-black text-[#58cc02] uppercase mb-2">Opción Gratis</p>
-                <button onclick="watchAd()" class="btn-3d w-full bg-[#58cc02] py-3 rounded-xl font-black text-white flex items-center justify-center gap-2">
-                    <i class="fas fa-play-circle"></i> VER VIDEO +1 VIDA
+            <div class="space-y-4">
+                <!-- Opción Anuncio -->
+                <div class="p-4 bg-[#131f24] rounded-2xl border border-[#37464f]">
+                    <p class="text-[10px] font-black text-[#58cc02] mb-2 uppercase tracking-widest">Publicidad</p>
+                    <button onclick="watchAd()" class="btn-3d w-full bg-[#58cc02] py-3 rounded-xl font-black text-white text-sm">
+                        <i class="fas fa-play-circle mr-2"></i> VER VIDEO +1 VIDA
+                    </button>
+                </div>
+                
+                <!-- Opción Compra PayPal (SU7KHJFE9XH4C) -->
+                <div class="p-4 bg-[#131f24] rounded-2xl border border-[#37464f]">
+                    <p class="text-[10px] font-black text-[#1cb0f6] mb-2 uppercase tracking-widest">Recargar Vidas (Ilimitadas)</p>
+                    <div class="mt-2 flex flex-col items-center">
+                        <form action="https://www.paypal.com/ncp/payment/SU7KHJFE9XH4C" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
+                            <input class="pp-SU7KHJFE9XH4C" type="submit" value="Comprar ahora" />
+                            <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" />
+                            <section style="font-size: 0.75rem; color: #777;"> Con la tecnología de <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <button onclick="closeStore()" class="mt-8 text-gray-500 font-bold uppercase text-[10px] tracking-widest">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Modal de Graduación y Certificado -->
+    <div id="grad-modal" class="fixed inset-0 z-[300] bg-[#131f24] hidden flex flex-col items-center justify-start p-6 overflow-y-auto">
+        <div class="w-full max-w-2xl text-center pt-10 pb-20">
+            <div class="mb-6"><i class="fas fa-graduation-cap text-7xl text-gold"></i></div>
+            <h1 class="text-4xl font-black text-white mb-2">¡CURSO COMPLETADO!</h1>
+            <p class="text-gray-400 font-bold mb-10 italic">Felicidades, has demostrado maestría técnica.</p>
+
+            <!-- Box Pago Certificado (GY3P7P4GFZXRL) -->
+            <div id="cert-purchase-box" class="p-10 bg-gradient-to-br from-yellow-900/40 to-black rounded-3xl border-2 border-gold/50 shadow-2xl">
+                <h4 class="text-2xl font-black text-white mb-3">Obtén tu Certificado</h4>
+                <p class="text-gray-400 font-medium mb-8">Valida tus conocimientos con el diploma oficial foliado de ElectroMaster PRO. Incluye código de verificación.</p>
+                
+                <div class="flex flex-col items-center gap-2">
+                    <form action="https://www.paypal.com/ncp/payment/GY3P7P4GFZXRL" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
+                        <input class="pp-GY3P7P4GFZXRL" type="submit" value="Comprar ahora" />
+                        <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" />
+                        <section style="font-size: 0.75rem; color: #888;"> Con la tecnología de <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
+                    </form>
+                </div>
+                <p class="mt-6 text-gray-500 text-xs italic">Al confirmar tu pago, el botón de impresión se activará en esta pantalla.</p>
+            </div>
+
+            <!-- Certificado Imprimible -->
+            <div id="final-cert-display" class="hidden flex flex-col items-center">
+                <div class="cert-paper" id="printable-cert">
+                    <div class="cert-border-inner text-center">
+                        <div class="text-gold text-4xl mb-4"><i class="fas fa-award"></i></div>
+                        <h1 style="font-family: 'Playfair Display', serif;" class="text-5xl mb-6">Certificado de Excelencia</h1>
+                        <p class="text-xl italic mb-6">Se otorga con distinción a:</p>
+                        <h2 class="text-4xl font-bold border-b-4 border-black inline-block px-12 mb-10 uppercase">Experto ElectroMaster</h2>
+                        <p class="text-lg px-12 mb-12 leading-relaxed font-medium">
+                            Por haber aprobado satisfactoriamente los 50 niveles de evaluación técnica en <b>Electricidad Residencial e Industrial</b>, demostrando conocimientos avanzados en teoría, normativa y seguridad.
+                        </p>
+                        <div class="flex justify-around items-end mt-16">
+                            <div class="text-center">
+                                <div class="w-40 border-b-2 border-black mx-auto mb-2"></div>
+                                <p class="text-xs font-black uppercase">Dirección Académica</p>
+                            </div>
+                            <div class="text-center">
+                                <i class="fas fa-stamp text-gray-400 text-5xl mb-2 opacity-30"></i>
+                                <p class="text-[10px] font-bold opacity-60">FOLIO: EM-CERT-50X</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="window.print()" class="mt-8 bg-gold text-black px-10 py-4 rounded-full font-black text-lg flex items-center gap-2 hover:scale-105 transition">
+                    <i class="fas fa-print"></i> IMPRIMIR CERTIFICADO
                 </button>
             </div>
 
-            <div class="flex items-center gap-2 mb-8 text-gray-500">
-                <hr class="flex-1 border-[#37464f]">
-                <span class="text-[10px] font-black">O TAMBIÉN</span>
-                <hr class="flex-1 border-[#37464f]">
-            </div>
-
-            <!-- OPCIÓN 2: PAGO PAYPAL -->
-            <div class="mb-4">
-                <p class="text-xs font-black text-[#1cb0f6] uppercase mb-2">Apoya el proyecto ($5 MXN)</p>
-                <div id="paypal-container-5TDC2UAK2F3Q2"></div>
-            </div>
-            
-            <button onclick="closeStore()" class="mt-4 text-gray-500 font-bold hover:text-white uppercase tracking-widest text-[10px]">Cerrar Tienda</button>
+            <button onclick="closeGrad()" class="mt-12 text-gray-600 font-black uppercase text-sm tracking-tighter">Volver al Mapa</button>
         </div>
     </div>
 
     <script>
-        // Configuración Adsterra y PayPal
+        // URLs y Publicidad
         const SMART_LINK = "https://www.profitablecpmratenetwork.com/gcxmcudfh3?key=86df4fa2db61ded8b48c42d6dca5f47a";
-
-        if (window.paypal) {
-            paypal.HostedButtons({
-                hostedButtonId: "5TDC2UAK2F3Q2",
-                onApprove: function(data, actions) {
-                    addLife("¡Gracias por tu compra!");
-                }
-            }).render("#paypal-container-5TDC2UAK2F3Q2");
-        }
-
-        function watchAd() {
-            // Abrir link de Adsterra
-            window.open(SMART_LINK, "_blank");
-            
-            // Simular carga y otorgar vida
-            setTimeout(() => {
-                addLife("¡Vida recargada por ver el video!");
-            }, 1000);
-        }
-
-        function addLife(msg) {
-            if(state.lives < 5) {
-                state.lives++;
-                save();
-                updateStats();
-                confetti({ particleCount: 150, spread: 70, origin: { y: 0.3 } });
-                if(msg) alert(msg);
-                closeStore();
-            } else {
-                alert("Ya tienes el máximo de vidas (5)");
-            }
-        }
-
-        // --- PREGUNTAS DB ---
+        
+        // Base de Datos Técnica (50 Preguntas)
         const QUESTIONS_DB = [
-            { id: 1, cat: "Básico", q: "¿Qué partícula del átomo tiene carga negativa y genera la electricidad?", a: ["Protón", "Neutrón", "Electrón", "Núcleo"], correct: 2 },
-            { id: 2, cat: "Básico", q: "¿Cuál es la unidad de medida de la tensión o diferencia de potencial?", a: ["Amperio", "Voltio", "Ohmio", "Vatio"], correct: 1 },
+            { id: 1, cat: "Básico", q: "¿Qué partícula del átomo tiene carga negativa?", a: ["Protón", "Neutrón", "Electrón", "Núcleo"], correct: 2 },
+            { id: 2, cat: "Básico", q: "¿Cuál es la unidad de medida de la tensión?", a: ["Amperio", "Voltio", "Ohmio", "Vatio"], correct: 1 },
             { id: 3, cat: "Básico", q: "¿Qué material es un buen conductor eléctrico?", a: ["Plástico", "Cobre", "Madera", "Goma"], correct: 1 },
-            { id: 4, cat: "Básico", q: "¿Qué unidad mide la intensidad de la corriente eléctrica?", a: ["Amperio", "Voltio", "Faradio", "Hertz"], correct: 0 },
-            { id: 5, cat: "Básico", q: "¿Qué ocurre si un circuito está 'abierto'?", a: ["La corriente fluye más rápido", "No hay flujo de corriente", "Hay un cortocircuito", "Se quema el fusible"], correct: 1 },
+            { id: 4, cat: "Básico", q: "¿Qué unidad mide la intensidad de la corriente?", a: ["Amperio", "Voltio", "Faradio", "Hertz"], correct: 0 },
+            { id: 5, cat: "Básico", q: "¿Qué ocurre si un circuito está 'abierto'?", a: ["Fluye rápido", "No hay flujo", "Cortocircuito", "Se quema"], correct: 1 },
             { id: 6, cat: "Básico", q: "¿Cuál es la unidad de la resistencia eléctrica?", a: ["Voltio", "Ohmio", "Watt", "Henrio"], correct: 1 },
             { id: 7, cat: "Básico", q: "¿Qué símbolo representa al Ohmio?", a: ["α", "β", "Ω", "Σ"], correct: 2 },
-            { id: 8, cat: "Básico", q: "¿Cómo se llama el flujo de electrones a través de un conductor?", a: ["Tensión", "Potencia", "Corriente", "Resistencia"], correct: 2 },
-            { id: 9, cat: "Básico", q: "¿Qué herramienta se usa para pelar cables?", a: ["Martillo", "Alicate pelacables", "Destornillador", "Nivel"], correct: 1 },
-            { id: 10, cat: "Básico", q: "¿Cuál es el color estándar del cable de Tierra?", a: ["Rojo", "Azul", "Verde/Amarillo", "Negro"], correct: 2 },
-            { id: 11, cat: "Básico", q: "¿Qué es un aislante?", a: ["Material que permite el paso de luz", "Material que impide el flujo eléctrico", "Un tipo de metal", "Un cable desnudo"], correct: 1 },
-            { id: 12, cat: "Básico", q: "¿Cuántos polos tiene un imán?", a: ["Uno", "Dos (Norte y Sur)", "Cuatro", "Ninguno"], correct: 1 },
-            { id: 13, cat: "Básico", q: "¿Qué significa AC en electricidad?", a: ["Alta Corriente", "Corriente Alterna", "Corriente Acumulada", "Área de Carga"], correct: 1 },
-            { id: 14, cat: "Básico", q: "¿Qué significa DC?", a: ["Doble Carga", "Corriente Directa", "Diodo de Carga", "Diferencia Central"], correct: 1 },
-            { id: 15, cat: "Básico", q: "¿Cuál es la tensión común en un hogar en la mayoría de Latinoamérica?", a: ["5V", "12V", "110V/220V", "1000V"], correct: 2 },
-            { id: 16, cat: "Intermedio", q: "Según la Ley de Ohm, si la resistencia aumenta:", a: ["La corriente aumenta", "La corriente disminuye", "El voltaje sube", "Nada cambia"], correct: 1 },
-            { id: 17, cat: "Intermedio", q: "¿Qué dispositivo protege un circuito fundiéndose?", a: ["Interruptor", "Transformador", "Fusible", "Relé"], correct: 2 },
-            { id: 18, cat: "Intermedio", q: "¿Qué instrumento mide múltiples magnitudes (V, A, Ω)?", a: ["Osciloscopio", "Multímetro", "Vatímetro", "Fasímetro"], correct: 1 },
-            { id: 19, cat: "Intermedio", q: "En un circuito en SERIE, si una bombilla se quema:", a: ["Las demás brillan más", "Las demás se apagan", "El voltaje aumenta", "Siguen encendidas"], correct: 1 },
-            { id: 20, cat: "Intermedio", q: "En un circuito en PARALELO, el voltaje en cada rama es:", a: ["Diferente", "Igual al de la fuente", "Se divide", "Cero"], correct: 1 },
-            { id: 21, cat: "Intermedio", q: "¿Qué componente almacena energía en un campo eléctrico?", a: ["Resistencia", "Capacitor", "Inductor", "Transistor"], correct: 1 },
-            { id: 22, cat: "Intermedio", q: "¿Qué componente almacena energía en un campo magnético?", a: ["Capacitor", "Diodo", "Inductor", "Led"], correct: 2 },
-            { id: 23, cat: "Intermedio", q: "¿Cuál es la unidad de la Potencia Eléctrica?", a: ["Watt", "Joule", "Newton", "Tesla"], correct: 0 },
-            { id: 24, cat: "Intermedio", q: "¿Qué hace un transformador?", a: ["Crea energía", "Cambia el nivel de voltaje", "Convierte AC a DC", "Mide la corriente"], correct: 1 },
-            { id: 25, cat: "Intermedio", q: "¿Qué es un cortocircuito?", a: ["Un circuito pequeño", "Unión accidental de polos sin carga", "Un ahorro", "Un interruptor"], correct: 1 },
-            { id: 26, cat: "Intermedio", q: "¿Para qué sirve el Relé?", a: ["Controlar alta potencia con baja", "Aumentar voltaje", "Iluminar", "Filtrar"], correct: 0 },
-            { id: 27, cat: "Intermedio", q: "¿Cuál es la frecuencia común en Hz?", a: ["10-20 Hz", "50-60 Hz", "120-150 Hz", "1000 Hz"], correct: 1 },
-            { id: 28, cat: "Intermedio", q: "¿Qué mide un Vatímetro?", a: ["Tensión", "Resistencia", "Potencia Activa", "Capacidad"], correct: 2 },
-            { id: 29, cat: "Intermedio", q: "¿Qué indica la Ley de Joule?", a: ["Luz", "Calor por corriente", "Velocidad", "Presión"], correct: 1 },
-            { id: 30, cat: "Intermedio", q: "¿Qué semiconductor solo permite un sentido?", a: ["Resistor", "Diodo", "Capacitor", "Cable"], correct: 1 },
-            { id: 31, cat: "Intermedio", q: "¿Qué es la Ley de Kirchhoff de Corrientes?", a: ["Suma de corrientes es cero", "V=IxR", "P=VxI", "E=mc2"], correct: 0 },
-            { id: 32, cat: "Intermedio", q: "¿Qué mide la Capacitancia?", a: ["Ohmios", "Faradios", "Henrios", "Siemens"], correct: 1 },
-            { id: 33, cat: "Intermedio", q: "¿Qué es un interruptor termomagnético?", a: ["Sensor de luz", "Protección de sobrecarga", "Un enchufe", "Un motor"], correct: 1 },
-            { id: 34, cat: "Intermedio", q: "¿Cómo se calcula la potencia (P)?", a: ["V / I", "V + I", "V * I", "R * I"], correct: 2 },
-            { id: 35, cat: "Intermedio", q: "¿Qué cable lleva la carga a tierra?", a: ["Neutro", "Fase", "Tierra", "Retorno"], correct: 2 },
-            { id: 36, cat: "Avanzado", q: "¿Qué es el Factor de Potencia?", a: ["Eficiencia de uso", "Voltaje máximo", "Velocidad", "Tipo de cable"], correct: 0 },
-            { id: 37, cat: "Avanzado", q: "¿Cuál es la unidad de la Inductancia?", a: ["Ohmio", "Faradio", "Henrio", "Tesla"], correct: 2 },
-            { id: 38, cat: "Avanzado", q: "¿Qué sucede en un sistema trifásico equilibrado?", a: ["Neutro lleva carga", "Suma de corrientes es cero", "Hay 4 fases", "No hay tierra"], correct: 1 },
-            { id: 39, cat: "Avanzado", q: "¿Qué es un puente de diodos?", a: ["Amplificador", "Rectificador", "Fusible", "Motor"], correct: 1 },
-            { id: 40, cat: "Avanzado", q: "¿Componente con Emisor, Base y Colector?", a: ["Diodo", "Transistor BJT", "Triac", "Termistor"], correct: 1 },
-            { id: 41, cat: "Avanzado", q: "¿Qué es la Reactancia Inductiva?", a: ["Oposición al cambio de corriente", "Calor", "Luz", "Fuerza"], correct: 0 },
-            { id: 42, cat: "Avanzado", q: "¿Qué es un PLC?", a: ["Cable", "Controlador Lógico Programable", "Placa", "Pérdida"], correct: 1 },
-            { id: 43, cat: "Avanzado", q: "¿Qué mide la Impedancia?", a: ["Resistencia DC", "Oposición total AC", "Magnetismo", "Frecuencia"], correct: 1 },
-            { id: 44, cat: "Avanzado", q: "¿Para qué sirve el condensador de arranque?", a: ["Ahorrar luz", "Torque inicial motor", "Bajar voltaje", "Corte"], correct: 1 },
-            { id: 45, cat: "Avanzado", q: "¿Qué es el Efecto Hall?", a: ["Voltaje por campo magnético", "Calentamiento", "Resistencia", "Luz"], correct: 0 },
-            { id: 46, cat: "Avanzado", q: "¿Qué hace un Variador de Frecuencia (VFD)?", a: ["Mide tierra", "Controla velocidad motor AC", "Carga", "Fusible"], correct: 1 },
-            { id: 47, cat: "Avanzado", q: "¿Qué es la Potencia Reactiva?", a: ["La útil", "La que oscila", "La total", "Energía solar"], correct: 1 },
-            { id: 48, cat: "Avanzado", q: "¿Ventaja del LED sobre incandescencia?", a: ["Peso", "Eficiencia lumínica", "Más corriente", "Más antiguo"], correct: 1 },
-            { id: 49, cat: "Avanzado", q: "¿Qué unidad mide el flujo luminoso?", a: ["Lux", "Lumen", "Candela", "Watt"], correct: 1 },
-            { id: 50, cat: "Avanzado", q: "¿Primera regla de oro de seguridad?", a: ["Guantes", "Corte efectivo tensión", "Extintor", "Llamar"], correct: 1 }
+            { id: 8, cat: "Básico", q: "¿Qué es el flujo de electrones?", a: ["Tensión", "Potencia", "Corriente", "Resistencia"], correct: 2 },
+            { id: 9, cat: "Básico", q: "¿Qué herramienta pela cables?", a: ["Martillo", "Pelacables", "Destornillador", "Nivel"], correct: 1 },
+            { id: 10, cat: "Básico", q: "¿Color estándar del cable de Tierra?", a: ["Rojo", "Azul", "Verde/Amarillo", "Negro"], correct: 2 },
+            { id: 11, cat: "Básico", q: "¿Qué es un aislante?", a: ["Deja pasar luz", "Impide flujo eléctrico", "Metal", "Cable"], correct: 1 },
+            { id: 12, cat: "Básico", q: "¿Polos de un imán?", a: ["Uno", "Dos", "Cuatro", "Cero"], correct: 1 },
+            { id: 13, cat: "Básico", q: "¿Qué significa AC?", a: ["Alta Carga", "Corriente Alterna", "Acumulada", "Área"], correct: 1 },
+            { id: 14, cat: "Básico", q: "¿Qué significa DC?", a: ["Doble Carga", "Corriente Directa", "Diodo", "Central"], correct: 1 },
+            { id: 15, cat: "Básico", q: "¿Tensión hogar común?", a: ["5V", "12V", "110V/220V", "1000V"], correct: 2 },
+            { id: 16, cat: "Técnico", q: "Si la resistencia aumenta y el voltaje es constante (Ohm):", a: ["Corriente sube", "Corriente baja", "Potencia sube", "Nada"], correct: 1 },
+            { id: 17, cat: "Técnico", q: "¿Qué componente protege fundiéndose por exceso?", a: ["Interruptor", "Transformador", "Fusible", "Relé"], correct: 2 },
+            { id: 18, cat: "Técnico", q: "¿Qué instrumento mide múltiples magnitudes?", a: ["Osciloscopio", "Multímetro", "Vatímetro", "Fasímetro"], correct: 1 },
+            { id: 19, cat: "Técnico", q: "En circuito SERIE, si una bombilla se rompe:", a: ["Demás brillan más", "Se apagan todas", "Sube el voltaje", "No pasa nada"], correct: 1 },
+            { id: 20, cat: "Técnico", q: "En PARALELO, el voltaje en cada rama es:", a: ["Diferente", "Igual al de la fuente", "Se divide entre ramas", "Cero"], correct: 1 },
+            { id: 21, cat: "Técnico", q: "¿Qué componente almacena energía en campo eléctrico?", a: ["Resistor", "Capacitor", "Inductor", "Diodo"], correct: 1 },
+            { id: 22, cat: "Técnico", q: "¿Qué componente almacena energía en campo magnético?", a: ["Capacitor", "Termistor", "Inductor", "Led"], correct: 2 },
+            { id: 23, cat: "Técnico", q: "¿Cuál es la unidad de Potencia Eléctrica?", a: ["Watt", "Joule", "Newton", "Tesla"], correct: 0 },
+            { id: 24, cat: "Técnico", q: "¿Qué función cumple un transformador?", a: ["Crea energía", "Cambia niveles de voltaje", "Convierte AC a DC", "Mide ohmios"], correct: 1 },
+            { id: 25, cat: "Técnico", q: "¿Qué define a un cortocircuito?", a: ["Ahorro de energía", "Unión de polos sin carga", "Circuito pequeño", "Uso de sensores"], correct: 1 },
+            { id: 26, cat: "Técnico", q: "¿Para qué sirve un Relé?", a: ["Controlar alta potencia con baja", "Aumentar Voltaje", "Iluminar", "Filtrar ruidos"], correct: 0 },
+            { id: 27, cat: "Técnico", q: "¿Frecuencia eléctrica estándar en América?", a: ["10Hz", "50-60Hz", "120Hz", "1000Hz"], correct: 1 },
+            { id: 28, cat: "Técnico", q: "¿Qué magnitud mide el Vatímetro?", a: ["Tensión", "Resistencia", "Potencia Activa", "Flujo luminoso"], correct: 2 },
+            { id: 29, cat: "Técnico", q: "La Ley de Joule indica que la electricidad genera:", a: ["Luz", "Calor", "Presión", "Humedad"], correct: 1 },
+            { id: 30, cat: "Técnico", q: "¿Semiconductor que permite flujo en un solo sentido?", a: ["Cable", "Diodo", "Resistor", "Interruptor"], correct: 1 },
+            { id: 31, cat: "Técnico", q: "Ley de Kirchhoff de Corrientes: En un nodo la suma es:", a: ["Cero", "Máxima", "Infinita", "Variable"], correct: 0 },
+            { id: 32, cat: "Técnico", q: "¿Unidad de medida de la Capacitancia?", a: ["Ohm", "Faradio", "Henrio", "Siemens"], correct: 1 },
+            { id: 33, cat: "Técnico", q: "¿Qué protege el interruptor termomagnético?", a: ["Cables de sobrecarga/corto", "Personas de choques", "Luz de parpadeos", "Agua"], correct: 0 },
+            { id: 34, cat: "Técnico", q: "¿Fórmula básica de Potencia (P)?", a: ["V / I", "V + I", "V * I", "R * I"], correct: 2 },
+            { id: 35, cat: "Técnico", q: "¿Cable que no tiene carga y cierra el circuito?", a: ["Fase", "Tierra física", "Neutro", "Polo positivo"], correct: 2 },
+            { id: 36, cat: "Maestría", q: "¿Qué indica el Factor de Potencia?", a: ["Eficiencia de energía", "Voltaje pico", "Fuerza mecánica", "Calor disipado"], correct: 0 },
+            { id: 37, cat: "Maestría", q: "¿Unidad de medida de la Inductancia?", a: ["Ohm", "Faradio", "Henrio", "Tesla"], correct: 2 },
+            { id: 38, cat: "Maestría", q: "En un sistema trifásico equilibrado, el neutro:", a: ["Lleva mucha corriente", "No lleva corriente", "Se calienta", "Oscila mucho"], correct: 1 },
+            { id: 39, cat: "Maestría", q: "¿Para qué sirve un puente de diodos?", a: ["Rectificar onda completa", "Amplificar sonido", "Enfriar", "Medir luxes"], correct: 0 },
+            { id: 40, cat: "Maestría", q: "¿Componente con Base, Colector y Emisor?", a: ["Diodo", "Transistor", "Triac", "Potenciómetro"], correct: 1 },
+            { id: 41, cat: "Maestría", q: "¿Qué es la Reactancia Inductiva?", a: ["Oposición al cambio de corriente", "Calor excesivo", "Luz emitida", "Campo estático"], correct: 0 },
+            { id: 42, cat: "Maestría", q: "¿Qué significan las siglas PLC?", a: ["Placa de Cobre", "Controlador Lógico Programable", "Pérdida de Carga", "Punto Lineal"], correct: 1 },
+            { id: 43, cat: "Maestría", q: "¿Qué mide la Impedancia (Z)?", a: ["Resistencia en DC", "Oposición total en AC", "Solo reactancia", "Calor"], correct: 1 },
+            { id: 44, cat: "Maestría", q: "El capacitor de arranque en motores sirve para:", a: ["Ahorrar luz", "Aumentar torque inicial", "Bajar voltaje", "Suavizar sonido"], correct: 1 },
+            { id: 45, cat: "Maestría", q: "¿Qué define el Efecto Hall?", a: ["Voltaje por campo magnético", "Calor por fricción", "Resistencia de luz", "Onda radio"], correct: 0 },
+            { id: 46, cat: "Maestría", q: "¿Qué controla un Variador de Frecuencia (VFD)?", a: ["Luz", "Velocidad de motor AC", "Temperatura", "Presión de agua"], correct: 1 },
+            { id: 47, cat: "Maestría", q: "¿Qué es la Potencia Reactiva?", a: ["Energía útil", "Energía que oscila sin consumirse", "Potencia total", "Solar"], correct: 1 },
+            { id: 48, cat: "Maestría", q: "¿Ventaja principal de la iluminación LED?", a: ["Peso", "Alta eficiencia lumínica", "Genera calor", "Precio bajo siempre"], correct: 1 },
+            { id: 49, cat: "Maestría", q: "¿Unidad de medida del flujo luminoso?", a: ["Lux", "Lumen", "Candela", "Vatio"], correct: 1 },
+            { id: 50, cat: "Maestría", q: "¿Regla de oro #1 en seguridad eléctrica?", a: ["Usar guantes", "Corte efectivo de energía", "Poner casco", "Llamar a un jefe"], correct: 1 }
         ];
 
-        // --- ESTADO Y LOGICA MAPA ---
         let state = {
             xp: parseInt(localStorage.getItem('em_xp')) || 0,
             lives: parseInt(localStorage.getItem('em_lives')) || 5,
             progress: parseInt(localStorage.getItem('em_progress')) || 1,
-            currentQuiz: null,
-            selectedOption: null
+            certified: localStorage.getItem('em_certified') === 'true'
         };
 
         function renderMap() {
             const container = document.getElementById('nodes-container');
             container.innerHTML = '';
+            
             QUESTIONS_DB.forEach((q, index) => {
                 const i = index + 1;
                 const node = document.createElement('div');
                 const isLocked = i > state.progress;
                 const isCompleted = i < state.progress;
                 const isCurrent = i === state.progress;
+                
                 node.className = `node ${isLocked ? 'node-locked' : (isCompleted ? 'node-completed' : 'node-active')} ${isCurrent ? 'current-anim' : ''}`;
-                const offset = Math.sin(i * 0.8) * 65; 
-                node.style.transform = `translateX(${offset}px)`;
-                if(i === 1) node.innerHTML += '<span class="level-tag">INICIO</span>';
-                if(i === 16) node.innerHTML += '<span class="level-tag">INTERMEDIO</span>';
-                if(i === 36) node.innerHTML += '<span class="level-tag">EXPERTO</span>';
+                node.style.transform = `translateX(${Math.sin(i * 0.85) * 55}px)`;
+                
+                if(i === 1) node.innerHTML += '<span class="level-tag">PRINCIPIANTE</span>';
+                if(i === 16) node.innerHTML += '<span class="level-tag">TÉCNICO</span>';
+                if(i === 36) node.innerHTML += '<span class="level-tag">MAESTRÍA</span>';
+                
                 node.innerHTML += isLocked ? '<i class="fas fa-lock text-sm"></i>' : (isCompleted ? '<i class="fas fa-check"></i>' : `<b>${i}</b>`);
                 if (!isLocked) node.onclick = () => openQuiz(i);
                 container.appendChild(node);
             });
+
+            // Nodo de Graduación
+            const gradNode = document.createElement('div');
+            const gradLocked = state.progress <= 50;
+            gradNode.className = `node ${gradLocked ? 'node-locked' : 'node-gold current-anim'} mt-10 mb-20`;
+            gradNode.style.width = '100px'; gradNode.style.height = '100px';
+            gradNode.innerHTML = `<i class="fas fa-graduation-cap text-4xl"></i>`;
+            if(!gradLocked) gradNode.onclick = openGrad;
+            container.appendChild(gradNode);
         }
 
         function openQuiz(id) {
             if (state.lives <= 0) return openStore();
-            state.currentQuiz = QUESTIONS_DB.find(q => q.id === id);
-            state.selectedOption = null;
+            const q = QUESTIONS_DB.find(x => x.id === id);
+            state.currentQuiz = q;
             document.getElementById('quiz-screen').style.display = 'flex';
-            document.getElementById('category-label').innerText = `NIVEL: ${state.currentQuiz.cat}`;
-            document.getElementById('question-text').innerText = state.currentQuiz.q;
-            const optionsHtml = state.currentQuiz.a.map((opt, i) => `
+            document.getElementById('category-label').innerText = q.cat;
+            document.getElementById('question-text').innerText = q.q;
+            document.getElementById('options-container').innerHTML = q.a.map((opt, i) => `
                 <button onclick="selectOption(${i})" class="option-card" data-idx="${i}">
                     <span class="w-8 h-8 rounded-lg border-2 border-inherit flex items-center justify-center text-xs font-black">${String.fromCharCode(65 + i)}</span>
                     <span class="flex-1">${opt}</span>
                 </button>
             `).join('');
-            document.getElementById('options-container').innerHTML = optionsHtml;
+            document.getElementById('quiz-progress').style.width = `${(id / 50) * 100}%`;
             document.getElementById('check-btn').disabled = true;
-            document.getElementById('check-btn').classList.add('opacity-50', 'bg-[#37464f]');
-            document.getElementById('quiz-progress').style.width = `${(id / QUESTIONS_DB.length) * 100}%`;
         }
 
         function selectOption(idx) {
@@ -373,75 +412,87 @@
             document.querySelector(`[data-idx="${idx}"]`).classList.add('selected');
             const btn = document.getElementById('check-btn');
             btn.disabled = false;
-            btn.classList.remove('opacity-50', 'bg-[#37464f]');
-            btn.classList.add('bg-[#58cc02]');
+            btn.classList.replace('opacity-50', 'opacity-100');
+            btn.classList.replace('bg-[#37464f]', 'bg-[#58cc02]');
         }
 
         function validateAnswer() {
-            const isCorrect = state.selectedOption === state.currentQuiz.correct;
+            const correct = state.selectedOption === state.currentQuiz.correct;
             const panel = document.getElementById('feedback-panel');
             const nextBtn = document.getElementById('next-btn');
-            if (isCorrect) {
-                panel.className = "feedback-panel fixed bottom-0 left-0 w-full p-6 bg-[#d7ffb8] text-[#58cc02] border-[#a5d6a7] show z-[120]";
-                document.getElementById('feedback-title').innerText = "¡Buen trabajo!";
-                document.getElementById('feedback-msg').innerText = "Has dominado este concepto.";
-                document.getElementById('feedback-icon').innerHTML = '<i class="fas fa-check text-green-600 text-xl"></i>';
-                nextBtn.className = "btn-3d w-full py-4 rounded-2xl font-black text-lg bg-[#58cc02] text-white";
+            panel.classList.remove('translate-y-full');
+
+            if (correct) {
+                panel.className = "fixed bottom-0 left-0 w-full p-6 bg-[#d7ffb8] border-t-4 border-[#a5d6a7] z-[120] transition-transform";
+                document.getElementById('feedback-title').innerText = "¡Correcto!";
+                document.getElementById('feedback-msg').innerText = "Excelente precisión técnica.";
+                document.getElementById('feedback-icon').innerHTML = '<i class="fas fa-check text-green-600"></i>';
+                nextBtn.className = "btn-3d w-full py-4 rounded-2xl font-black bg-[#58cc02] text-white";
                 nextBtn.innerText = "CONTINUAR";
-                nextBtn.onclick = handleSuccess;
-                confetti({ particleCount: 50, spread: 70, origin: { y: 0.8 } });
+                nextBtn.onclick = () => {
+                    if (state.currentQuiz.id === state.progress) {
+                        state.progress++;
+                        state.xp += 20;
+                        save();
+                    }
+                    closeQuiz();
+                    renderMap();
+                };
             } else {
                 state.lives--;
-                save();
-                updateStats();
-                panel.className = "feedback-panel fixed bottom-0 left-0 w-full p-6 bg-[#ffdfe0] text-[#ff4b4b] border-[#ef9a9a] show z-[120]";
-                document.getElementById('feedback-title').innerText = "¡Ánimo!";
-                document.getElementById('feedback-msg').innerText = `Correcta: ${state.currentQuiz.a[state.currentQuiz.correct]}`;
-                document.getElementById('feedback-icon').innerHTML = '<i class="fas fa-times text-red-600 text-xl"></i>';
-                nextBtn.className = "btn-3d w-full py-4 rounded-2xl font-black text-lg bg-[#ff4b4b] text-white";
+                save(); updateStats();
+                panel.className = "fixed bottom-0 left-0 w-full p-6 bg-[#ffdfe0] border-t-4 border-[#ef9a9a] z-[120] transition-transform";
+                document.getElementById('feedback-title').innerText = "Incorrecto";
+                document.getElementById('feedback-msg').innerText = "Solución: " + state.currentQuiz.a[state.currentQuiz.correct];
+                document.getElementById('feedback-icon').innerHTML = '<i class="fas fa-times text-red-600"></i>';
+                nextBtn.className = "btn-3d w-full py-4 rounded-2xl font-black bg-[#ff4b4b] text-white";
                 nextBtn.innerText = "ENTENDIDO";
                 nextBtn.onclick = () => { closeQuiz(); if(state.lives <= 0) openStore(); };
             }
         }
 
-        function handleSuccess() {
-            if (state.currentQuiz.id === state.progress) {
-                state.progress++;
-                state.xp += 15;
-                save();
-                updateStats();
+        function watchAd() {
+            window.open(SMART_LINK, "_blank");
+            setTimeout(() => {
+                state.lives = Math.min(state.lives + 1, 5);
+                save(); updateStats();
+                alert("Anuncio completado: +1 Vida añadida.");
+                closeStore();
+            }, 1500);
+        }
+
+        function openGrad() { 
+            document.getElementById('grad-modal').classList.remove('hidden'); 
+            if(state.certified) {
+                document.getElementById('cert-purchase-box').classList.add('hidden');
+                document.getElementById('final-cert-display').classList.remove('hidden');
             }
-            closeQuiz();
-            renderMap();
         }
-
-        function closeQuiz() {
-            document.getElementById('quiz-screen').style.display = 'none';
-            document.getElementById('feedback-panel').classList.remove('show');
-        }
-
-        function confirmExit() { if(confirm("Si sales perderás el progreso.")) closeQuiz(); }
+        function closeGrad() { document.getElementById('grad-modal').classList.add('hidden'); }
         function openStore() { document.getElementById('store-modal').classList.remove('hidden'); }
         function closeStore() { document.getElementById('store-modal').classList.add('hidden'); }
-
-        function save() {
-            localStorage.setItem('em_xp', state.xp);
-            localStorage.setItem('em_lives', state.lives);
-            localStorage.setItem('em_progress', state.progress);
+        function closeQuiz() { 
+            document.getElementById('quiz-screen').style.display='none'; 
+            document.getElementById('feedback-panel').classList.add('translate-y-full'); 
         }
-
-        function updateStats() {
-            document.getElementById('xp-count').innerText = state.xp;
-            document.getElementById('life-count').innerText = state.lives;
+        function save() { 
+            localStorage.setItem('em_xp', state.xp); 
+            localStorage.setItem('em_lives', state.lives); 
+            localStorage.setItem('em_progress', state.progress); 
         }
+        function updateStats() { 
+            document.getElementById('xp-count').innerText = state.xp; 
+            document.getElementById('life-count').innerText = state.lives; 
+        }
+        function confirmExit() { if(confirm("¿Seguro que quieres salir de la lección?")) closeQuiz(); }
 
         window.onload = () => {
             renderMap();
             updateStats();
             setTimeout(() => {
-                const current = document.querySelector('.current-anim');
-                if(current) current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 500);
+                const cur = document.querySelector('.current-anim');
+                if(cur) cur.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 600);
         };
     </script>
 </body>
