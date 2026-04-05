@@ -139,12 +139,6 @@
             font-weight: 900;
             white-space: nowrap;
         }
-
-        /* PayPal Button Styling */
-        #paypal-container-5TDC2UAK2F3Q2 {
-            margin-top: 15px;
-            min-height: 50px;
-        }
     </style>
 </head>
 <body>
@@ -201,41 +195,76 @@
         </div>
     </div>
 
-    <!-- Modal de Tienda / PayPal -->
+    <!-- Modal de Tienda (Opciones: Gratis vs Pago) -->
     <div id="store-modal" class="fixed inset-0 z-[200] bg-black/95 hidden flex items-center justify-center p-6 backdrop-blur-md">
         <div class="bg-[#202f36] w-full max-w-sm rounded-3xl p-8 border-2 border-[#37464f] text-center shadow-2xl">
             <div class="relative inline-block mb-4">
                 <i class="fas fa-heart text-red-500 text-6xl"></i>
-                <span class="absolute -top-2 -right-2 bg-white text-black text-xs font-black px-2 py-1 rounded-full shadow-md">MAX 5</span>
             </div>
-            <h2 class="text-2xl font-black mb-2 text-white">Recarga Energía</h2>
-            <p class="text-gray-400 mb-6 font-bold text-sm">
-                Cada corazón vale <span class="text-green-400">$5.00 MXN</span>.<br>
-                Asegura tu aprendizaje continuo.
-            </p>
+            <h2 class="text-2xl font-black mb-1 text-white">Recarga Energía</h2>
+            <p class="text-gray-400 mb-6 font-bold text-sm italic">Elige tu método preferido</p>
             
-            <!-- PayPal Button Container -->
-            <div id="paypal-container-5TDC2UAK2F3Q2" class="mb-4"></div>
+            <!-- OPCIÓN 1: GRATIS CON ANUNCIO -->
+            <div class="mb-8 p-4 bg-[#131f24] rounded-2xl border border-[#37464f]">
+                <p class="text-xs font-black text-[#58cc02] uppercase mb-2">Opción Gratis</p>
+                <button onclick="watchAd()" class="btn-3d w-full bg-[#58cc02] py-3 rounded-xl font-black text-white flex items-center justify-center gap-2">
+                    <i class="fas fa-play-circle"></i> VER VIDEO +1 VIDA
+                </button>
+            </div>
+
+            <div class="flex items-center gap-2 mb-8 text-gray-500">
+                <hr class="flex-1 border-[#37464f]">
+                <span class="text-[10px] font-black">O TAMBIÉN</span>
+                <hr class="flex-1 border-[#37464f]">
+            </div>
+
+            <!-- OPCIÓN 2: PAGO PAYPAL -->
+            <div class="mb-4">
+                <p class="text-xs font-black text-[#1cb0f6] uppercase mb-2">Apoya el proyecto ($5 MXN)</p>
+                <div id="paypal-container-5TDC2UAK2F3Q2"></div>
+            </div>
             
-            <p class="text-xs text-gray-500 mb-6 italic">Máximo 5 vidas permitidas por cuenta.</p>
-            
-            <button onclick="closeStore()" class="text-gray-400 font-bold hover:text-white uppercase tracking-widest text-xs">Cerrar</button>
+            <button onclick="closeStore()" class="mt-4 text-gray-500 font-bold hover:text-white uppercase tracking-widest text-[10px]">Cerrar Tienda</button>
         </div>
     </div>
 
     <script>
-        // Inicializar Botón PayPal
+        // Configuración Adsterra y PayPal
+        const SMART_LINK = "https://www.profitablecpmratenetwork.com/gcxmcudfh3?key=86df4fa2db61ded8b48c42d6dca5f47a";
+
         if (window.paypal) {
             paypal.HostedButtons({
                 hostedButtonId: "5TDC2UAK2F3Q2",
                 onApprove: function(data, actions) {
-                    // Acción tras pago aprobado
-                    addLife();
+                    addLife("¡Gracias por tu compra!");
                 }
             }).render("#paypal-container-5TDC2UAK2F3Q2");
         }
 
-        // --- PREGUNTAS ---
+        function watchAd() {
+            // Abrir link de Adsterra
+            window.open(SMART_LINK, "_blank");
+            
+            // Simular carga y otorgar vida
+            setTimeout(() => {
+                addLife("¡Vida recargada por ver el video!");
+            }, 1000);
+        }
+
+        function addLife(msg) {
+            if(state.lives < 5) {
+                state.lives++;
+                save();
+                updateStats();
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.3 } });
+                if(msg) alert(msg);
+                closeStore();
+            } else {
+                alert("Ya tienes el máximo de vidas (5)");
+            }
+        }
+
+        // --- PREGUNTAS DB ---
         const QUESTIONS_DB = [
             { id: 1, cat: "Básico", q: "¿Qué partícula del átomo tiene carga negativa y genera la electricidad?", a: ["Protón", "Neutrón", "Electrón", "Núcleo"], correct: 2 },
             { id: 2, cat: "Básico", q: "¿Cuál es la unidad de medida de la tensión o diferencia de potencial?", a: ["Amperio", "Voltio", "Ohmio", "Vatio"], correct: 1 },
@@ -289,7 +318,7 @@
             { id: 50, cat: "Avanzado", q: "¿Primera regla de oro de seguridad?", a: ["Guantes", "Corte efectivo tensión", "Extintor", "Llamar"], correct: 1 }
         ];
 
-        // --- ESTADO ---
+        // --- ESTADO Y LOGICA MAPA ---
         let state = {
             xp: parseInt(localStorage.getItem('em_xp')) || 0,
             lives: parseInt(localStorage.getItem('em_lives')) || 5,
@@ -394,15 +423,6 @@
         function confirmExit() { if(confirm("Si sales perderás el progreso.")) closeQuiz(); }
         function openStore() { document.getElementById('store-modal').classList.remove('hidden'); }
         function closeStore() { document.getElementById('store-modal').classList.add('hidden'); }
-
-        function addLife() {
-            if(state.lives < 5) {
-                state.lives++;
-                save();
-                updateStats();
-                confetti({ particleCount: 100, spread: 70, origin: { y: 0.3 } });
-            }
-        }
 
         function save() {
             localStorage.setItem('em_xp', state.xp);
