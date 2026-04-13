@@ -236,58 +236,1388 @@
         const SMART_LINK = "https://www.profitablecpmratenetwork.com/gcxmcudfh3?key=86df4fa2db61ded8b48c42d6dca5f47a";
         
         const QUESTIONS_DB = [
-            { id: 1, cat: "Básico", q: "¿Qué partícula del átomo tiene carga negativa?", a: ["Protón", "Neutrón", "Electrón", "Núcleo"], correct: 2 },
-            { id: 2, cat: "Básico", q: "¿Cuál es la unidad de medida de la tensión?", a: ["Amperio", "Voltio", "Ohmio", "Vatio"], correct: 1 },
-            { id: 3, cat: "Básico", q: "¿Qué material es un buen conductor eléctrico?", a: ["Plástico", "Cobre", "Madera", "Goma"], correct: 1 },
-            { id: 4, cat: "Básico", q: "¿Qué unidad mide la intensidad de la corriente?", a: ["Amperio", "Voltio", "Faradio", "Hertz"], correct: 0 },
-            { id: 5, cat: "Básico", q: "¿Qué ocurre si un circuito está 'abierto'?", a: ["Fluye rápido", "No hay flujo", "Cortocircuito", "Se quema"], correct: 1 },
-            { id: 6, cat: "Básico", q: "¿Cuál es la unidad de la resistencia eléctrica?", a: ["Voltio", "Ohmio", "Watt", "Henrio"], correct: 1 },
-            { id: 7, cat: "Básico", q: "¿Qué símbolo representa al Ohmio?", a: ["α", "β", "Ω", "Σ"], correct: 2 },
-            { id: 8, cat: "Básico", q: "¿Qué es el flujo de electrones?", a: ["Tensión", "Potencia", "Corriente", "Resistencia"], correct: 2 },
-            { id: 9, cat: "Básico", q: "¿Qué herramienta pela cables?", a: ["Martillo", "Pelacables", "Destornillador", "Nivel"], correct: 1 },
-            { id: 10, cat: "Básico", q: "¿Color estándar del cable de Tierra?", a: ["Rojo", "Azul", "Verde/Amarillo", "Negro"], correct: 2 },
-            { id: 11, cat: "Básico", q: "¿Qué es un aislante?", a: ["Deja pasar luz", "Impide flujo eléctrico", "Metal", "Cable"], correct: 1 },
-            { id: 12, cat: "Básico", q: "¿Polos de un imán?", a: ["Uno", "Dos", "Cuatro", "Cero"], correct: 1 },
-            { id: 13, cat: "Básico", q: "¿Qué significa AC?", a: ["Alta Carga", "Corriente Alterna", "Acumulada", "Área"], correct: 1 },
-            { id: 14, cat: "Básico", q: "¿Qué significa DC?", a: ["Doble Carga", "Corriente Directa", "Diodo", "Central"], correct: 1 },
-            { id: 15, cat: "Básico", q: "¿Tensión hogar común?", a: ["5V", "12V", "110V/220V", "1000V"], correct: 2 },
-            { id: 16, cat: "Técnico", q: "Si la resistencia aumenta y el voltaje es constante (Ohm):", a: ["Corriente sube", "Corriente baja", "Potencia sube", "Nada"], correct: 1 },
-            { id: 17, cat: "Técnico", q: "¿Qué componente protege fundiéndose por exceso?", a: ["Interruptor", "Transformador", "Fusible", "Relé"], correct: 2 },
-            { id: 18, cat: "Técnico", q: "¿Qué instrumento mide múltiples magnitudes?", a: ["Osciloscopio", "Multímetro", "Vatímetro", "Fasímetro"], correct: 1 },
-            { id: 19, cat: "Técnico", q: "En circuito SERIE, si una bombilla se rompe:", a: ["Demás brillan más", "Se apagan todas", "Sube el voltaje", "No pasa nada"], correct: 1 },
-            { id: 20, cat: "Técnico", q: "En PARALELO, el voltaje en cada rama es:", a: ["Diferente", "Igual al de la fuente", "Se divide entre ramas", "Cero"], correct: 1 },
-            { id: 21, cat: "Técnico", q: "¿Qué componente almacena energía en campo eléctrico?", a: ["Resistor", "Capacitor", "Inductor", "Diodo"], correct: 1 },
-            { id: 22, cat: "Técnico", q: "¿Qué componente almacena energía en campo magnético?", a: ["Capacitor", "Termistor", "Inductor", "Led"], correct: 2 },
-            { id: 23, cat: "Técnico", q: "¿Cuál es la unidad de Potencia Eléctrica?", a: ["Watt", "Joule", "Newton", "Tesla"], correct: 0 },
-            { id: 24, cat: "Técnico", q: "¿Qué función cumple un transformador?", a: ["Crea energía", "Cambia niveles de voltaje", "Convierte AC a DC", "Mide ohmios"], correct: 1 },
-            { id: 25, cat: "Técnico", q: "¿Qué define a un cortocircuito?", a: ["Ahorro de energía", "Unión de polos sin carga", "Circuito pequeño", "Uso de sensores"], correct: 1 },
-            { id: 26, cat: "Técnico", q: "¿Para qué sirve un Relé?", a: ["Controlar alta potencia con baja", "Aumentar Voltaje", "Iluminar", "Filtrar ruidos"], correct: 0 },
-            { id: 27, cat: "Técnico", q: "¿Frecuencia eléctrica estándar en América?", a: ["10Hz", "50-60Hz", "120Hz", "1000Hz"], correct: 1 },
-            { id: 28, cat: "Técnico", q: "¿Qué magnitud mide el Vatímetro?", a: ["Tensión", "Resistencia", "Potencia Activa", "Flujo luminoso"], correct: 2 },
-            { id: 29, cat: "Técnico", q: "La Ley de Joule indica que la electricidad genera:", a: ["Luz", "Calor", "Presión", "Humedad"], correct: 1 },
-            { id: 30, cat: "Técnico", q: "¿Semiconductor que permite flujo en un solo sentido?", a: ["Cable", "Diodo", "Resistor", "Interruptor"], correct: 1 },
-            { id: 31, cat: "Técnico", q: "Ley de Kirchhoff de Corrientes: En un nodo la suma es:", a: ["Cero", "Máxima", "Infinita", "Variable"], correct: 0 },
-            { id: 32, cat: "Técnico", q: "¿Unidad de medida de la Capacitancia?", a: ["Ohm", "Faradio", "Henrio", "Siemens"], correct: 1 },
-            { id: 33, cat: "Técnico", q: "¿Qué protege el interruptor termomagnético?", a: ["Cables de sobrecarga/corto", "Personas de choques", "Luz de parpadeos", "Agua"], correct: 0 },
-            { id: 34, cat: "Técnico", q: "¿Fórmula básica de Potencia (P)?", a: ["V / I", "V + I", "V * I", "R * I"], correct: 2 },
-            { id: 35, cat: "Técnico", q: "¿Cable que no tiene carga y cierra el circuito?", a: ["Fase", "Tierra física", "Neutro", "Polo positivo"], correct: 2 },
-            { id: 36, cat: "Maestría", q: "¿Qué indica el Factor de Potencia?", a: ["Eficiencia de energía", "Voltaje pico", "Fuerza mecánica", "Calor disipado"], correct: 0 },
-            { id: 37, cat: "Maestría", q: "¿Unidad de medida de la Inductancia?", a: ["Ohm", "Faradio", "Henrio", "Tesla"], correct: 2 },
-            { id: 38, cat: "Maestría", q: "En un sistema trifásico equilibrado, el neutro:", a: ["Lleva mucha corriente", "No lleva corriente", "Se calienta", "Oscila mucho"], correct: 1 },
-            { id: 39, cat: "Maestría", q: "¿Para qué sirve un puente de diodos?", a: ["Rectificar onda completa", "Amplificar sonido", "Enfriar", "Medir luxes"], correct: 0 },
-            { id: 40, cat: "Maestría", q: "¿Componente con Base, Colector y Emisor?", a: ["Diodo", "Transistor", "Triac", "Potenciómetro"], correct: 1 },
-            { id: 41, cat: "Maestría", q: "¿Qué es la Reactancia Inductiva?", a: ["Oposición al cambio de corriente", "Calor excesivo", "Luz emitida", "Campo estático"], correct: 0 },
-            { id: 42, cat: "Maestría", q: "¿Qué significan las siglas PLC?", a: ["Placa de Cobre", "Controlador Lógico Programable", "Pérdida de Carga", "Punto Lineal"], correct: 1 },
-            { id: 43, cat: "Maestría", q: "¿Qué mide la Impedancia (Z)?", a: ["Resistencia en DC", "Oposición total en AC", "Solo reactancia", "Calor"], correct: 1 },
-            { id: 44, cat: "Maestría", q: "El capacitor de arranque en motores sirve para:", a: ["Ahorrar luz", "Aumentar torque inicial", "Bajar voltaje", "Suavizar sonido"], correct: 1 },
-            { id: 45, cat: "Maestría", q: "¿Qué define el Efecto Hall?", a: ["Voltaje por campo magnético", "Calor por fricción", "Resistencia de luz", "Onda radio"], correct: 0 },
-            { id: 46, cat: "Maestría", q: "¿Qué controla un Variador de Frecuencia (VFD)?", a: ["Luz", "Velocidad de motor AC", "Temperatura", "Presión de agua"], correct: 1 },
-            { id: 47, cat: "Maestría", q: "¿Qué es la Potencia Reactiva?", a: ["Energía útil", "Energía que oscila sin consumirse", "Potencia total", "Solar"], correct: 1 },
-            { id: 48, cat: "Maestría", q: "¿Ventaja principal de la iluminación LED?", a: ["Peso", "Alta eficiencia lumínica", "Genera calor", "Precio bajo siempre"], correct: 1 },
-            { id: 49, cat: "Maestría", q: "¿Unidad de medida del flujo luminoso?", a: ["Lux", "Lumen", "Candela", "Vatio"], correct: 1 },
-            { id: 50, cat: "Maestría", q: "¿Regla de oro #1 en seguridad eléctrica?", a: ["Usar guantes", "Corte efectivo de energía", "Poner casco", "Llamar a un jefe"], correct: 1 }
-        ];
-
+           
+  {
+    "id": 1,
+    "nivel": "basico",
+    "tema": "Ley de Ohm",
+    "pregunta": "En un resistor de 4.7 kΩ circula una corriente de 2.5 mA. ¿Cuál es la caída de tensión medida en sus terminales?",
+    "opciones": [
+      "1.175 V",
+      "11.75 V",
+      "117.5 V",
+      "1.175 mV"
+    ],
+    "respuesta": 1,
+    "explicacion": "Utilizando V = I * R: 0.0025 A * 4700 Ω = 11.75 V."
+  },
+  {
+    "id": 2,
+    "nivel": "basico",
+    "tema": "Circuitos serie/paralelo",
+    "pregunta": "Se conectan tres resistores de 100 Ω en paralelo. ¿Cuál es la resistencia equivalente del conjunto?",
+    "opciones": [
+      "300 Ω",
+      "100 Ω",
+      "33.33 Ω",
+      "0.03 Ω"
+    ],
+    "respuesta": 2,
+    "explicacion": "Para resistencias iguales en paralelo, Req = R / n. En este caso, 100 / 3 = 33.33 Ω."
+  },
+  {
+    "id": 3,
+    "nivel": "basico",
+    "tema": "Capacitores",
+    "pregunta": "¿Cuál es la capacitancia equivalente de dos capacitores de 10 µF conectados en serie?",
+    "opciones": [
+      "20 µF",
+      "10 µF",
+      "5 µF",
+      "1 µF"
+    ],
+    "respuesta": 2,
+    "explicacion": "Los capacitores en serie se calculan como las resistencias en paralelo: (C1 * C2) / (C1 + C2) = 100 / 20 = 5 µF."
+  },
+  {
+    "id": 4,
+    "nivel": "basico",
+    "tema": "Inductores",
+    "pregunta": "¿Qué sucede con la reactancia inductiva (XL) de una bobina si la frecuencia de la señal aplicada se duplica?",
+    "opciones": [
+      "Se reduce a la mitad",
+      "Permanece constante",
+      "Se cuadruplica",
+      "Se duplica"
+    ],
+    "respuesta": 3,
+    "explicacion": "XL = 2 * π * f * L. Al ser directamente proporcional a la frecuencia, si f se duplica, XL también."
+  },
+  {
+    "id": 5,
+    "nivel": "basico",
+    "tema": "Diodos",
+    "pregunta": "¿Cuál es la tensión de umbral aproximada (Vf) para un diodo rectificador de silicio estándar como el 1N4007?",
+    "opciones": [
+      "0.3 V",
+      "0.7 V",
+      "1.2 V",
+      "5.0 V"
+    ],
+    "respuesta": 1,
+    "explicacion": "El silicio requiere aproximadamente 0.7 V para vencer la barrera de potencial de la unión P-N."
+  },
+  {
+    "id": 6,
+    "nivel": "basico",
+    "tema": "Transistores BJT",
+    "pregunta": "En un transistor NPN operando en la región activa, ¿cuál es la polarización correcta de sus uniones?",
+    "opciones": [
+      "Base-Emisor inversa, Base-Colector directa",
+      "Base-Emisor directa, Base-Colector directa",
+      "Base-Emisor inversa, Base-Colector inversa",
+      "Base-Emisor directa, Base-Colector inversa"
+    ],
+    "respuesta": 3,
+    "explicacion": "Para amplificación (región activa), la unión BE debe estar en directa y la BC en inversa."
+  },
+  {
+    "id": 7,
+    "nivel": "basico",
+    "tema": "Electrónica digital",
+    "pregunta": "¿Cuál es el resultado binario de la suma de 1010 + 0101?",
+    "opciones": [
+      "1111",
+      "1000",
+      "10101",
+      "1110"
+    ],
+    "respuesta": 0,
+    "explicacion": "1010 (10 decimal) + 0101 (5 decimal) = 1111 (15 decimal)."
+  },
+  {
+    "id": 8,
+    "nivel": "basico",
+    "tema": "Seguridad eléctrica",
+    "pregunta": "¿Qué dispositivo está diseñado específicamente para proteger a las personas contra fugas de corriente a tierra?",
+    "opciones": [
+      "Fusible térmico",
+      "Interruptor termomagnético",
+      "Interruptor diferencial (GFCI)",
+      "Varistor (MOV)"
+    ],
+    "respuesta": 2,
+    "explicacion": "El interruptor diferencial detecta desequilibrios entre la fase y el neutro, indicando una fuga a tierra."
+  },
+  {
+    "id": 9,
+    "nivel": "basico",
+    "tema": "Instrumentación",
+    "pregunta": "Para medir la corriente que circula por una carga, ¿cómo debe conectarse el amperímetro?",
+    "opciones": [
+      "En paralelo con la fuente",
+      "En serie con la carga",
+      "En paralelo con la carga",
+      "Entre el chasis y tierra"
+    ],
+    "respuesta": 1,
+    "explicacion": "El amperímetro tiene baja impedancia interna y debe ser atravesado por la corriente, por lo tanto se conecta en serie."
+  },
+  {
+    "id": 10,
+    "nivel": "basico",
+    "tema": "MOSFET",
+    "pregunta": "¿Qué terminal de un MOSFET controla la conducción entre el Drenador y la Fuente?",
+    "opciones": [
+      "Base",
+      "Emisor",
+      "Comuerta (Gate)",
+      "Ánodo"
+    ],
+    "respuesta": 2,
+    "explicacion": "El Gate controla el campo eléctrico que permite el flujo de portadores en el canal del MOSFET."
+  },
+  {
+    "id": 11,
+    "nivel": "intermedio",
+    "tema": "Amplificadores operacionales",
+    "pregunta": "En un amplificador inversor con Rin = 10 kΩ y Rf = 100 kΩ, ¿cuál es la ganancia de tensión (Av)?",
+    "opciones": [
+      "10",
+      "-10",
+      "11",
+      "-0.1"
+    ],
+    "respuesta": 1,
+    "explicacion": "Av = -Rf / Rin = -100k / 10k = -10."
+  },
+  {
+    "id": 12,
+    "nivel": "intermedio",
+    "tema": "Transistores BJT",
+    "pregunta": "Si un transistor tiene una β (hFE) de 150 y una corriente de base Ib de 20 µA, ¿cuál es la corriente de colector Ic?",
+    "opciones": [
+      "3 mA",
+      "30 mA",
+      "0.3 mA",
+      "1.5 mA"
+    ],
+    "respuesta": 0,
+    "explicacion": "Ic = β * Ib = 150 * 20e-6 = 0.003 A = 3 mA."
+  },
+  {
+    "id": 13,
+    "nivel": "intermedio",
+    "tema": "Diodos",
+    "pregunta": "¿Qué parámetro define la máxima tensión que un diodo puede soportar en polarización inversa antes de la ruptura?",
+    "opciones": [
+      "Vf",
+      "Ir",
+      "PRV / PIV",
+      "Vgamma"
+    ],
+    "respuesta": 2,
+    "explicacion": "Peak Inverse Voltage (PIV) es la tensión pico inversa máxima soportable por el componente."
+  },
+  {
+    "id": 14,
+    "nivel": "intermedio",
+    "tema": "Circuitos serie/paralelo",
+    "pregunta": "Un circuito divisor de tensión tiene una Vin de 12V, R1 = 2kΩ y R2 = 1kΩ. ¿Cuál es el voltaje en R2?",
+    "opciones": [
+      "8 V",
+      "4 V",
+      "6 V",
+      "2 V"
+    ],
+    "respuesta": 1,
+    "explicacion": "Vout = Vin * (R2 / (R1 + R2)) = 12 * (1000 / 3000) = 4 V."
+  },
+  {
+    "id": 15,
+    "nivel": "intermedio",
+    "tema": "Electrónica digital",
+    "pregunta": "¿Cuál es la función lógica que entrega un '0' lógico solo cuando todas sus entradas son '1'?",
+    "opciones": [
+      "AND",
+      "OR",
+      "NAND",
+      "NOR"
+    ],
+    "respuesta": 2,
+    "explicacion": "NAND es el inverso de AND; produce 0 (LOW) solo si todas las entradas son 1 (HIGH)."
+  },
+  {
+    "id": 16,
+    "nivel": "intermedio",
+    "tema": "Capacitores",
+    "pregunta": "¿Cuál es la constante de tiempo (τ) de un circuito RC con R = 47 kΩ y C = 100 µF?",
+    "opciones": [
+      "4.7 s",
+      "0.47 s",
+      "47 s",
+      "470 ms"
+    ],
+    "respuesta": 0,
+    "explicacion": "τ = R * C = 47000 * 0.000100 = 4.7 segundos."
+  },
+  {
+    "id": 17,
+    "nivel": "intermedio",
+    "tema": "Inductores",
+    "pregunta": "En un transformador ideal con Np=500 vueltas y Ns=50 vueltas, si aplicamos 230V AC al primario, ¿qué tensión obtenemos en el secundario?",
+    "opciones": [
+      "2300 V",
+      "23 V",
+      "46 V",
+      "115 V"
+    ],
+    "respuesta": 1,
+    "explicacion": "Vs = Vp * (Ns / Np) = 230 * (50 / 500) = 23 V."
+  },
+  {
+    "id": 18,
+    "nivel": "intermedio",
+    "tema": "MOSFET",
+    "pregunta": "¿Qué fenómeno ocurre en un MOSFET de enriquecimiento cuando Vgs < Vth?",
+    "opciones": [
+      "Saturación",
+      "Corte",
+      "Región Óhmica",
+      "Avalancha"
+    ],
+    "respuesta": 1,
+    "explicacion": "Si la tensión Gate-Source es menor al umbral, no se forma el canal y el dispositivo está en corte (no conduce)."
+  },
+  {
+    "id": 19,
+    "nivel": "intermedio",
+    "tema": "Instrumentación",
+    "pregunta": "¿Cuál es la función del control 'Trigger' en un osciloscopio?",
+    "opciones": [
+      "Ajustar la amplitud de la señal",
+      "Cambiar la base de tiempo",
+      "Estabilizar la visualización de una forma de onda repetitiva",
+      "Medir la resistencia de entrada"
+    ],
+    "respuesta": 2,
+    "explicacion": "El trigger sincroniza el barrido horizontal con un punto específico de la señal vertical para evitar que la imagen 'baile'."
+  },
+  {
+    "id": 20,
+    "nivel": "intermedio",
+    "tema": "Seguridad eléctrica",
+    "pregunta": "¿Qué valor máximo de resistencia de puesta a tierra se recomienda generalmente para instalaciones residenciales estándar según normativas internacionales?",
+    "opciones": [
+      "1000 Ω",
+      "100 Ω",
+      "25 Ω",
+      "1 Ω"
+    ],
+    "respuesta": 2,
+    "explicacion": "El NEC y otras normativas sugieren un máximo de 25 Ω para garantizar una disipación segura."
+  },
+  {
+    "id": 21,
+    "nivel": "avanzado",
+    "tema": "Amplificadores operacionales",
+    "pregunta": "Un Op-Amp tiene un Slew Rate de 0.5 V/µs. ¿Cuál es la frecuencia máxima de una señal senoidal de 10V pico que puede amplificar sin distorsión?",
+    "opciones": [
+      "7.96 kHz",
+      "15.9 kHz",
+      "50 kHz",
+      "5 kHz"
+    ],
+    "respuesta": 0,
+    "explicacion": "fmax = SR / (2 * π * Vp) = 500,000 / (2 * 3.1416 * 10) ≈ 7.96 kHz."
+  },
+  {
+    "id": 22,
+    "nivel": "avanzado",
+    "tema": "Transistores BJT",
+    "pregunta": "En un amplificador de emisor común, ¿qué efecto tiene el capacitor de derivación (bypass) en el resistor de emisor?",
+    "opciones": [
+      "Disminuye la impedancia de entrada",
+      "Aumenta la ganancia de voltaje en AC",
+      "Reduce la estabilidad térmica",
+      "Elimina la polarización por división de tensión"
+    ],
+    "respuesta": 1,
+    "explicacion": "El capacitor pone a tierra el emisor para señales de AC, eliminando la realimentación negativa local y maximizando la ganancia."
+  },
+  {
+    "id": 23,
+    "nivel": "avanzado",
+    "tema": "MOSFET",
+    "pregunta": "¿Cuál es la principal ventaja de un driver de compuerta (Gate Driver) aislado en convertidores de potencia tipo puente H?",
+    "opciones": [
+      "Aumentar la Vth del MOSFET",
+      "Reducir la capacitancia Ciss",
+      "Prevenir corrientes de retorno del bus de alta tensión hacia el microcontrolador",
+      "Linealizar la respuesta de corriente"
+    ],
+    "respuesta": 2,
+    "explicacion": "El aislamiento galvánico protege la electrónica de control de transitorios y permite el manejo de MOSFETs de lado alto (high-side)."
+  },
+  {
+    "id": 24,
+    "nivel": "avanzado",
+    "tema": "Electrónica digital",
+    "pregunta": "¿Qué sucede en un Flip-Flop JK si las entradas J y K están ambas en nivel alto (1) durante un flanco de reloj?",
+    "opciones": [
+      "Estado de memoria",
+      "Set (Q=1)",
+      "Reset (Q=0)",
+      "Basculamiento (Toggle)"
+    ],
+    "respuesta": 3,
+    "explicacion": "Cuando J=K=1, la salida Q cambia a su estado complementario (toggle) en cada pulso de reloj."
+  },
+  {
+    "id": 25,
+    "nivel": "avanzado",
+    "tema": "Inductores",
+    "pregunta": "¿Cómo se define el factor de calidad (Q) de un inductor en un circuito resonante?",
+    "opciones": [
+      "Q = XL / R_serie",
+      "Q = R_serie / XL",
+      "Q = L / C",
+      "Q = 1 / (2πLC)"
+    ],
+    "respuesta": 0,
+    "explicacion": "El factor Q es la relación entre la reactancia inductiva y la resistencia óhmica de la bobina; indica la eficiencia."
+  },
+  {
+    "id": 26,
+    "nivel": "avanzado",
+    "tema": "Diodos",
+    "pregunta": "¿Cuál es la función de un diodo 'Freewheeling' en paralelo con una carga inductiva conmutada?",
+    "opciones": [
+      "Aumentar la velocidad de conmutación",
+      "Rectificar la señal de entrada",
+      "Disipar la energía almacenada en el campo magnético para evitar picos de sobretensión",
+      "Estabilizar la tensión Zener"
+    ],
+    "respuesta": 2,
+    "explicacion": "Cuando el transistor se apaga, el inductor intenta mantener la corriente; el diodo ofrece un camino seguro para evitar el pico de fuerza contraelectromotriz."
+  },
+  {
+    "id": 27,
+    "nivel": "avanzado",
+    "tema": "Instrumentación",
+    "pregunta": "Usted mide una señal de 100 mV con una sonda de osciloscopio 10X. ¿Qué amplitud verá realmente el convertidor ADC del osciloscopio si no se compensa el ajuste?",
+    "opciones": [
+      "1 V",
+      "100 mV",
+      "10 mV",
+      "1 mV"
+    ],
+    "respuesta": 2,
+    "explicacion": "La sonda 10X atenúa la señal por 10. Si entran 100 mV, al osciloscopio llegan 10 mV."
+  },
+  {
+    "id": 28,
+    "nivel": "avanzado",
+    "tema": "Capacitores",
+    "pregunta": "¿Qué propiedad de un capacitor electrolítico causa calentamiento excesivo en fuentes de alimentación conmutadas (SMPS) de alta frecuencia?",
+    "opciones": [
+      "Capacitancia nominal",
+      "Tensión de ruptura",
+      "ESR (Resistencia Serie Equivalente)",
+      "Corriente de fuga"
+    ],
+    "respuesta": 2,
+    "explicacion": "La ESR provoca pérdidas por efecto Joule al circular corrientes de ripple elevadas a alta frecuencia."
+  },
+  {
+    "id": 29,
+    "nivel": "avanzado",
+    "tema": "Ley de Ohm",
+    "pregunta": "En un sistema trifásico equilibrado, si la potencia total es de 10 kW y el voltaje de línea es 400V con FP=0.8, ¿cuál es la corriente de línea?",
+    "opciones": [
+      "18.04 A",
+      "14.43 A",
+      "25.00 A",
+      "31.25 A"
+    ],
+    "respuesta": 0,
+    "explicacion": "I = P / (√3 * Vlinea * FP) = 10000 / (1.732 * 400 * 0.8) ≈ 18.04 A."
+  },
+  {
+    "id": 30,
+    "nivel": "avanzado",
+    "tema": "Seguridad eléctrica",
+    "pregunta": "¿Qué categoría de medición (CAT) debe tener un multímetro para trabajar con seguridad en el tablero de entrada de una instalación industrial?",
+    "opciones": [
+      "CAT I",
+      "CAT II",
+      "CAT III",
+      "CAT IV"
+    ],
+    "respuesta": 3,
+    "explicacion": "CAT IV es para mediciones en el origen de la instalación (acometida), donde los transitorios son más peligrosos."
+  },
+  {
+    "id": 31,
+    "nivel": "basico",
+    "tema": "Ley de Ohm",
+    "pregunta": "¿Cuánta potencia disipa un resistor de 10 Ω cuando circula una corriente de 2 A?",
+    "opciones": [
+      "20 W",
+      "40 W",
+      "5 W",
+      "100 W"
+    ],
+    "respuesta": 1,
+    "explicacion": "P = I² * R = 2² * 10 = 40 W."
+  },
+  {
+    "id": 32,
+    "nivel": "basico",
+    "tema": "Circuitos serie/paralelo",
+    "pregunta": "En un circuito serie de dos lámparas iguales conectadas a 12V, ¿qué voltaje recibe cada lámpara?",
+    "opciones": [
+      "12 V",
+      "0 V",
+      "6 V",
+      "24 V"
+    ],
+    "respuesta": 2,
+    "explicacion": "En serie, el voltaje se divide proporcionalmente. Al ser cargas iguales, 12V / 2 = 6V."
+  },
+  {
+    "id": 33,
+    "nivel": "basico",
+    "tema": "Capacitores",
+    "pregunta": "¿Cuál es la unidad de medida de la carga eléctrica almacenada en un capacitor?",
+    "opciones": [
+      "Faradio",
+      "Voltio",
+      "Coulomb",
+      "Ampere"
+    ],
+    "respuesta": 2,
+    "explicacion": "Q = C * V. La carga se mide en Coulombs (C)."
+  },
+  {
+    "id": 34,
+    "nivel": "basico",
+    "tema": "Inductores",
+    "pregunta": "¿Qué componente se opone a los cambios bruscos de corriente?",
+    "opciones": [
+      "Resistor",
+      "Capacitor",
+      "Inductor",
+      "Diodo Zener"
+    ],
+    "respuesta": 2,
+    "explicacion": "La inductancia genera una f.e.m. que se opone a la variación del flujo magnético, por ende, a la variación de corriente."
+  },
+  {
+    "id": 35,
+    "nivel": "basico",
+    "tema": "Diodos",
+    "pregunta": "¿En qué condición conduce corriente un diodo LED?",
+    "opciones": [
+      "Polarización inversa",
+      "Polarización directa",
+      "Sin polarización",
+      "Alta frecuencia solamente"
+    ],
+    "respuesta": 1,
+    "explicacion": "Un LED debe estar polarizado directamente (Ánodo a positivo, Cátodo a negativo) para emitir fotones."
+  },
+  {
+    "id": 36,
+    "nivel": "basico",
+    "tema": "Transistores BJT",
+    "pregunta": "¿Cuál de las siguientes es una configuración básica de amplificador con BJT?",
+    "opciones": [
+      "Drenador común",
+      "Puerta común",
+      "Emisor común",
+      "Canal N"
+    ],
+    "respuesta": 2,
+    "explicacion": "Las tres configuraciones básicas del BJT son Base Común, Emisor Común y Colector Común."
+  },
+  {
+    "id": 37,
+    "nivel": "basico",
+    "tema": "MOSFET",
+    "pregunta": "¿Qué significa la sigla MOSFET?",
+    "opciones": [
+      "Motor On Silicon Field Effect Transistor",
+      "Metal Oxide Semiconductor Field Effect Transistor",
+      "Mobile Operating System Field Effect Transistor",
+      "Medium Output Semiconductor Field Effect Transistor"
+    ],
+    "respuesta": 1,
+    "explicacion": "Se refiere a la estructura de metal, óxido (aislante) y semiconductor."
+  },
+  {
+    "id": 38,
+    "nivel": "basico",
+    "tema": "Electrónica digital",
+    "pregunta": "¿Cuántos bits tiene un Byte?",
+    "opciones": [
+      "4",
+      "8",
+      "16",
+      "32"
+    ],
+    "respuesta": 1,
+    "explicacion": "Un Byte es la unidad básica de información compuesta por 8 bits."
+  },
+  {
+    "id": 39,
+    "nivel": "basico",
+    "tema": "Seguridad eléctrica",
+    "pregunta": "¿Cuál es el color normativo del conductor de protección de tierra en la mayoría de los países?",
+    "opciones": [
+      "Rojo",
+      "Azul",
+      "Verde o Verde/Amarillo",
+      "Negro"
+    ],
+    "respuesta": 2,
+    "explicacion": "El verde o la combinación verde/amarillo se reserva universalmente para la puesta a tierra."
+  },
+  {
+    "id": 40,
+    "nivel": "basico",
+    "tema": "Instrumentación",
+    "pregunta": "¿Qué se mide con un Óhmetro?",
+    "opciones": [
+      "Tensión",
+      "Corriente",
+      "Resistencia",
+      "Frecuencia"
+    ],
+    "respuesta": 2,
+    "explicacion": "El óhmetro aplica una pequeña tensión para determinar la resistencia de un componente."
+  },
+  {
+    "id": 41,
+    "nivel": "intermedio",
+    "tema": "Amplificadores operacionales",
+    "pregunta": "¿Cuál es la impedancia de entrada ideal de un amplificador operacional?",
+    "opciones": [
+      "0 Ω",
+      "50 Ω",
+      "1 kΩ",
+      "Infinita"
+    ],
+    "respuesta": 3,
+    "explicacion": "Idealmente, un Op-Amp no debe cargar a la etapa anterior, por lo que su impedancia de entrada se considera infinita."
+  },
+  {
+    "id": 42,
+    "nivel": "intermedio",
+    "tema": "Transistores BJT",
+    "pregunta": "¿Qué sucede con la corriente de colector si un transistor BJT entra en saturación?",
+    "opciones": [
+      "Se hace cero",
+      "Aumenta linealmente con la corriente de base",
+      "Llega a su valor máximo limitado por el circuito externo",
+      "Se invierte"
+    ],
+    "respuesta": 2,
+    "explicacion": "En saturación, aunque aumente Ib, Ic ya no aumenta porque el circuito de carga alcanzó su límite."
+  },
+  {
+    "id": 43,
+    "nivel": "intermedio",
+    "tema": "Diodos",
+    "pregunta": "¿Para qué se utiliza principalmente un diodo Zener?",
+    "opciones": [
+      "Rectificación de alta potencia",
+      "Emisión de luz infrarroja",
+      "Regulación de voltaje",
+      "Detección de señales de RF"
+    ],
+    "respuesta": 2,
+    "explicacion": "El diodo Zener trabaja en la zona de ruptura para mantener un voltaje constante."
+  },
+  {
+    "id": 44,
+    "nivel": "intermedio",
+    "tema": "Electrónica digital",
+    "pregunta": "¿Cuál es el equivalente hexadecimal del número binario 1011?",
+    "opciones": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "respuesta": 1,
+    "explicacion": "1011 en binario es 11 en decimal, lo cual corresponde a 'B' en hexadecimal."
+  },
+  {
+    "id": 45,
+    "nivel": "intermedio",
+    "tema": "Capacitores",
+    "pregunta": "Un capacitor tiene impreso el código '104'. ¿Cuál es su valor en nanoFaradios (nF)?",
+    "opciones": [
+      "10 nF",
+      "100 nF",
+      "1000 nF",
+      "1.04 nF"
+    ],
+    "respuesta": 1,
+    "explicacion": "10 + cuatro ceros = 100,000 pF = 100 nF."
+  },
+  {
+    "id": 46,
+    "nivel": "intermedio",
+    "tema": "Inductores",
+    "pregunta": "¿Qué ocurre con la inductancia total si se añaden más vueltas de alambre a una bobina con núcleo de aire?",
+    "opciones": [
+      "Disminuye",
+      "No cambia",
+      "Aumenta",
+      "Se cancela"
+    ],
+    "respuesta": 2,
+    "explicacion": "La inductancia es proporcional al cuadrado del número de vueltas (N²)."
+  },
+  {
+    "id": 47,
+    "nivel": "intermedio",
+    "tema": "Ley de Ohm",
+    "pregunta": "En un circuito con 24V, si la resistencia se reduce a la mitad, ¿qué sucede con la corriente?",
+    "opciones": [
+      "Se reduce a la mitad",
+      "Permanece igual",
+      "Se cuadruplica",
+      "Se duplica"
+    ],
+    "respuesta": 3,
+    "explicacion": "I = V / R. Si R es R/2, entonces I = V / (R/2) = 2 * (V/R)."
+  },
+  {
+    "id": 48,
+    "nivel": "intermedio",
+    "tema": "Circuitos serie/paralelo",
+    "pregunta": "¿Qué ocurre en un circuito serie si uno de los componentes se abre (se rompe)?",
+    "opciones": [
+      "La corriente aumenta",
+      "El resto de los componentes sigue funcionando",
+      "La corriente cae a cero en todo el circuito",
+      "Se produce un cortocircuito"
+    ],
+    "respuesta": 2,
+    "explicacion": "En serie solo hay un camino para la corriente; si se abre, el flujo se detiene totalmente."
+  },
+  {
+    "id": 49,
+    "nivel": "intermedio",
+    "tema": "Instrumentación",
+    "pregunta": "¿Qué mide el valor RMS de una señal de corriente alterna?",
+    "opciones": [
+      "El valor pico máximo",
+      "El valor promedio aritmético",
+      "El valor equivalente en DC que produciría el mismo calor",
+      "La frecuencia de la señal"
+    ],
+    "respuesta": 2,
+    "explicacion": "Root Mean Square (RMS) es el valor eficaz térmicamente equivalente a una señal de corriente continua."
+  },
+  {
+    "id": 50,
+    "nivel": "intermedio",
+    "tema": "Seguridad eléctrica",
+    "pregunta": "¿Por qué nunca se debe sustituir un fusible por un trozo de alambre de cobre grueso?",
+    "opciones": [
+      "Porque el cobre tiene demasiada resistencia",
+      "Porque elimina la protección contra sobrecorriente, arriesgando un incendio",
+      "Porque el voltaje bajará",
+      "Porque daña el factor de potencia"
+    ],
+    "respuesta": 1,
+    "explicacion": "Un fusible es un eslabón débil diseñado para fundirse; un alambre grueso no lo hará, permitiendo que el exceso de corriente queme los conductores."
+  },
+  {
+    "id": 51,
+    "nivel": "avanzado",
+    "tema": "Amplificadores operacionales",
+    "pregunta": "¿Cómo se calcula la frecuencia de corte superior de un filtro paso bajo activo de primer orden con R y C?",
+    "opciones": [
+      "f = R * C",
+      "f = 1 / (R * C)",
+      "f = 1 / (2 * π * R * C)",
+      "f = 2 * π * R * C"
+    ],
+    "respuesta": 2,
+    "explicacion": "La frecuencia de corte donde la ganancia cae -3dB es fc = 1 / (2πRC)."
+  },
+  {
+    "id": 52,
+    "nivel": "avanzado",
+    "tema": "MOSFET",
+    "pregunta": "En un diseño de PCB de alta velocidad, ¿por qué es crítico minimizar la inductancia del Gate Loop?",
+    "opciones": [
+      "Para reducir el voltaje de umbral",
+      "Para evitar oscilaciones (ringing) durante la conmutación",
+      "Para aumentar la resistencia RDS(on)",
+      "Para mejorar el aislamiento óptico"
+    ],
+    "respuesta": 1,
+    "explicacion": "La inductancia parásita combinada con la capacitancia de la compuerta crea un circuito LC que puede oscilar y dañar el MOSFET."
+  },
+  {
+    "id": 53,
+    "nivel": "avanzado",
+    "tema": "Transistores BJT",
+    "pregunta": "¿Qué es la distorsión de cruce (crossover distortion) en un amplificador de potencia Clase B?",
+    "opciones": [
+      "Ruido térmico en los resistores",
+      "Distorsión cuando la señal pasa por cero debido a que los transistores necesitan 0.7V para conducir",
+      "Saturación del núcleo del transformador",
+      "Desfasamiento de 180 grados"
+    ],
+    "respuesta": 1,
+    "explicacion": "Ocurre en la zona muerta donde ninguno de los dos transistores (NPN/PNP) está conduciendo porque la señal es menor a Vf."
+  },
+  {
+    "id": 54,
+    "nivel": "avanzado",
+    "tema": "Electrónica digital",
+    "pregunta": "¿Qué ventaja principal ofrece la lógica CMOS sobre la lógica TTL?",
+    "opciones": [
+      "Mayor velocidad de conmutación",
+      "Menor consumo de potencia en estado estático",
+      "Mayor inmunidad a descargas electrostáticas",
+      "Voltaje de alimentación único de 5V"
+    ],
+    "respuesta": 1,
+    "explicacion": "Los transistores MOSFET en configuración complementaria casi no consumen corriente excepto durante las transiciones."
+  },
+  {
+    "id": 55,
+    "nivel": "avanzado",
+    "tema": "Diodos",
+    "pregunta": "¿Cuál es el propósito de utilizar diodos Schottky en fuentes conmutadas?",
+    "opciones": [
+      "Soportar voltajes de 1000V",
+      "Reducir el tiempo de recuperación inversa (trr) y las pérdidas por conmutación",
+      "Actuar como reguladores de precisión",
+      "Aumentar la caída de tensión directa"
+    ],
+    "respuesta": 1,
+    "explicacion": "Los Schottky tienen un trr casi nulo y menor Vf, lo que los hace ideales para alta frecuencia."
+  },
+  {
+    "id": 56,
+    "nivel": "avanzado",
+    "tema": "Inductores",
+    "pregunta": "¿Qué es la saturación magnética de un núcleo de ferrita?",
+    "opciones": [
+      "Cuando el núcleo se vuelve conductor eléctrico",
+      "Cuando el núcleo pierde sus propiedades mecánicas",
+      "Punto donde un aumento en la corriente ya no produce un aumento proporcional en el flujo magnético",
+      "Cuando la inductancia se vuelve infinita"
+    ],
+    "respuesta": 2,
+    "explicacion": "Al saturarse, la permeabilidad cae drásticamente y la inductancia disminuye, pudiendo causar picos de corriente peligrosos."
+  },
+  {
+    "id": 57,
+    "nivel": "avanzado",
+    "tema": "Instrumentación",
+    "pregunta": "Usted está midiendo el THD (Total Harmonic Distortion) de un amplificador. ¿Qué instrumento es el más adecuado?",
+    "opciones": [
+      "Multímetro True RMS",
+      "Analizador de espectro",
+      "Frecuencímetro",
+      "Vatímetro"
+    ],
+    "respuesta": 1,
+    "explicacion": "El analizador de espectro permite ver las amplitudes de las armónicas individuales respecto a la fundamental."
+  },
+  {
+    "id": 58,
+    "nivel": "avanzado",
+    "tema": "Capacitores",
+    "pregunta": "¿Cuál es el efecto de la absorción dieléctrica en capacitores de precisión?",
+    "opciones": [
+      "Aumento de la resistencia serie",
+      "Retención de una pequeña carga después de la descarga (efecto memoria)",
+      "Explosión por sobrepresión",
+      "Cambio de color del encapsulado"
+    ],
+    "respuesta": 1,
+    "explicacion": "Es un fenómeno donde el dipolo del dieléctrico no se recupera instantáneamente, manteniendo un potencial residual."
+  },
+  {
+    "id": 59,
+    "nivel": "avanzado",
+    "tema": "Seguridad eléctrica",
+    "pregunta": "¿Cuál es la función de un transformador de aislamiento en un laboratorio técnico?",
+    "opciones": [
+      "Elevar el voltaje para pruebas",
+      "Reducir el ruido de alta frecuencia",
+      "Desvincular galvánicamente el circuito de prueba de la tierra de la red eléctrica",
+      "Mejorar el factor de potencia"
+    ],
+    "respuesta": 2,
+    "explicacion": "Permite medir con osciloscopios (referenciados a tierra) en circuitos conectados a la red sin causar cortocircuitos por el clip de tierra."
+  },
+  {
+    "id": 60,
+    "nivel": "avanzado",
+    "tema": "Circuitos serie/paralelo",
+    "pregunta": "En un circuito RLC paralelo en resonancia, ¿qué sucede con la impedancia total?",
+    "opciones": [
+      "Es mínima (tiende a cero)",
+      "Es máxima (tiende a la resistencia paralelo)",
+      "Es puramente imaginaria",
+      "Depende solo de C"
+    ],
+    "respuesta": 1,
+    "explicacion": "En resonancia paralelo, las corrientes reactivas de L y C se cancelan, dejando una impedancia puramente resistiva y máxima."
+  },
+  {
+    "id": 61,
+    "nivel": "basico",
+    "tema": "Ley de Ohm",
+    "pregunta": "Si un circuito tiene una resistencia de 1kΩ y se aplica una tensión de 5V, ¿cuál es la corriente?",
+    "opciones": ["50 mA", "5 mA", "0.5 mA", "500 µA"],
+    "respuesta": 1,
+    "explicacion": "I = 5V / 1000Ω = 0.005A = 5mA."
+  },
+  {
+    "id": 62,
+    "nivel": "basico",
+    "tema": "Diodos",
+    "pregunta": "¿Hacia dónde apunta la flecha en el símbolo de un diodo convencional?",
+    "opciones": ["Ánodo", "Cátodo", "Base", "Emisor"],
+    "respuesta": 1,
+    "explicacion": "La flecha apunta en el sentido de la corriente convencional, es decir, hacia el cátodo (terminal negativo)."
+  },
+  {
+    "id": 63,
+    "nivel": "basico",
+    "tema": "Capacitores",
+    "pregunta": "¿Cuál es la función principal de un capacitor de desacople?",
+    "opciones": ["Bloquear corriente directa", "Filtrar ruido de alta frecuencia a tierra", "Amplificar la señal", "Almacenar energía para meses"],
+    "respuesta": 1,
+    "explicacion": "Provee un camino de baja impedancia a tierra para transitorios de alta frecuencia, estabilizando la alimentación de los IC."
+  },
+  {
+    "id": 64,
+    "nivel": "basico",
+    "tema": "Transistores BJT",
+    "pregunta": "¿Qué significan las siglas BJT?",
+    "opciones": ["Binary Joint Transistor", "Bipolar Junction Transistor", "Base Junction Terminal", "Basic Junction Transistor"],
+    "respuesta": 1,
+    "explicacion": "Se llama bipolar porque utiliza tanto electrones como huecos para la conducción."
+  },
+  {
+    "id": 65,
+    "nivel": "basico",
+    "tema": "Electrónica digital",
+    "pregunta": "¿Qué nivel lógico representa típicamente una tensión de 0V en lógica TTL?",
+    "opciones": ["Alto (1)", "Bajo (0)", "Alta Impedancia", "Indeterminado"],
+    "respuesta": 1,
+    "explicacion": "En TTL, un nivel bajo está comprendido entre 0V y 0.8V."
+  },
+  {
+    "id": 66,
+    "nivel": "basico",
+    "tema": "Instrumentación",
+    "pregunta": "¿Qué mide un multímetro puesto en la escala de continuidad?",
+    "opciones": ["Si hay voltaje", "Si la resistencia es muy baja (cerca de 0Ω)", "La capacitancia", "La frecuencia"],
+    "respuesta": 1,
+    "explicacion": "Emite un pitido si detecta un camino eléctrico cerrado de muy baja resistencia."
+  },
+  {
+    "id": 67,
+    "nivel": "basico",
+    "tema": "Inductores",
+    "pregunta": "¿En qué unidades se mide la inductancia?",
+    "opciones": ["Ohmios", "Faradios", "Henrios", "Teslas"],
+    "respuesta": 2,
+    "explicacion": "La unidad fundamental de la inductancia es el Henrio (H)."
+  },
+  {
+    "id": 68,
+    "nivel": "basico",
+    "tema": "Seguridad eléctrica",
+    "pregunta": "¿Por qué es peligroso trabajar con las manos húmedas en equipos eléctricos?",
+    "opciones": ["Porque el agua aumenta la resistencia del cuerpo", "Porque el agua disminuye la resistencia de la piel, permitiendo más corriente", "Porque el agua genera magnetismo", "Porque el agua purifica los electrones"],
+    "respuesta": 1,
+    "explicacion": "La humedad reduce drásticamente la resistencia de contacto, facilitando el paso de una corriente letal."
+  },
+  {
+    "id": 69,
+    "nivel": "basico",
+    "tema": "Circuitos serie/paralelo",
+    "pregunta": "Si quito una bombilla de un circuito en paralelo, ¿qué sucede con las demás?",
+    "opciones": ["Se apagan todas", "Brillan más", "Siguen encendidas igual", "Se queman"],
+    "respuesta": 2,
+    "explicacion": "En paralelo, cada rama es independiente de las otras respecto al suministro de voltaje."
+  },
+  {
+    "id": 70,
+    "nivel": "basico",
+    "tema": "MOSFET",
+    "pregunta": "¿Cuál es la característica principal de la entrada (Gate) de un MOSFET?",
+    "opciones": ["Baja impedancia", "Alta impedancia (aislada)", "Conduce mucha corriente", "Es de germanio"],
+    "respuesta": 1,
+    "explicacion": "La compuerta está aislada por una capa de óxido, por lo que casi no fluye corriente hacia ella (estática)."
+  },
+  {
+    "id": 71,
+    "nivel": "intermedio",
+    "tema": "Amplificadores operacionales",
+    "pregunta": "Un comparador con histéresis también es conocido como:",
+    "opciones": ["Seguidor de tensión", "Trigger de Schmitt", "Integrador Miller", "Filtro Sallen-Key"],
+    "respuesta": 1,
+    "explicacion": "El Trigger de Schmitt usa realimentación positiva para crear dos umbrales y evitar oscilaciones por ruido."
+  },
+  {
+    "id": 72,
+    "nivel": "intermedio",
+    "tema": "Transistores BJT",
+    "pregunta": "¿Qué es la corriente de fuga ICEO?",
+    "opciones": ["Corriente entre Base y Emisor", "Corriente entre Colector y Emisor con la Base abierta", "Corriente máxima de saturación", "Corriente de protección"],
+    "respuesta": 1,
+    "explicacion": "Es la corriente que fluye del colector al emisor cuando la base no tiene conexión, indicando imperfecciones del material."
+  },
+  {
+    "id": 73,
+    "nivel": "intermedio",
+    "tema": "Diodos",
+    "pregunta": "¿Cómo se comporta un diodo Varactor?",
+    "opciones": ["Como una resistencia variable por luz", "Como un capacitor variable controlado por voltaje inverso", "Como un interruptor térmico", "Como una fuente de corriente"],
+    "respuesta": 1,
+    "explicacion": "Al variar la tensión inversa, cambia el ancho de la zona de agotamiento, variando su capacitancia."
+  },
+  {
+    "id": 74,
+    "nivel": "intermedio",
+    "tema": "Electrónica digital",
+    "pregunta": "¿Cuál es la función de un decodificador de 3 a 8 líneas?",
+    "opciones": ["Convertir binario a 7 segmentos", "Activar una de las 8 salidas según la combinación de 3 bits de entrada", "Sumar 3 números de 8 bits", "Almacenar 8 estados"],
+    "respuesta": 1,
+    "explicacion": "Un decodificador n a 2^n selecciona una única salida para cada combinación de entrada."
+  },
+  {
+    "id": 75,
+    "nivel": "intermedio",
+    "tema": "Capacitores",
+    "pregunta": "¿Qué parámetro indica cuánto se desvía la fase entre corriente y tensión en un capacitor real?",
+    "opciones": ["Factor de potencia", "Ángulo de pérdidas (delta)", "Reactancia", "Frecuencia de resonancia"],
+    "respuesta": 1,
+    "explicacion": "El tan(delta) mide la disipación de energía en el dieléctrico."
+  },
+  {
+    "id": 76,
+    "nivel": "intermedio",
+    "tema": "Inductores",
+    "pregunta": "Si conectamos dos inductores de 10mH en paralelo (sin acoplamiento magnético), la inductancia total es:",
+    "opciones": ["20 mH", "10 mH", "5 mH", "100 mH"],
+    "respuesta": 2,
+    "explicacion": "Lp = (L1 * L2) / (L1 + L2) = 100 / 20 = 5 mH."
+  },
+  {
+    "id": 77,
+    "nivel": "intermedio",
+    "tema": "Instrumentación",
+    "pregunta": "¿Qué significa que un multímetro sea 'True RMS'?",
+    "opciones": ["Que mide solo señales de 60Hz", "Que calcula el valor eficaz real incluso en señales no senoidales", "Que es automático", "Que tiene mucha batería"],
+    "respuesta": 1,
+    "explicacion": "Los multímetros estándar asumen que la señal es una sinusoide perfecta; los True RMS miden correctamente ondas cuadradas, triangulares o con ruido."
+  },
+  {
+    "id": 78,
+    "nivel": "intermedio",
+    "tema": "MOSFET",
+    "pregunta": "¿Cuál es la función del diodo interno (body diode) en un MOSFET de potencia?",
+    "opciones": ["Protección contra sobretensiones Gate-Source", "Conducir corriente en sentido inverso de Fuente a Drenador", "Aumentar la velocidad", "Reducir la temperatura"],
+    "respuesta": 1,
+    "explicacion": "Es un diodo parásito inherente a la estructura física que permite la conducción inversa."
+  },
+  {
+    "id": 79,
+    "nivel": "intermedio",
+    "tema": "Seguridad eléctrica",
+    "pregunta": "¿Qué es el 'Arco Eléctrico' (Arc Flash)?",
+    "opciones": ["Una luz decorativa", "Una descarga eléctrica a través del aire por ionización", "Un tipo de soldadura suave", "Un error en el osciloscopio"],
+    "respuesta": 1,
+    "explicacion": "Es una explosión de energía térmica y lumínica causada por un cortocircuito a través del aire."
+  },
+  {
+    "id": 80,
+    "nivel": "intermedio",
+    "tema": "Circuitos serie/paralelo",
+    "pregunta": "En un puente de Wheatstone equilibrado, si R1=1k, R2=1k y R3=500, ¿cuánto vale Rx?",
+    "opciones": ["1k", "500 Ω", "2k", "250 Ω"],
+    "respuesta": 1,
+    "explicacion": "En equilibrio, R1/R2 = R3/Rx. Si R1=R2, entonces Rx=R3=500 Ω."
+  },
+  {
+    "id": 81,
+    "nivel": "avanzado",
+    "tema": "Amplificadores operacionales",
+    "pregunta": "¿Qué es el CMRR (Common Mode Rejection Ratio)?",
+    "opciones": ["La ganancia de la señal diferencial", "La capacidad de rechazar señales que aparecen igual en ambas entradas", "La velocidad máxima de salida", "La corriente de offset"],
+    "respuesta": 1,
+    "explicacion": "Es la relación entre la ganancia diferencial y la ganancia de modo común; mide la calidad del amplificador."
+  },
+  {
+    "id": 82,
+    "nivel": "avanzado",
+    "tema": "Transistores BJT",
+    "pregunta": "¿Qué es el efecto Early en un BJT?",
+    "opciones": ["El calentamiento prematuro del transistor", "La variación del ancho efectivo de la base con el voltaje Colector-Base", "La falla del transistor a altas frecuencias", "La oscilación por capacitancia parásita"],
+    "respuesta": 1,
+    "explicacion": "Al aumentar Vcb, la región de agotamiento invade la base, reduciendo su ancho y aumentando la Ic."
+  },
+  {
+    "id": 83,
+    "nivel": "avanzado",
+    "tema": "MOSFET",
+    "pregunta": "¿Qué representa el parámetro 'Gate Charge' (Qg) en la hoja de datos?",
+    "opciones": ["La carga máxima del drenador", "La cantidad de carga necesaria inyectar en la compuerta para conmutar el dispositivo", "El voltaje de ruptura", "La corriente de fuga del Gate"],
+    "respuesta": 1,
+    "explicacion": "Es más útil que la capacitancia para calcular el tiempo de conmutación y la corriente requerida del driver."
+  },
+  {
+    "id": 84,
+    "nivel": "avanzado",
+    "tema": "Electrónica digital",
+    "pregunta": "¿Qué es un 'Race Condition' (condición de carrera) en circuitos lógicos asíncronos?",
+    "opciones": ["Un concurso de velocidad de CPU", "Un error donde la salida depende del orden de llegada de señales que deberían ser simultáneas", "Cuando el reloj es demasiado rápido", "Una quema de compuertas"],
+    "respuesta": 1,
+    "explicacion": "Ocurre cuando el estado final de un sistema depende de retrasos de propagación impredecibles en el hardware."
+  },
+  {
+    "id": 85,
+    "nivel": "avanzado",
+    "tema": "Diodos",
+    "pregunta": "¿Cómo funciona un diodo Túnel?",
+    "opciones": ["Por emisión termoiónica", "Por el efecto túnel mecánico-cuántico que permite resistencia negativa", "Por calentamiento directo", "Como un LED de alta potencia"],
+    "respuesta": 1,
+    "explicacion": "Debido a un dopaje muy alto, los portadores cruzan la barrera a pesar de no tener energía suficiente, permitiendo aplicaciones de muy alta frecuencia."
+  },
+  {
+    "id": 86,
+    "nivel": "avanzado",
+    "tema": "Inductores",
+    "pregunta": "¿Qué es la Histéresis Magnética?",
+    "opciones": ["El calor generado en los cables", "El retraso de la inducción magnética respecto a la intensidad del campo aplicado", "La vibración de las láminas del núcleo", "El flujo de electrones en el vacío"],
+    "respuesta": 1,
+    "explicacion": "Representa la energía perdida en magnetizar y desmagnetizar el material del núcleo en cada ciclo."
+  },
+  {
+    "id": 87,
+    "nivel": "avanzado",
+    "tema": "Instrumentación",
+    "pregunta": "¿Qué es el Aliasing en un sistema de adquisición de datos?",
+    "opciones": ["Un nombre falso del usuario", "Distorsión causada al muestrear una señal a una frecuencia menor al doble de su frecuencia máxima", "El ruido térmico del sensor", "La pérdida de bits en la transmisión"],
+    "respuesta": 1,
+    "explicacion": "Según Nyquist, si no muestreas al menos al doble de la frecuencia, aparecen componentes de baja frecuencia falsas."
+  },
+  {
+    "id": 88,
+    "nivel": "avanzado",
+    "tema": "Capacitores",
+    "pregunta": "¿Cuál es la ventaja de los capacitores de Tántalo sobre los electrolíticos de Aluminio?",
+    "opciones": ["Son más baratos", "Tienen mayor estabilidad y capacitancia por unidad de volumen", "Soportan voltajes de 5000V", "Son fáciles de reciclar"],
+    "respuesta": 1,
+    "explicacion": "Ofrecen una densidad volumétrica superior y menor ESR, aunque son sensibles a picos de voltaje."
+  },
+  {
+    "id": 89,
+    "nivel": "avanzado",
+    "tema": "Ley de Ohm",
+    "pregunta": "¿Cuál es la máxima transferencia de potencia según el teorema de Jacobi?",
+    "opciones": ["Cuando la resistencia de carga es el doble de la interna", "Cuando la resistencia de carga es igual a la resistencia interna de la fuente", "Cuando la carga es cero", "Cuando el voltaje es máximo"],
+    "respuesta": 1,
+    "explicacion": "La potencia entregada a la carga es máxima cuando RL = Rth (resistencia de Thévenin)."
+  },
+  {
+    "id": 90,
+    "nivel": "avanzado",
+    "tema": "Seguridad eléctrica",
+    "pregunta": "¿Qué es la tensión de paso?",
+    "opciones": ["La tensión necesaria para encender un equipo", "La diferencia de potencial entre los pies de una persona cerca de una falla a tierra", "La tensión en un interruptor abierto", "El voltaje de una batería descargada"],
+    "respuesta": 1,
+    "explicacion": "Es un peligro mortal durante fallas de alta tensión, donde la tierra misma actúa como un divisor de tensión."
+  },
+  {
+    "id": 91,
+    "nivel": "basico",
+    "tema": "Instrumentación",
+    "pregunta": "¿Para qué sirve el ajuste de 'Zero' en un instrumento analógico?",
+    "opciones": ["Para apagarlo", "Para calibrar la aguja en la posición de reposo inicial", "Para medir voltajes negativos", "Para aumentar la precisión a 100%"],
+    "respuesta": 1,
+    "explicacion": "Compensa errores mecánicos o térmicos para asegurar que la lectura empiece desde cero real."
+  },
+  {
+    "id": 92,
+    "nivel": "basico",
+    "tema": "Diodos",
+    "pregunta": "¿Qué lado del diodo se conecta al polo negativo para que conduzca?",
+    "opciones": ["Ánodo", "Cátodo", "La base", "El chasis"],
+    "respuesta": 1,
+    "explicacion": "En polarización directa, el ánodo va al positivo y el cátodo al negativo."
+  },
+  {
+    "id": 93,
+    "nivel": "basico",
+    "tema": "Ley de Ohm",
+    "pregunta": "Si un foco de 60W se conecta a 120V, ¿cuánta corriente consume?",
+    "opciones": ["0.5 A", "2 A", "7200 A", "120 A"],
+    "respuesta": 0,
+    "explicacion": "I = P / V = 60W / 120V = 0.5A."
+  },
+  {
+    "id": 94,
+    "nivel": "basico",
+    "tema": "Circuitos serie/paralelo",
+    "pregunta": "En un circuito serie, la resistencia total es siempre:",
+    "opciones": ["Menor que la menor resistencia", "Igual al promedio", "La suma de todas las resistencias", "Cero"],
+    "respuesta": 2,
+    "explicacion": "Rt = R1 + R2 + ... + Rn."
+  },
+  {
+    "id": 95,
+    "nivel": "basico",
+    "tema": "Capacitores",
+    "pregunta": "¿Qué componente bloquea la corriente continua (DC) y deja pasar la alterna (AC)?",
+    "opciones": ["Resistor", "Inductor", "Capacitor", "Diodo Zener"],
+    "respuesta": 2,
+    "explicacion": "A frecuencia cero (DC), la reactancia capacitiva es infinita."
+  },
+  {
+    "id": 96,
+    "nivel": "basico",
+    "tema": "Transistores BJT",
+    "pregunta": "¿Qué terminal del BJT se encarga de emitir los portadores de carga?",
+    "opciones": ["Base", "Colector", "Emisor", "Gate"],
+    "respuesta": 2,
+    "explicacion": "El emisor es la región más fuertemente dopada para suministrar portadores."
+  },
+  {
+    "id": 97,
+    "nivel": "basico",
+    "tema": "Electrónica digital",
+    "pregunta": "¿Cuál es la salida de una compuerta OR si sus entradas son 0 y 1?",
+    "opciones": ["0", "1", "Indefinido", "-1"],
+    "respuesta": 1,
+    "explicacion": "La compuerta OR da salida 1 si al menos una entrada es 1."
+  },
+  {
+    "id": 98,
+    "nivel": "basico",
+    "tema": "Seguridad eléctrica",
+    "pregunta": "¿Qué significa LOTO en mantenimiento industrial?",
+    "opciones": ["Luz Operativa Todo el Tiempo", "Lock-Out / Tag-Out (Bloqueo y Etiquetado)", "Low Out Terminal Output", "Line On Time Only"],
+    "respuesta": 1,
+    "explicacion": "Es un procedimiento de seguridad para asegurar que las máquinas estén apagadas y bloqueadas durante reparaciones."
+  },
+  {
+    "id": 99,
+    "nivel": "basico",
+    "tema": "MOSFET",
+    "pregunta": "El MOSFET es un dispositivo controlado por:",
+    "opciones": ["Corriente", "Voltaje", "Luz", "Presión"],
+    "respuesta": 1,
+    "explicacion": "A diferencia del BJT (corriente), el MOSFET se controla por la tensión en el Gate."
+  },
+  {
+    "id": 100,
+    "nivel": "basico",
+    "tema": "Inductores",
+    "pregunta": "¿Qué núcleo suele usarse en bobinas de alta frecuencia?",
+    "opciones": ["Hierro macizo", "Madera", "Ferrita", "Cobre"],
+    "respuesta": 2,
+    "explicacion": "La ferrita minimiza las corrientes de Foucault a altas frecuencias."
+  },
+  {
+    "id": 101,
+    "nivel": "intermedio",
+    "tema": "Amplificadores operacionales",
+    "pregunta": "Un seguidor de tensión tiene una ganancia de:",
+    "opciones": ["Infinita", "0", "1", "Rf/Rin"],
+    "respuesta": 2,
+    "explicacion": "Vout = Vin; se usa para acoplamiento de impedancias."
+  },
+  {
+    "id": 102,
+    "nivel": "intermedio",
+    "tema": "Transistores BJT",
+    "pregunta": "¿Cuál es la relación entre Alpha (α) y Beta (β)?",
+    "opciones": ["α = β + 1", "β = α / (1 - α)", "α = β * 2", "β = 1 / α"],
+    "respuesta": 1,
+    "explicacion": "Alpha es la ganancia de corriente en base común, Beta en emisor común."
+  },
+  {
+    "id": 103,
+    "nivel": "intermedio",
+    "tema": "Diodos",
+    "pregunta": "¿Qué aplicación tiene un puente rectificador de diodos?",
+    "opciones": ["Convertir AC a DC de onda completa", "Convertir DC a AC", "Limitar la corriente", "Amplificar audio"],
+    "respuesta": 0,
+    "explicacion": "Utiliza 4 diodos para aprovechar ambos semiciclos de la corriente alterna."
+  },
+  {
+    "id": 104,
+    "nivel": "intermedio",
+    "tema": "Electrónica digital",
+    "pregunta": "¿Qué componente digital se utiliza para almacenar un solo bit de información de forma síncrona?",
+    "opciones": ["Multiplexor", "Flip-Flop", "Sumador", "Codificador"],
+    "respuesta": 1,
+    "explicacion": "Los flip-flops son las celdas básicas de memoria estática."
+  },
+  {
+    "id": 105,
+    "nivel": "intermedio",
+    "tema": "Capacitores",
+    "pregunta": "¿Por qué un capacitor electrolítico tiene polaridad marcada?",
+    "opciones": ["Para que sea más fácil de leer", "Porque su dieléctrico se forma químicamente y se destruye si se invierte", "Para aumentar su peso", "Porque solo funciona con AC"],
+    "respuesta": 1,
+    "explicacion": "La capa de óxido de aluminio requiere polarización correcta; la inversa genera gases y explosión."
+  },
+  {
+    "id": 106,
+    "nivel": "intermedio",
+    "tema": "Inductores",
+    "pregunta": "En un circuito de alterna, si sube la frecuencia, ¿qué pasa con la impedancia de un inductor?",
+    "opciones": ["Baja", "Sube", "Sigue igual", "Se vuelve negativa"],
+    "respuesta": 1,
+    "explicacion": "XL = 2πfL. A mayor frecuencia, mayor oposición al paso de AC."
+  },
+  {
+    "id": 107,
+    "nivel": "intermedio",
+    "tema": "Instrumentación",
+    "pregunta": "¿Qué es la 'resistencia de entrada' de un voltímetro?",
+    "opciones": ["La resistencia de los cables", "La carga que el voltímetro impone al circuito medido", "La resistencia para medir corriente", "El voltaje de protección"],
+    "respuesta": 1,
+    "explicacion": "Debe ser muy alta (idealmente MΩ) para no alterar el voltaje real del nodo."
+  },
+  {
+    "id": 108,
+    "nivel": "intermedio",
+    "tema": "MOSFET",
+    "pregunta": "¿Qué parámetro define la resistencia del canal cuando el MOSFET está totalmente encendido?",
+    "opciones": ["Vgs(th)", "RDS(on)", "Ciss", "Vds"],
+    "respuesta": 1,
+    "explicacion": "Es clave para calcular las pérdidas por conducción (P = I² * RDSon)."
+  },
+  {
+    "id": 109,
+    "nivel": "intermedio",
+    "tema": "Seguridad eléctrica",
+    "pregunta": "¿Qué función cumple un transformador toroidal en un interruptor diferencial?",
+    "opciones": ["Elevar el voltaje", "Detectar la diferencia de corriente entre fase y neutro", "Filtrar armónicos", "Enfriar el equipo"],
+    "respuesta": 1,
+    "explicacion": "Mide el flujo magnético residual; si la suma de corrientes no es cero, hay una fuga."
+  },
+  {
+    "id": 110,
+    "nivel": "intermedio",
+    "tema": "Circuitos serie/paralelo",
+    "pregunta": "Tengo 2 baterías de 12V y 10Ah. ¿Cómo las conecto para obtener 24V y 10Ah?",
+    "opciones": ["En paralelo", "En serie", "No es posible", "Usando un diodo"],
+    "respuesta": 1,
+    "explicacion": "En serie se suman voltajes; en paralelo se suma la capacidad (Ah)."
+  },
+  {
+    "id": 111,
+    "nivel": "avanzado",
+    "tema": "Amplificadores operacionales",
+    "pregunta": "¿Qué es el voltaje de Offset de entrada?",
+    "opciones": ["El voltaje máximo de salida", "La pequeña diferencia de voltaje necesaria en las entradas para que la salida sea cero", "El voltaje de alimentación", "El ruido térmico"],
+    "respuesta": 1,
+    "explicacion": "Se debe a imperfecciones en el emparejamiento de los transistores de entrada del Op-Amp."
+  },
+  {
+    "id": 112,
+    "nivel": "avanzado",
+    "tema": "Transistores BJT",
+    "pregunta": "¿Qué es el fenómeno de 'Avalancha Térmica' (Thermal Runaway)?",
+    "opciones": ["Cuando el transistor se enfría mucho", "Proceso donde el calor aumenta la corriente, lo que genera más calor hasta destruir el transistor", "Un tipo de disipador", "Una prueba de laboratorio"],
+    "respuesta": 1,
+    "explicacion": "Ocurre por el coeficiente de temperatura negativo de Vbe en los BJTs."
+  },
+  {
+    "id": 113,
+    "nivel": "avanzado",
+    "tema": "MOSFET",
+    "pregunta": "¿Cuál es el efecto de la capacitancia Miller en la conmutación de un MOSFET?",
+    "opciones": ["Aumenta la ganancia", "Ralentiza la conmutación al aumentar la capacitancia efectiva de entrada durante la transición de voltaje", "Protege el Gate", "Reduce el ruido"],
+    "respuesta": 1,
+    "explicacion": "La capacitancia Cgd se multiplica por la ganancia, dificultando la carga rápida del Gate."
+  },
+  {
+    "id": 114,
+    "nivel": "avanzado",
+    "tema": "Electrónica digital",
+    "pregunta": "¿Qué caracteriza a un sistema FPGA frente a un Microcontrolador?",
+    "opciones": ["Es más lento", "Su hardware es configurable mediante lógica programable", "No tiene entradas digitales", "Solo usa lenguaje C"],
+    "respuesta": 1,
+    "explicacion": "La FPGA (Field Programmable Gate Array) permite diseñar la arquitectura del hardware a nivel de compuertas y bloques lógicos."
+  },
+  {
+    "id": 115,
+    "nivel": "avanzado",
+    "tema": "Diodos",
+    "pregunta": "¿Qué es el Tiempo de Recuperación Inversa (trr)?",
+    "opciones": ["Tiempo para encenderse", "Tiempo que tarda el diodo en dejar de conducir tras pasar de polarización directa a inversa", "Vida útil del diodo", "Tiempo de soldadura"],
+    "respuesta": 1,
+    "explicacion": "Es crítico en fuentes conmutadas; un trr largo causa cortocircuitos momentáneos y calor."
+  },
+  {
+    "id": 116,
+    "nivel": "avanzado",
+    "tema": "Inductores",
+    "pregunta": "¿Qué son las corrientes de Foucault (Eddy Currents)?",
+    "opciones": ["Corrientes en el aire", "Corrientes inducidas circulares en el núcleo conductor que generan calor", "Corrientes de radiofrecuencia", "Corrientes de fuga en capacitores"],
+    "respuesta": 1,
+    "explicacion": "Se minimizan laminando el núcleo para romper los caminos de conducción."
+  },
+  {
+    "id": 117,
+    "nivel": "avanzado",
+    "tema": "Instrumentación",
+    "pregunta": "¿Qué mide un Reflectómetro de Dominio de Tiempo (TDR)?",
+    "opciones": ["La luz ambiental", "Discontinuidades e impedancias en cables mediante el rebote de pulsos", "La frecuencia de un motor", "La potencia de una antena"],
+    "respuesta": 1,
+    "explicacion": "Permite localizar una rotura en un cable a kilómetros de distancia midiendo el tiempo de eco."
+  },
+  {
+    "id": 118,
+    "nivel": "avanzado",
+    "tema": "Capacitores",
+    "pregunta": "¿Qué es la frecuencia de autorresonancia en un capacitor?",
+    "opciones": ["Cuando explota", "Cuando la inductancia parásita cancela la capacitancia y el componente se vuelve inductivo", "Cuando la capacitancia es máxima", "Cuando se conecta a un cristal"],
+    "respuesta": 1,
+    "explicacion": "Por encima de esta frecuencia, el capacitor ya no actúa como tal debido a la ESL (Inductancia Serie Equivalente)."
+  },
+  {
+    "id": 119,
+    "nivel": "avanzado",
+    "tema": "Ley de Ohm",
+    "pregunta": "En una red de CA, si la impedancia es Z = 3 + j4 Ω, ¿cuál es el factor de potencia?",
+    "opciones": ["0.6", "0.8", "1.0", "0.75"],
+    "respuesta": 0,
+    "explicacion": "|Z| = 5; FP = R / |Z| = 3 / 5 = 0.6."
+  },
+  {
+    "id": 120,
+    "nivel": "avanzado",
+    "tema": "Seguridad eléctrica",
+    "pregunta": "¿Cuál es la función del blindaje de Faraday en un equipo electrónico?",
+    "opciones": ["Aislar del calor", "Proteger contra interferencias electromagnéticas externas (EMI)", "Aumentar el peso", "Evitar el contacto humano"],
+    "respuesta": 1,
+    "explicacion": "Una envolvente conductora conectada a tierra cancela los campos eléctricos en su interior."
+  }
+]
         let state = {
             xp: parseInt(localStorage.getItem('em_xp')) || 0,
             lives: parseInt(localStorage.getItem('em_lives')) || 5,
