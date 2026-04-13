@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -31,7 +32,6 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Mapa Zig-Zag Estilo Duolingo */
         .map-container {
             display: flex;
             flex-direction: column-reverse; 
@@ -86,7 +86,6 @@
             transform: translateY(5px);
         }
 
-        /* PayPal Buttons Styles */
         .pp-SU7KHJFE9XH4C, .pp-GY3P7P4GFZXRL {
             text-align:center; border:none; border-radius:1.5rem; min-width:11.625rem; 
             padding:0 2rem; height:2.625rem; font-weight:bold; background-color:#000000; 
@@ -95,57 +94,37 @@
         }
 
         .quiz-overlay {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            z-index: 100;
-            display: none;
-            flex-direction: column;
+            position: fixed; inset: 0; background: var(--bg); z-index: 100;
+            display: none; flex-direction: column;
         }
 
         .option-card {
-            background: var(--card);
-            border: 2px solid var(--border);
-            border-bottom: 6px solid var(--border);
-            border-radius: 18px;
-            padding: 18px;
-            text-align: left;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-            transition: transform 0.1s;
+            background: var(--card); border: 2px solid var(--border);
+            border-bottom: 6px solid var(--border); border-radius: 18px;
+            padding: 18px; text-align: left; font-weight: 800;
+            display: flex; align-items: center; gap: 12px; width: 100%;
+            transition: transform 0.1s; color: white;
         }
         .option-card.selected {
-            background: rgba(28, 176, 246, 0.1);
-            border-color: var(--secondary);
-            color: var(--secondary);
+            background: rgba(28, 176, 246, 0.1); border-color: var(--secondary); color: var(--secondary);
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         .current-anim { animation: bounce 2s infinite ease-in-out; }
 
-        /* Estilos del Certificado */
         .cert-paper {
-            background: #fff;
-            color: #1a1a1a;
-            width: 100%;
-            max-width: 800px;
-            padding: 40px;
-            border: 15px solid #1a1a1a;
-            position: relative;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            margin: 20px auto;
+            background: #fff; color: #1a1a1a; width: 100%; max-width: 800px;
+            padding: 40px; border: 15px solid #1a1a1a; position: relative;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5); margin: 20px auto;
         }
-        .cert-border-inner {
-            border: 2px solid #c79100;
-            padding: 20px;
-            height: 100%;
+        .cert-border-inner { border: 2px solid #c79100; padding: 20px; height: 100%; }
+
+        #feedback-panel {
+            position: fixed; bottom: 0; left: 0; width: 100%; padding: 24px;
+            z-index: 120; border-top-left-radius: 24px; border-top-right-radius: 24px;
+            transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        .panel-active { transform: translateY(0) !important; }
 
         @media print {
             body * { visibility: hidden; }
@@ -156,26 +135,25 @@
 </head>
 <body>
 
-    <!-- Header Stats -->
+    <!-- Stats -->
     <nav class="fixed top-0 left-0 w-full h-16 bg-[#131f24] border-b-2 border-[#37464f] z-50 flex items-center justify-between px-6">
-        <div class="flex items-center gap-3">
-            <i class="fas fa-bolt text-orange-500 text-xl"></i>
-            <span id="xp-count" class="font-black text-orange-500 text-lg">0</span>
+        <div class="flex items-center gap-3 text-orange-500">
+            <i class="fas fa-bolt text-xl"></i>
+            <span id="xp-count" class="font-black text-lg">0</span>
         </div>
         <div class="flex items-center gap-4">
-            <div onclick="openStore()" class="flex items-center gap-2 bg-[#202f36] px-4 py-1.5 rounded-2xl border-b-2 border-[#37464f] cursor-pointer hover:bg-[#2a3c44]">
+            <div onclick="openStore()" class="flex items-center gap-2 bg-[#202f36] px-4 py-1.5 rounded-2xl border-b-2 border-[#37464f] cursor-pointer">
                 <i class="fas fa-heart text-red-500"></i>
                 <span id="life-count" class="font-black text-red-500">5</span>
             </div>
         </div>
     </nav>
 
-    <!-- Mapa Principal -->
     <div id="game-map" class="overflow-y-auto h-screen pt-10">
         <div id="nodes-container" class="map-container"></div>
     </div>
 
-    <!-- Interfaz de Quiz -->
+    <!-- Quiz -->
     <div id="quiz-screen" class="quiz-overlay">
         <div class="p-4 flex items-center gap-4">
             <button onclick="confirmExit()" class="text-gray-500 text-3xl px-2">×</button>
@@ -186,14 +164,15 @@
         <div class="flex-1 px-6 py-8 overflow-y-auto">
             <div id="category-label" class="text-blue-400 font-black text-sm uppercase mb-2"></div>
             <h2 id="question-text" class="text-2xl font-black mb-8 leading-tight"></h2>
-            <div id="options-container" class="grid gap-4"></div>
+            <div id="options-container" class="grid gap-4">
+                <!-- Inyección Segura Aquí -->
+            </div>
         </div>
         <div class="p-6 border-t-2 border-[#37464f] bg-[#131f24]">
             <button id="check-btn" onclick="validateAnswer()" disabled class="btn-3d w-full bg-[#37464f] py-4 rounded-2xl font-black text-white text-lg opacity-50">COMPROBAR</button>
         </div>
         
-        <!-- Feedback Panel -->
-        <div id="feedback-panel" class="fixed bottom-0 left-0 w-full p-6 z-[110] border-t-4 transition-transform translate-y-full">
+        <div id="feedback-panel">
             <div class="flex items-center gap-4 mb-6">
                 <div id="feedback-icon" class="w-12 h-12 rounded-full flex items-center justify-center bg-white shadow-lg text-2xl"></div>
                 <div>
@@ -205,97 +184,57 @@
         </div>
     </div>
 
-    <!-- Modal de Tienda / Vidas -->
-    <div id="store-modal" class="fixed inset-0 z-[200] bg-black/95 hidden flex items-center justify-center p-6 backdrop-blur-md overflow-y-auto">
-        <div class="bg-[#202f36] w-full max-w-sm rounded-3xl p-8 border-2 border-[#37464f] text-center my-10">
+    <!-- Modal Store -->
+    <div id="store-modal" class="fixed inset-0 z-[200] bg-black/95 hidden flex items-center justify-center p-6 backdrop-blur-md">
+        <div class="bg-[#202f36] w-full max-w-sm rounded-3xl p-8 border-2 border-[#37464f] text-center">
             <i class="fas fa-heart text-red-500 text-5xl mb-4"></i>
             <h2 class="text-2xl font-black mb-2">¿Sin energía?</h2>
             <p class="text-gray-400 mb-6 font-bold">Recupera vidas para seguir aprendiendo:</p>
-            
             <div class="space-y-4">
-                <!-- Opción Anuncio -->
                 <div class="p-4 bg-[#131f24] rounded-2xl border border-[#37464f]">
                     <p class="text-[10px] font-black text-[#58cc02] mb-2 uppercase tracking-widest">Publicidad</p>
-                    <button onclick="watchAd()" class="btn-3d w-full bg-[#58cc02] py-3 rounded-xl font-black text-white text-sm">
-                        <i class="fas fa-play-circle mr-2"></i> VER VIDEO +1 VIDA
-                    </button>
+                    <button onclick="watchAd()" class="btn-3d w-full bg-[#58cc02] py-3 rounded-xl font-black text-white text-sm">VER VIDEO +1 VIDA</button>
                 </div>
-                
-                <!-- Opción Compra PayPal (SU7KHJFE9XH4C) -->
                 <div class="p-4 bg-[#131f24] rounded-2xl border border-[#37464f]">
-                    <p class="text-[10px] font-black text-[#1cb0f6] mb-2 uppercase tracking-widest">Recargar Vidas (Ilimitadas)</p>
-                    <div class="mt-2 flex flex-col items-center">
-                        <form action="https://www.paypal.com/ncp/payment/SU7KHJFE9XH4C" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
-                            <input class="pp-SU7KHJFE9XH4C" type="submit" value="Comprar ahora" />
-                            <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" />
-                            <section style="font-size: 0.75rem; color: #777;"> Con la tecnología de <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
-                        </form>
-                    </div>
+                    <p class="text-[10px] font-black text-[#1cb0f6] mb-2 uppercase tracking-widest">Vidas Ilimitadas</p>
+                    <form action="https://www.paypal.com/ncp/payment/SU7KHJFE9XH4C" method="post" target="_blank" class="flex flex-col items-center">
+                        <input class="pp-SU7KHJFE9XH4C" type="submit" value="Comprar ahora" />
+                    </form>
                 </div>
             </div>
-            <button onclick="closeStore()" class="mt-8 text-gray-500 font-bold uppercase text-[10px] tracking-widest">Cerrar</button>
+            <button onclick="closeStore()" class="mt-8 text-gray-500 font-bold uppercase text-[10px]">Cerrar</button>
         </div>
     </div>
 
-    <!-- Modal de Graduación y Certificado -->
-    <div id="grad-modal" class="fixed inset-0 z-[300] bg-[#131f24] hidden flex flex-col items-center justify-start p-6 overflow-y-auto">
+    <!-- Modal Graduación -->
+    <div id="grad-modal" class="fixed inset-0 z-[300] bg-[#131f24] hidden flex flex-col items-center p-6 overflow-y-auto">
         <div class="w-full max-w-2xl text-center pt-10 pb-20">
-            <div class="mb-6"><i class="fas fa-graduation-cap text-7xl text-gold"></i></div>
-            <h1 class="text-4xl font-black text-white mb-2">¡CURSO COMPLETADO!</h1>
-            <p class="text-gray-400 font-bold mb-10 italic">Felicidades, has demostrado maestría técnica.</p>
-
-            <!-- Box Pago Certificado (GY3P7P4GFZXRL) -->
-            <div id="cert-purchase-box" class="p-10 bg-gradient-to-br from-yellow-900/40 to-black rounded-3xl border-2 border-gold/50 shadow-2xl">
-                <h4 class="text-2xl font-black text-white mb-3">Obtén tu Certificado</h4>
-                <p class="text-gray-400 font-medium mb-8">Valida tus conocimientos con el diploma oficial foliado de ElectroMaster PRO. Incluye código de verificación.</p>
-                
-                <div class="flex flex-col items-center gap-2">
-                    <form action="https://www.paypal.com/ncp/payment/GY3P7P4GFZXRL" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
-                        <input class="pp-GY3P7P4GFZXRL" type="submit" value="Comprar ahora" />
-                        <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" />
-                        <section style="font-size: 0.75rem; color: #888;"> Con la tecnología de <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
-                    </form>
-                </div>
-                <p class="mt-6 text-gray-500 text-xs italic">Al confirmar tu pago, el botón de impresión se activará en esta pantalla.</p>
+            <i class="fas fa-graduation-cap text-7xl text-gold mb-6"></i>
+            <h1 class="text-4xl font-black mb-2">¡CURSO COMPLETADO!</h1>
+            <div id="cert-purchase-box" class="p-10 bg-gradient-to-br from-yellow-900/40 to-black rounded-3xl border-2 border-gold/50 shadow-2xl mt-10">
+                <h4 class="text-2xl font-black mb-3">Obtén tu Certificado</h4>
+                <form action="https://www.paypal.com/ncp/payment/GY3P7P4GFZXRL" method="post" target="_blank" class="flex flex-col items-center mt-6">
+                    <input class="pp-GY3P7P4GFZXRL" type="submit" value="Comprar ahora" />
+                </form>
             </div>
-
-            <!-- Certificado Imprimible -->
-            <div id="final-cert-display" class="hidden flex flex-col items-center">
+            <div id="final-cert-display" class="hidden flex flex-col items-center mt-10">
                 <div class="cert-paper" id="printable-cert">
-                    <div class="cert-border-inner text-center">
-                        <div class="text-gold text-4xl mb-4"><i class="fas fa-award"></i></div>
-                        <h1 style="font-family: 'Playfair Display', serif;" class="text-5xl mb-6">Certificado de Excelencia</h1>
-                        <p class="text-xl italic mb-6">Se otorga con distinción a:</p>
-                        <h2 class="text-4xl font-bold border-b-4 border-black inline-block px-12 mb-10 uppercase">Experto ElectroMaster</h2>
-                        <p class="text-lg px-12 mb-12 leading-relaxed font-medium">
-                            Por haber aprobado satisfactoriamente los 50 niveles de evaluación técnica en <b>Electricidad Residencial e Industrial</b>, demostrando conocimientos avanzados en teoría, normativa y seguridad.
-                        </p>
-                        <div class="flex justify-around items-end mt-16">
-                            <div class="text-center">
-                                <div class="w-40 border-b-2 border-black mx-auto mb-2"></div>
-                                <p class="text-xs font-black uppercase">Dirección Académica</p>
-                            </div>
-                            <div class="text-center">
-                                <i class="fas fa-stamp text-gray-400 text-5xl mb-2 opacity-30"></i>
-                                <p class="text-[10px] font-bold opacity-60">FOLIO: EM-CERT-50X</p>
-                            </div>
-                        </div>
+                    <div class="cert-border-inner">
+                        <h1 style="font-family: 'Playfair Display', serif;" class="text-4xl mb-4">Certificado de Excelencia</h1>
+                        <h2 class="text-3xl font-bold border-b-4 border-black inline-block px-8 my-6">EXPERTO ELECTROMASTER</h2>
+                        <p>Por completar satisfactoriamente los 50 niveles técnicos.</p>
+                        <p class="mt-8 text-xs opacity-50">FOLIO: EM-CERT-50X</p>
                     </div>
                 </div>
-                <button onclick="window.print()" class="mt-8 bg-gold text-black px-10 py-4 rounded-full font-black text-lg flex items-center gap-2 hover:scale-105 transition">
-                    <i class="fas fa-print"></i> IMPRIMIR CERTIFICADO
-                </button>
+                <button onclick="window.print()" class="mt-6 bg-gold text-black px-8 py-3 rounded-full font-black">IMPRIMIR</button>
             </div>
-
-            <button onclick="closeGrad()" class="mt-12 text-gray-600 font-black uppercase text-sm tracking-tighter">Volver al Mapa</button>
+            <button onclick="closeGrad()" class="mt-12 text-gray-600 font-black text-sm">VOLVER AL MAPA</button>
         </div>
     </div>
 
     <script>
-        // URLs y Publicidad
         const SMART_LINK = "https://www.profitablecpmratenetwork.com/gcxmcudfh3?key=86df4fa2db61ded8b48c42d6dca5f47a";
         
-        // Base de Datos Técnica (50 Preguntas)
         const QUESTIONS_DB = [
             { id: 1, cat: "Básico", q: "¿Qué partícula del átomo tiene carga negativa?", a: ["Protón", "Neutrón", "Electrón", "Núcleo"], correct: 2 },
             { id: 2, cat: "Básico", q: "¿Cuál es la unidad de medida de la tensión?", a: ["Amperio", "Voltio", "Ohmio", "Vatio"], correct: 1 },
@@ -353,33 +292,29 @@
             xp: parseInt(localStorage.getItem('em_xp')) || 0,
             lives: parseInt(localStorage.getItem('em_lives')) || 5,
             progress: parseInt(localStorage.getItem('em_progress')) || 1,
-            certified: localStorage.getItem('em_certified') === 'true'
+            certified: localStorage.getItem('em_certified') === 'true',
+            selectedOption: null,
+            currentQuiz: null
         };
 
         function renderMap() {
             const container = document.getElementById('nodes-container');
             container.innerHTML = '';
-            
             QUESTIONS_DB.forEach((q, index) => {
                 const i = index + 1;
                 const node = document.createElement('div');
                 const isLocked = i > state.progress;
                 const isCompleted = i < state.progress;
                 const isCurrent = i === state.progress;
-                
                 node.className = `node ${isLocked ? 'node-locked' : (isCompleted ? 'node-completed' : 'node-active')} ${isCurrent ? 'current-anim' : ''}`;
                 node.style.transform = `translateX(${Math.sin(i * 0.85) * 55}px)`;
-                
                 if(i === 1) node.innerHTML += '<span class="level-tag">PRINCIPIANTE</span>';
                 if(i === 16) node.innerHTML += '<span class="level-tag">TÉCNICO</span>';
                 if(i === 36) node.innerHTML += '<span class="level-tag">MAESTRÍA</span>';
-                
                 node.innerHTML += isLocked ? '<i class="fas fa-lock text-sm"></i>' : (isCompleted ? '<i class="fas fa-check"></i>' : `<b>${i}</b>`);
                 if (!isLocked) node.onclick = () => openQuiz(i);
                 container.appendChild(node);
             });
-
-            // Nodo de Graduación
             const gradNode = document.createElement('div');
             const gradLocked = state.progress <= 50;
             gradNode.className = `node ${gradLocked ? 'node-locked' : 'node-gold current-anim'} mt-10 mb-20`;
@@ -393,102 +328,103 @@
             if (state.lives <= 0) return openStore();
             const q = QUESTIONS_DB.find(x => x.id === id);
             state.currentQuiz = q;
+            state.selectedOption = null;
+
             document.getElementById('quiz-screen').style.display = 'flex';
             document.getElementById('category-label').innerText = q.cat;
             document.getElementById('question-text').innerText = q.q;
-            document.getElementById('options-container').innerHTML = q.a.map((opt, i) => `
-                <button onclick="selectOption(${i})" class="option-card" data-idx="${i}">
-                    <span class="w-8 h-8 rounded-lg border-2 border-inherit flex items-center justify-center text-xs font-black">${String.fromCharCode(65 + i)}</span>
-                    <span class="flex-1">${opt}</span>
-                </button>
-            `).join('');
             document.getElementById('quiz-progress').style.width = `${(id / 50) * 100}%`;
-            document.getElementById('check-btn').disabled = true;
-        }
+            
+            const container = document.getElementById('options-container');
+            container.innerHTML = ''; 
 
-        function selectOption(idx) {
-            state.selectedOption = idx;
-            document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
-            document.querySelector(`[data-idx="${idx}"]`).classList.add('selected');
-            const btn = document.getElementById('check-btn');
-            btn.disabled = false;
-            btn.classList.replace('opacity-50', 'opacity-100');
-            btn.classList.replace('bg-[#37464f]', 'bg-[#58cc02]');
+            q.a.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-card';
+                btn.innerHTML = `
+                    <span class="w-8 h-8 rounded-lg border-2 border-inherit flex items-center justify-center text-xs font-black">${String.fromCharCode(65 + index)}</span>
+                    <span class="flex-1">${opt}</span>
+                `;
+                btn.onclick = () => {
+                    state.selectedOption = index;
+                    document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    const check = document.getElementById('check-btn');
+                    check.disabled = false;
+                    check.style.opacity = "1";
+                    check.style.backgroundColor = "#58cc02";
+                };
+                container.appendChild(btn);
+            });
+            
+            const checkBtn = document.getElementById('check-btn');
+            checkBtn.disabled = true;
+            checkBtn.style.opacity = "0.5";
+            checkBtn.style.backgroundColor = "#37464f";
         }
 
         function validateAnswer() {
             const correct = state.selectedOption === state.currentQuiz.correct;
             const panel = document.getElementById('feedback-panel');
             const nextBtn = document.getElementById('next-btn');
-            panel.classList.remove('translate-y-full');
-
+            
             if (correct) {
-                panel.className = "fixed bottom-0 left-0 w-full p-6 bg-[#d7ffb8] border-t-4 border-[#a5d6a7] z-[120] transition-transform";
-                document.getElementById('feedback-title').innerText = "¡Correcto!";
+                panel.style.backgroundColor = "#d7ffb8";
+                document.getElementById('feedback-title').innerText = "¡CORRECTO!";
+                document.getElementById('feedback-title').style.color = "#58cc02";
                 document.getElementById('feedback-msg').innerText = "Excelente precisión técnica.";
                 document.getElementById('feedback-icon').innerHTML = '<i class="fas fa-check text-green-600"></i>';
                 nextBtn.className = "btn-3d w-full py-4 rounded-2xl font-black bg-[#58cc02] text-white";
                 nextBtn.innerText = "CONTINUAR";
                 nextBtn.onclick = () => {
-                    if (state.currentQuiz.id === state.progress) {
-                        state.progress++;
-                        state.xp += 20;
-                        save();
-                    }
-                    closeQuiz();
-                    renderMap();
+                    if (state.currentQuiz.id === state.progress) { state.progress++; state.xp += 20; save(); }
+                    closeQuiz(); renderMap();
                 };
             } else {
-                state.lives--;
-                save(); updateStats();
-                panel.className = "fixed bottom-0 left-0 w-full p-6 bg-[#ffdfe0] border-t-4 border-[#ef9a9a] z-[120] transition-transform";
-                document.getElementById('feedback-title').innerText = "Incorrecto";
+                state.lives--; save(); updateStats();
+                panel.style.backgroundColor = "#ffdfe0";
+                document.getElementById('feedback-title').innerText = "INCORRECTO";
+                document.getElementById('feedback-title').style.color = "#ff4b4b";
                 document.getElementById('feedback-msg').innerText = "Solución: " + state.currentQuiz.a[state.currentQuiz.correct];
                 document.getElementById('feedback-icon').innerHTML = '<i class="fas fa-times text-red-600"></i>';
                 nextBtn.className = "btn-3d w-full py-4 rounded-2xl font-black bg-[#ff4b4b] text-white";
                 nextBtn.innerText = "ENTENDIDO";
                 nextBtn.onclick = () => { closeQuiz(); if(state.lives <= 0) openStore(); };
             }
+            panel.classList.add('panel-active');
         }
 
-        function watchAd() {
-            window.open(SMART_LINK, "_blank");
-            setTimeout(() => {
-                state.lives = Math.min(state.lives + 1, 5);
-                save(); updateStats();
-                alert("Anuncio completado: +1 Vida añadida.");
-                closeStore();
-            }, 1500);
-        }
-
-        function openGrad() { 
-            document.getElementById('grad-modal').classList.remove('hidden'); 
-            if(state.certified) {
-                document.getElementById('cert-purchase-box').classList.add('hidden');
-                document.getElementById('final-cert-display').classList.remove('hidden');
-            }
-        }
-        function closeGrad() { document.getElementById('grad-modal').classList.add('hidden'); }
-        function openStore() { document.getElementById('store-modal').classList.remove('hidden'); }
-        function closeStore() { document.getElementById('store-modal').classList.add('hidden'); }
-        function closeQuiz() { 
-            document.getElementById('quiz-screen').style.display='none'; 
-            document.getElementById('feedback-panel').classList.add('translate-y-full'); 
-        }
         function save() { 
             localStorage.setItem('em_xp', state.xp); 
             localStorage.setItem('em_lives', state.lives); 
             localStorage.setItem('em_progress', state.progress); 
         }
+
         function updateStats() { 
             document.getElementById('xp-count').innerText = state.xp; 
             document.getElementById('life-count').innerText = state.lives; 
         }
-        function confirmExit() { if(confirm("¿Seguro que quieres salir de la lección?")) closeQuiz(); }
+
+        function closeQuiz() { 
+            document.getElementById('quiz-screen').style.display='none'; 
+            document.getElementById('feedback-panel').classList.remove('panel-active'); 
+        }
+
+        function openStore() { document.getElementById('store-modal').classList.remove('hidden'); }
+        function closeStore() { document.getElementById('store-modal').classList.add('hidden'); }
+        function openGrad() { document.getElementById('grad-modal').classList.remove('hidden'); }
+        function closeGrad() { document.getElementById('grad-modal').classList.add('hidden'); }
+        function confirmExit() { if(confirm("¿Seguro que quieres salir?")) closeQuiz(); }
+        
+        function watchAd() {
+            window.open(SMART_LINK, "_blank");
+            state.lives = Math.min(state.lives + 1, 5);
+            save(); updateStats();
+            closeStore();
+        }
 
         window.onload = () => {
-            renderMap();
-            updateStats();
+            renderMap(); updateStats();
             setTimeout(() => {
                 const cur = document.querySelector('.current-anim');
                 if(cur) cur.scrollIntoView({ behavior: 'smooth', block: 'center' });
