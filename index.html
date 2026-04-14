@@ -2,36 +2,30 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ElectroMaster PRO | Enterprise Learning</title>
-    
-    <!-- SDK PAYPAL -->
-    <script src="https://www.paypal.com/sdk/js?client-id=BAAfL26d5SicSjimR9qBK_7H7To8HiLp0a8OllLcR7_WNeyZaXxHZrIhsBLlUT96GMSBhLuN0un3kw-aK8&components=hosted-buttons&disable-funding=venmo&currency=MXN"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectroPro - Master en Electrónica</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
+    <!-- SOCIAL BAR SCRIPT -->
+    <script src="https://pl29004761.profitablecpmratenetwork.com/30/eb/10/30eb107ad8464e31b5f5305fbb3a1e7e.js"></script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
         :root {
             --bg-dark: #0f172a;
-            --surface: #1e293b;
-            --accent: #3b82f6;
-            --accent-glow: rgba(59, 130, 246, 0.5);
-            --success: #10b981;
-            --danger: #ef4444;
-            --text-main: #f8fafc;
-            --text-dim: #94a3b8;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
         }
-        
+
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             background-color: var(--bg-dark);
-            color: var(--text-main);
+            color: #f8fafc;
             overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .glass {
@@ -43,250 +37,283 @@
         .level-node {
             width: 70px;
             height: 70px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
-            z-index: 10;
-        }
-
-        .level-node.locked {
-            filter: grayscale(1) opacity(0.3);
-            cursor: not-allowed;
-        }
-
-        .level-node.completed {
-            background: var(--success);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
-            color: white;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin: 20px auto;
+            z-index: 2;
         }
 
         .level-node.current {
-            background: var(--accent);
-            box-shadow: 0 0 30px var(--accent-glow);
+            background: var(--accent-blue);
+            box-shadow: 0 0 20px var(--accent-blue);
             transform: scale(1.1);
+        }
+
+        .level-node.completed {
+            background: var(--accent-green);
             color: white;
+        }
+
+        .level-node.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .path-line {
+            position: absolute;
+            width: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
         }
 
         .option-card {
             transition: all 0.2s ease;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 2px solid transparent;
+        }
+
+        .option-card:hover:not(.disabled) {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(59, 130, 246, 0.5);
         }
 
         .option-card.selected {
-            border-color: var(--accent);
-            background: rgba(59, 130, 246, 0.15);
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.1);
         }
 
         .option-card.correct {
-            background: rgba(16, 185, 129, 0.2) !important;
-            border-color: var(--success) !important;
+            border-color: var(--accent-green) !important;
+            background: rgba(16, 185, 129, 0.1) !important;
+            color: #10b981;
         }
 
         .option-card.wrong {
-            background: rgba(239, 68, 68, 0.2) !important;
-            border-color: var(--danger) !important;
+            border-color: var(--accent-red) !important;
+            background: rgba(239, 68, 68, 0.1) !important;
+            color: #ef4444;
         }
 
-        .explanation-box {
-            animation: slideUp 0.4s ease-out;
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+            padding: 20px;
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .pp-button {
+            text-align:center;border:none;border-radius:1.5rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#000000;color:#ffffff;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer; transition: transform 0.2s;
         }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .pp-button:hover { transform: scale(1.05); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen">
 
-    <!-- Header UI -->
-    <header class="glass sticky top-0 z-50 px-6 py-4 flex justify-between items-center border-b border-white/5">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                <i class="fas fa-bolt text-white"></i>
-            </div>
-            <div>
-                <h1 class="font-extrabold text-lg leading-none tracking-tight">ELECTRO<span class="text-blue-500">PRO</span></h1>
-                <p class="text-[9px] text-slate-400 font-mono uppercase tracking-[0.2em]">Industrial Training</p>
-            </div>
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 right-0 glass z-50 px-4 py-3 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-xl">E</div>
+            <span class="font-bold tracking-tight hidden sm:block uppercase">Electro<span class="text-blue-500">Pro</span></span>
         </div>
         
-        <div class="flex items-center gap-4 bg-slate-900/80 px-4 py-2 rounded-2xl border border-white/5 shadow-inner">
-            <div class="flex items-center gap-2">
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-1.5 bg-red-500/20 px-3 py-1 rounded-full border border-red-500/30">
                 <i class="fas fa-heart text-red-500"></i>
-                <span id="life-count" class="font-bold text-sm">3</span>
+                <span id="life-count" class="font-bold">3</span>
             </div>
-            <div class="w-[1px] h-4 bg-white/10"></div>
-            <div class="flex items-center gap-2 text-yellow-500">
-                <i class="fas fa-star"></i>
-                <span id="star-count" class="font-bold text-sm">0</span>
+            <div class="flex items-center gap-1.5 bg-yellow-500/20 px-3 py-1 rounded-full border border-yellow-500/30">
+                <i class="fas fa-star text-yellow-500"></i>
+                <span id="star-count" class="font-bold">0</span>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow">
-        <!-- Mapa de Niveles -->
-        <section id="view-map" class="p-8 max-w-lg mx-auto">
-            <div class="mb-12 text-center">
-                <h2 class="text-3xl font-extrabold mb-2 bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Certificación PRO</h2>
-                <p class="text-slate-500 text-sm">Domina los 100 niveles de ingeniería electrónica</p>
-            </div>
-            
-            <div id="levels-container" class="relative flex flex-col items-center gap-12 pb-24">
-                <!-- Inyectado dinámicamente -->
-            </div>
-        </section>
-
-        <!-- Quiz Interface -->
-        <section id="view-quiz" class="hidden fixed inset-0 z-[60] bg-slate-950 flex flex-col">
-            <div class="p-5 border-b border-white/5 flex items-center justify-between glass">
-                <button onclick="exitQuiz()" class="text-slate-500 hover:text-white transition-colors">
-                    <i class="fas fa-arrow-left text-xl"></i>
-                </button>
-                <div class="flex-grow max-w-md mx-8">
-                    <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                        <div id="quiz-bar" class="h-full bg-blue-500 transition-all duration-700 w-0"></div>
-                    </div>
-                </div>
-                <div class="text-[10px] font-mono text-slate-500 bg-slate-900 px-3 py-1 rounded-md border border-white/5" id="level-indicator">LVL 00</div>
-            </div>
-
-            <div class="flex-grow overflow-y-auto p-6 md:p-12">
-                <div class="max-w-2xl mx-auto w-full">
-                    <div id="question-box">
-                        <div id="category-tag" class="inline-block px-3 py-1 bg-blue-500/10 text-blue-400 rounded-lg text-[10px] font-bold uppercase tracking-widest mb-6 border border-blue-500/20">TEMA</div>
-                        <h3 id="question-text" class="text-xl md:text-3xl font-medium mb-10 leading-snug text-slate-100">Cargando...</h3>
-                        
-                        <div id="options-grid" class="grid grid-cols-1 gap-4">
-                            <!-- Opciones -->
-                        </div>
-
-                        <div id="explanation" class="hidden explanation-box mt-8 p-6 rounded-2xl bg-slate-900/50 border border-white/5">
-                            <h4 class="text-xs font-bold text-slate-400 uppercase mb-2">Fundamento Técnico</h4>
-                            <p id="explanation-text" class="text-sm text-slate-300 leading-relaxed"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <footer class="p-6 glass border-t border-white/5">
-                <div class="max-w-2xl mx-auto">
-                    <button id="btn-next" onclick="handleMainAction()" disabled
-                            class="w-full py-5 bg-slate-800 text-slate-500 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3 tracking-widest uppercase">
-                        Comprobar Respuesta
-                    </button>
-                </div>
-            </footer>
-        </section>
+    <!-- MAP VIEW -->
+    <main id="view-map" class="pt-24 pb-32 px-4 max-w-lg mx-auto">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-black mb-2 uppercase tracking-widest">Carrera Técnica</h1>
+            <p class="text-slate-400 text-sm">Alcanza el nivel 100 para obtener tu certificado.</p>
+        </div>
+        <div id="levels-container" class="relative"></div>
     </main>
 
-    <!-- Modal de Recarga -->
-    <div id="life-modal" class="fixed inset-0 z-[100] bg-slate-950/95 hidden items-center justify-center p-6 backdrop-blur-xl">
-        <div class="bg-slate-900 border border-white/10 rounded-[2.5rem] p-10 max-w-sm w-full text-center shadow-2xl">
-            <div class="w-24 h-24 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mx-auto mb-8 border border-red-500/20 shadow-inner">
-                <i class="fas fa-bolt-lightning text-4xl"></i>
+    <!-- QUIZ VIEW -->
+    <main id="view-quiz" class="hidden pt-24 pb-12 px-4 max-w-2xl mx-auto">
+        <div class="w-full h-2 bg-slate-800 rounded-full mb-8 overflow-hidden">
+            <div id="quiz-bar" class="h-full bg-blue-500 transition-all duration-500" style="width: 0%"></div>
+        </div>
+        <div class="flex justify-between items-center mb-6">
+            <span id="category-tag" class="text-xs font-bold uppercase tracking-widest text-blue-400 bg-blue-400/10 px-3 py-1 rounded-lg">CARGANDO</span>
+            <span id="level-indicator" class="font-mono text-slate-500">LVL 01</span>
+        </div>
+        <h2 id="question-text" class="text-xl md:text-2xl font-bold mb-8 leading-relaxed"></h2>
+        <div id="options-grid" class="space-y-4 mb-8"></div>
+        <div id="explanation" class="hidden glass p-6 rounded-2xl mb-8 border-l-4 border-blue-500">
+            <h4 class="text-blue-400 font-bold mb-1 text-sm uppercase"><i class="fas fa-microchip mr-2"></i>Fundamento</h4>
+            <p id="explanation-text" class="text-slate-300 text-sm italic"></p>
+        </div>
+        <button id="btn-next" onclick="handleMainAction()" class="w-full py-5 bg-slate-800 text-slate-500 rounded-2xl font-black text-lg uppercase disabled:opacity-50">
+            Comprobar Respuesta
+        </button>
+        <button onclick="exitQuiz()" class="w-full mt-4 text-slate-500 text-sm hover:text-white transition-colors">
+            <i class="fas fa-arrow-left mr-2"></i> Volver al mapa
+        </button>
+    </main>
+
+    <!-- MODALS (Lives & Certificate) -->
+    <div id="life-modal" class="modal-overlay">
+        <div class="glass p-8 rounded-3xl max-w-sm w-full text-center border-t-4 border-red-500">
+            <div class="w-20 h-20 bg-red-500/20 text-red-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-6"><i class="fas fa-bolt-lightning"></i></div>
+            <h2 class="text-2xl font-bold mb-2 uppercase">Batería Agotada</h2>
+            <p class="text-slate-400 mb-8 text-sm">Has fallado más de 5 veces. Recarga energía para continuar con tu certificación.</p>
+            <div class="mb-6">
+                <form action="https://www.paypal.com/ncp/payment/SU7KHJFE9XH4C" method="post" target="_blank" class="grid justify-center gap-3">
+                    <input class="pp-button" type="submit" value="Comprar Vidas" />
+                    <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" class="h-6 mx-auto" />
+                </form>
             </div>
-            <h2 class="text-2xl font-black mb-3">SISTEMA OFFLINE</h2>
-            <p class="text-slate-400 text-sm mb-10 leading-relaxed">Energía agotada. Adquiere una recarga de celdas para continuar con la capacitación inmediata.</p>
-            
-            <div id="paypal-container-V2J2E7EYWRR2U" class="mb-6"></div>
-            
-            <button onclick="closeLifeModal()" class="text-slate-500 text-xs font-bold hover:text-white transition-colors uppercase tracking-[0.2em]">
-                Cerrar Protocolo
+            <button onclick="reviveWithAd()" class="w-full py-3 bg-blue-600/20 text-blue-400 rounded-xl font-bold text-xs uppercase border border-blue-600/30">
+                1 Vida Gratis (Ver Anuncio)
             </button>
+            <button onclick="closeLifeModal()" class="block w-full mt-4 text-slate-600 text-xs uppercase font-bold">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="cert-modal" class="modal-overlay">
+        <div class="glass p-8 rounded-3xl max-w-md w-full text-center border-t-4 border-yellow-500">
+            <div class="w-20 h-20 bg-yellow-500/20 text-yellow-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-6"><i class="fas fa-award"></i></div>
+            <h2 class="text-2xl font-bold mb-2 uppercase">¡Felicidades Maestro!</h2>
+            <p class="text-slate-400 mb-8 text-sm">Has superado los 100 niveles. Obtén tu certificado oficial para validar tus conocimientos.</p>
+            <form action="https://www.paypal.com/ncp/payment/FQN2PZ35G3R9L" method="post" target="_blank" class="grid justify-center gap-3">
+                <input class="pp-button" style="background-color:#f59e0b" type="submit" value="Pagar Certificado" />
+                <section style="font-size: 0.75rem;"> Con tecnología de <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;"/></section>
+            </form>
         </div>
     </div>
 
     <script>
-        // --- BASE DE DATOS COMPLETA ---
         const database = [
-            { id: 1, nivel: "básico", tema: "Ley de Ohm", pregunta: "En un resistor de 4.7 kΩ circula una corriente de 2.5 mA. ¿Cuál es la caída de tensión medida en sus terminales?", opciones: ["1.175 V", "11.75 V", "117.5 V", "1.175 mV"], respuesta: 1, explicacion: "V = I * R: 0.0025 A * 4700 Ω = 11.75 V." },
-            { id: 2, nivel: "básico", tema: "Circuitos serie/paralelo", pregunta: "Se conectan tres resistores de 100 Ω en paralelo. ¿Cuál es la resistencia equivalente del conjunto?", opciones: ["300 Ω", "100 Ω", "33.33 Ω", "0.03 Ω"], respuesta: 2, explicacion: "Req = R / n. En este caso, 100 / 3 = 33.33 Ω." },
-            { id: 3, nivel: "básico", tema: "Capacitores", pregunta: "¿Cuál es la capacitancia equivalente de dos capacitores de 10 µF conectados en serie?", opciones: ["20 µF", "10 µF", "5 µF", "1 µF"], respuesta: 2, explicacion: "Ceq = (C1 * C2) / (C1 + C2) = 100 / 20 = 5 µF." },
-            { id: 4, nivel: "básico", tema: "Inductores", pregunta: "¿Qué sucede con la reactancia inductiva (XL) de una bobina si la frecuencia se duplica?", opciones: ["Se reduce a la mitad", "Permanece constante", "Se cuadruplica", "Se duplica"], respuesta: 3, explicacion: "XL = 2πfL. Al ser proporcional a la frecuencia, si f se duplica, XL también." },
-            { id: 5, nivel: "básico", tema: "Diodos", pregunta: "¿Cuál es la tensión de umbral aproximada (Vf) para un diodo de silicio estándar como el 1N4007?", opciones: ["0.3 V", "0.7 V", "1.2 V", "5.0 V"], respuesta: 1, explicacion: "El silicio requiere aprox 0.7 V para vencer la barrera de potencial." },
-            { id: 6, nivel: "básico", tema: "Transistores BJT", pregunta: "En un transistor NPN en región activa, ¿cuál es la polarización de sus uniones?", opciones: ["BE inversa, BC directa", "BE directa, BC directa", "BE inversa, BC inversa", "BE directa, BC inversa"], respuesta: 3, explicacion: "Para amplificar, la unión Base-Emisor debe estar en directa y la Base-Colector en inversa." },
-            { id: 7, nivel: "básico", tema: "Electrónica digital", pregunta: "¿Cuál es el resultado binario de la suma de 1010 + 0101?", opciones: ["1111", "1000", "10101", "1110"], respuesta: 0, explicacion: "1010 (10) + 0101 (5) = 1111 (15)." },
-            { id: 8, nivel: "básico", tema: "Seguridad eléctrica", pregunta: "¿Qué dispositivo protege a las personas contra fugas de corriente a tierra?", opciones: ["Fusible", "Termomagnético", "Interruptor diferencial (GFCI)", "Varistor"], respuesta: 2, explicacion: "El diferencial detecta desequilibrios entre fase y neutro." },
-            { id: 9, nivel: "básico", tema: "Instrumentación", pregunta: "Para medir corriente, ¿cómo debe conectarse el amperímetro?", opciones: ["En paralelo fuente", "En serie carga", "En paralelo carga", "Entre chasis y tierra"], respuesta: 1, explicacion: "El amperímetro tiene baja impedancia y debe ser atravesado por la corriente." },
-            { id: 10, nivel: "básico", tema: "MOSFET", pregunta: "¿Qué terminal de un MOSFET controla la conducción entre Drenador y Fuente?", opciones: ["Base", "Emisor", "Compuerta (Gate)", "Ánodo"], respuesta: 2, explicacion: "El Gate controla el campo eléctrico del canal." },
-            { id: 11, nivel: "intermedio", tema: "Amplificadores operacionales", pregunta: "En un inversor con Rin = 10 kΩ y Rf = 100 kΩ, ¿cuál es la ganancia (Av)?", opciones: ["10", "-10", "11", "-0.1"], respuesta: 1, explicacion: "Av = -Rf / Rin = -100k / 10k = -10." },
-            { id: 12, nivel: "intermedio", tema: "Transistores BJT", pregunta: "Si β = 150 e Ib = 20 µA, ¿cuál es Ic?", opciones: ["3 mA", "30 mA", "0.3 mA", "1.5 mA"], respuesta: 0, explicacion: "Ic = β * Ib = 150 * 20µA = 3 mA." },
-            { id: 13, nivel: "intermedio", tema: "Diodos", pregunta: "¿Qué parámetro define la máxima tensión inversa soportable por un diodo?", opciones: ["Vf", "Ir", "PRV / PIV", "Vgamma"], respuesta: 2, explicacion: "Peak Inverse Voltage es el límite en polarización inversa." },
-            { id: 14, nivel: "intermedio", tema: "Circuitos", pregunta: "Divisor de tensión: Vin=12V, R1=2kΩ, R2=1kΩ. ¿Vout en R2?", opciones: ["8 V", "4 V", "6 V", "2 V"], respuesta: 1, explicacion: "Vout = 12 * (1k / 3k) = 4 V." },
-            { id: 15, nivel: "intermedio", tema: "Digital", pregunta: "¿Función lógica que da '0' solo cuando todas sus entradas son '1'?", opciones: ["AND", "OR", "NAND", "NOR"], respuesta: 2, explicacion: "NAND es el inverso de AND." },
-            { id: 16, nivel: "intermedio", tema: "Capacitores", pregunta: "¿Constante τ de un circuito RC con R = 47 kΩ y C = 100 µF?", opciones: ["4.7 s", "0.47 s", "47 s", "470 ms"], respuesta: 0, explicacion: "τ = R * C = 47000 * 0.0001 = 4.7 s." },
-            { id: 17, nivel: "intermedio", tema: "Inductores", pregunta: "Transformador ideal Np=500, Ns=50. Si Vp=230V, ¿Vs?", opciones: ["2300 V", "23 V", "46 V", "115 V"], respuesta: 1, explicacion: "Vs = 230 * (50/500) = 23 V." },
-            { id: 18, nivel: "intermedio", tema: "MOSFET", pregunta: "¿Qué ocurre en un MOSFET de enriquecimiento cuando Vgs < Vth?", opciones: ["Saturación", "Corte", "Región Óhmica", "Avalancha"], respuesta: 1, explicacion: "Sin tensión de umbral, el dispositivo no conduce." },
-            { id: 19, nivel: "intermedio", tema: "Instrumentación", pregunta: "¿Función del Trigger en un osciloscopio?", opciones: ["Amplitud", "Base tiempo", "Estabilizar visualización", "Medir R"], respuesta: 2, explicacion: "Sincroniza el barrido con un punto de la señal." },
-            { id: 20, nivel: "intermedio", tema: "Seguridad", pregunta: "¿Resistencia de tierra máxima recomendada residencial (NEC)?", opciones: ["1000 Ω", "100 Ω", "25 Ω", "1 Ω"], respuesta: 2, explicacion: "25 Ω es el estándar para disipación segura." }
-            // Los siguientes 80 niveles usarían un generador de variantes técnicas similares.
+            { id: 1, nivel: "básico", tema: "Ley de Ohm", pregunta: "¿Cuál es la caída de tensión en un resistor de 4.7 kΩ con 2.5 mA?", opciones: ["1.175 V", "11.75 V", "117.5 V", "1.175 mV"], respuesta: 1, explicacion: "V = I * R: 0.0025 A * 4700 Ω = 11.75 V." },
+            { id: 2, nivel: "básico", tema: "Circuitos serie/paralelo", pregunta: "¿Resistencia equivalente de tres resistores de 100 Ω en paralelo?", opciones: ["300 Ω", "100 Ω", "33.33 Ω", "0.03 Ω"], respuesta: 2, explicacion: "Req = R / n. 100 / 3 = 33.33 Ω." },
+            { id: 3, nivel: "básico", tema: "Capacitores", pregunta: "¿Capacitancia equivalente de dos de 10 µF en serie?", opciones: ["20 µF", "10 µF", "5 µF", "1 µF"], respuesta: 2, explicacion: "En serie: (C1*C2)/(C1+C2) = 5 µF." },
+            { id: 4, nivel: "básico", tema: "Inductores", pregunta: "¿Qué pasa con XL si la frecuencia se duplica?", opciones: ["Baja a la mitad", "Igual", "Se cuadruplica", "Se duplica"], respuesta: 3, explicacion: "XL = 2πfL. Proporcional a la frecuencia." },
+            { id: 5, nivel: "básico", tema: "Diodos", pregunta: "¿Tensión umbral para diodo de silicio estándar?", opciones: ["0.3 V", "0.7 V", "1.2 V", "5.0 V"], respuesta: 1, explicacion: "El silicio requiere aprox 0.7 V." },
+            { id: 6, nivel: "básico", tema: "Transistores BJT", pregunta: "En región activa NPN, ¿unión BE y BC?", opciones: ["BE inv, BC dir", "BE dir, BC dir", "BE inv, BC inv", "BE dir, BC inv"], respuesta: 3, explicacion: "BE directa, BC inversa para amplificar." },
+            { id: 7, nivel: "básico", tema: "Electrónica digital", pregunta: "¿Resultado binario de 1010 + 0101?", opciones: ["1111", "1000", "10101", "1110"], respuesta: 0, explicacion: "10 + 5 = 15 (1111)." },
+            { id: 8, nivel: "básico", tema: "Seguridad eléctrica", pregunta: "¿Protección contra fugas a tierra?", opciones: ["Fusible", "Termomagnético", "Diferencial", "Varistor"], respuesta: 2, explicacion: "El diferencial detecta desequilibrios." },
+            { id: 9, nivel: "básico", tema: "Instrumentación", pregunta: "¿Cómo conectar amperímetro?", opciones: ["Paralelo fuente", "En serie", "Paralelo carga", "A chasis"], respuesta: 1, explicacion: "Debe ser atravesado por la corriente." },
+            { id: 10, nivel: "básico", tema: "MOSFET", pregunta: "¿Terminal que controla conducción?", opciones: ["Base", "Emisor", "Gate", "Ánodo"], respuesta: 2, explicacion: "El Gate controla el campo eléctrico." },
+            { id: 11, nivel: "intermedio", tema: "Amplificadores operacionales", pregunta: "En un amplificador inversor con Rin = 10 kΩ y Rf = 100 kΩ, ¿cuál es la ganancia de tensión (Av)?", opciones: ["10", "-10", "11", "-0.1"], respuesta: 1, explicacion: "Av = -Rf / Rin = -100k / 10k = -10." },
+            { id: 12, nivel: "intermedio", tema: "Transistores BJT", pregunta: "Si un transistor tiene una β de 150 e Ib de 20 µA, ¿cuál es la corriente Ic?", opciones: ["3 mA", "30 mA", "0.3 mA", "1.5 mA"], respuesta: 0, explicacion: "Ic = β * Ib = 150 * 20e-6 = 3 mA." },
+            { id: 13, nivel: "intermedio", tema: "Diodos", pregunta: "¿Qué parámetro define la tensión máxima inversa soportable?", opciones: ["Vf", "Ir", "PRV / PIV", "Vgamma"], respuesta: 2, explicacion: "PIV es Peak Inverse Voltage." },
+            { id: 14, nivel: "intermedio", tema: "Circuitos serie/paralelo", pregunta: "Divisor con Vin=12V, R1=2k y R2=1k. ¿Voltaje en R2?", opciones: ["8 V", "4 V", "6 V", "2 V"], respuesta: 1, explicacion: "Vout = 12 * (1k/3k) = 4 V." },
+            { id: 15, nivel: "intermedio", tema: "Electrónica digital", pregunta: "¿Función que da '0' solo cuando todas son '1'?", opciones: ["AND", "OR", "NAND", "NOR"], respuesta: 2, explicacion: "NAND es el inverso de AND." },
+            { id: 16, nivel: "intermedio", tema: "Capacitores", pregunta: "¿Constante de tiempo RC con R=47k y C=100µF?", opciones: ["4.7 s", "0.47 s", "47 s", "470 ms"], respuesta: 0, explicacion: "τ = R * C = 4.7s." },
+            { id: 17, nivel: "intermedio", tema: "Inductores", pregunta: "Transformador Np=500, Ns=50, Vp=230V. ¿Vs?", opciones: ["2300 V", "23 V", "46 V", "115 V"], respuesta: 1, explicacion: "Vs = 230 * (50/500) = 23 V." },
+            { id: 18, nivel: "intermedio", tema: "MOSFET", pregunta: "¿Qué ocurre si Vgs < Vth?", opciones: ["Saturación", "Corte", "Región Óhmica", "Avalancha"], respuesta: 1, explicacion: "No hay canal, el dispositivo no conduce." },
+            { id: 19, nivel: "intermedio", tema: "Instrumentación", pregunta: "¿Función del control 'Trigger'?", opciones: ["Amplitud", "Tiempo", "Estabilizar visualización", "Impedancia"], respuesta: 2, explicacion: "Sincroniza el barrido con la señal." },
+            { id: 20, nivel: "intermedio", tema: "Seguridad eléctrica", pregunta: "¿Resistencia máxima de tierra recomendada?", opciones: ["1000 Ω", "100 Ω", "25 Ω", "1 Ω"], respuesta: 2, explicacion: "Normativa NEC sugiere 25 Ω." },
+            { id: 21, nivel: "avanzado", tema: "Amplificadores operacionales", pregunta: "Op-Amp con SR=0.5 V/µs. ¿Frecuencia máx senoidal 10Vp sin distorsión?", opciones: ["7.96 kHz", "15.9 kHz", "50 kHz", "5 kHz"], respuesta: 0, explicacion: "fmax = SR / (2πVp) ≈ 7.96 kHz." },
+            { id: 22, nivel: "avanzado", tema: "Transistores BJT", pregunta: "¿Efecto del capacitor bypass en emisor?", opciones: ["Baja Z entrada", "Sube Av en AC", "Baja estabilidad", "Quita divisor"], respuesta: 1, explicacion: "Pone el emisor a tierra en AC para máxima ganancia." },
+            { id: 23, nivel: "avanzado", tema: "MOSFET", pregunta: "¿Ventaja de Gate Driver aislado en puente H?", opciones: ["Sube Vth", "Baja Ciss", "Previene retornos de alta tensión", "Linealiza"], respuesta: 2, explicacion: "Protege el control de transitorios." },
+            { id: 24, nivel: "avanzado", tema: "Electrónica digital", pregunta: "¿JK con J=1 y K=1 con flanco de reloj?", opciones: ["Memoria", "Set", "Reset", "Toggle"], respuesta: 3, explicacion: "Estado complementario (basculamiento)." },
+            { id: 25, nivel: "avanzado", tema: "Inductores", pregunta: "¿Factor de calidad Q de inductor?", opciones: ["Q = XL / R_serie", "Q = R_serie / XL", "Q = L / C", "Q = 1/(2πLC)"], respuesta: 0, explicacion: "Relación entre reactancia y resistencia." },
+            { id: 26, nivel: "avanzado", tema: "Diodos", pregunta: "¿Función del diodo 'Freewheeling'?", opciones: ["Velocidad", "Rectificar", "Disipar energía de campo magnético", "Zener"], respuesta: 2, explicacion: "Evita picos de sobretensión inductiva." },
+            { id: 27, nivel: "avanzado", tema: "Instrumentación", pregunta: "Señal de 100mV con sonda 10X sin compensar. ¿Qué ve el ADC?", opciones: ["1 V", "100 mV", "10 mV", "1 mV"], respuesta: 2, explicacion: "La sonda atenúa por 10." },
+            { id: 28, nivel: "avanzado", tema: "Capacitores", pregunta: "¿Causa de calentamiento en SMPS de alta frecuencia?", opciones: ["Cap nominal", "Ruptura", "ESR", "Fuga"], respuesta: 2, explicacion: "La ESR provoca pérdidas Joule con ripple." },
+            { id: 29, nivel: "avanzado", tema: "Ley de Ohm", pregunta: "Trifásico 10kW, 400V, FP=0.8. ¿Corriente de línea?", opciones: ["18.04 A", "14.43 A", "25.00 A", "31.25 A"], respuesta: 0, explicacion: "I = P / (√3*V*FP) ≈ 18.04 A." },
+            { id: 30, nivel: "avanzado", tema: "Seguridad eléctrica", pregunta: "¿Categoría (CAT) para tablero de entrada industrial?", opciones: ["CAT I", "CAT II", "CAT III", "CAT IV"], respuesta: 3, explicacion: "CAT IV es para origen de instalación." },
+            { id: 31, nivel: "basico", tema: "Ley de Ohm", pregunta: "¿Potencia disipada por resistor 10 Ω con 2 A?", opciones: ["20 W", "40 W", "5 W", "100 W"], respuesta: 1, explicacion: "P = I² * R = 40 W." },
+            { id: 32, nivel: "basico", tema: "Circuitos serie/paralelo", pregunta: "Serie de dos lámparas iguales a 12V. ¿Voltaje cada una?", opciones: ["12 V", "0 V", "6 V", "24 V"], respuesta: 2, explicacion: "El voltaje se divide equitativamente: 6V." },
+            { id: 33, nivel: "basico", tema: "Capacitores", pregunta: "¿Unidad de carga eléctrica almacenada?", opciones: ["Faradio", "Voltio", "Coulomb", "Ampere"], respuesta: 2, explicacion: "Q se mide en Coulombs." },
+            { id: 34, nivel: "basico", tema: "Inductores", pregunta: "¿Qué componente se opone a cambios de corriente?", opciones: ["Resistor", "Capacitor", "Inductor", "Diodo"], respuesta: 2, explicacion: "La inductancia retarda cambios de corriente." },
+            { id: 35, nivel: "basico", tema: "Diodos", pregunta: "¿En qué condición conduce un LED?", opciones: ["Inv", "Dir", "Sin pol", "Alta frec"], respuesta: 1, explicacion: "Requiere polarización directa." },
+            { id: 36, nivel: "basico", tema: "Transistores BJT", pregunta: "¿Configuración básica de amplificador?", opciones: ["Drenador", "Puerta", "Emisor común", "Canal N"], respuesta: 2, explicacion: "Emisor común es estándar." },
+            { id: 37, nivel: "basico", tema: "MOSFET", pregunta: "¿Significado de MOSFET?", opciones: ["Motor On", "Metal Oxide Semiconductor FET", "Mobile OS", "Medium Out"], respuesta: 1, explicacion: "Metal Oxide Semiconductor Field Effect Transistor." },
+            { id: 38, nivel: "basico", tema: "Electrónica digital", pregunta: "¿Cuántos bits tiene un Byte?", opciones: ["4", "8", "16", "32"], respuesta: 1, explicacion: "Estándar de 8 bits." },
+            { id: 39, nivel: "basico", tema: "Seguridad eléctrica", pregunta: "¿Color normativo de tierra?", opciones: ["Rojo", "Azul", "Verde o V/A", "Negro"], respuesta: 2, explicacion: "Verde o Amarillo/Verde." },
+            { id: 40, nivel: "basico", tema: "Instrumentación", pregunta: "¿Qué mide un Óhmetro?", opciones: ["V", "I", "R", "Hz"], respuesta: 2, explicacion: "Mide resistencia." },
+            { id: 41, nivel: "intermedio", tema: "Amplificadores operacionales", pregunta: "¿Impedancia de entrada ideal?", opciones: ["0", "50", "1k", "Infinita"], respuesta: 3, explicacion: "Para no cargar la etapa previa." },
+            { id: 42, nivel: "intermedio", tema: "Transistores BJT", pregunta: "¿Ic si el BJT entra en saturación?", opciones: ["Cero", "Sube con Ib", "Llega a máximo de circuito", "Se invierte"], respuesta: 2, explicacion: "Limitado por la carga." },
+            { id: 43, nivel: "intermedio", tema: "Diodos", pregunta: "¿Uso principal del Zener?", opciones: ["Rectificar", "Luz IR", "Regulación V", "RF"], respuesta: 2, explicacion: "Mantiene voltaje constante." },
+            { id: 44, nivel: "intermedio", tema: "Electrónica digital", pregunta: "¿Binario 1011 en Hexadecimal?", opciones: ["A", "B", "C", "D"], respuesta: 1, explicacion: "11 dec = B hex." },
+            { id: 45, nivel: "intermedio", tema: "Capacitores", pregunta: "¿Valor nF del código '104'?", opciones: ["10", "100", "1000", "1.04"], respuesta: 1, explicacion: "100,000 pF = 100 nF." },
+            { id: 46, nivel: "intermedio", tema: "Inductores", pregunta: "¿Qué pasa si añades vueltas a bobina?", opciones: ["Baja", "Igual", "Sube", "Cae"], respuesta: 2, explicacion: "L proporcional a N²." },
+            { id: 47, nivel: "intermedio", tema: "Ley de Ohm", pregunta: "Vin=24V, si R baja a la mitad, ¿I?", opciones: ["Baja mitad", "Igual", "Cuadruplica", "Duplica"], respuesta: 3, explicacion: "Inversamente proporcional." },
+            { id: 48, nivel: "intermedio", tema: "Circuitos serie/paralelo", pregunta: "¿Qué pasa si un serie se abre?", opciones: ["I sube", "Otros siguen", "I cae a cero", "Corto"], respuesta: 2, explicacion: "El circuito deja de conducir (respuesta 2 según lista)." },
+            { id: 49, nivel: "intermedio", tema: "Instrumentación", pregunta: "¿Qué mide el valor RMS?", opciones: ["Pico", "Promedio", "Eficaz térmico DC", "Frec"], respuesta: 2, explicacion: "Valor eficaz equivalente." },
+            { id: 50, nivel: "intermedio", tema: "Seguridad eléctrica", pregunta: "¿Por qué no usar alambre por fusible?", opciones: ["Mucha R", "Peligro incendio", "Baja V", "Baja FP"], respuesta: 1, explicacion: "Elimina la seguridad." },
+            { id: 51, nivel: "avanzado", tema: "Amplificadores operacionales", pregunta: "¿Frecuencia corte filtro paso bajo activo?", opciones: ["RC", "1/RC", "1/(2πRC)", "2πRC"], respuesta: 2, explicacion: "Fórmula de corte -3dB." },
+            { id: 52, nivel: "avanzado", tema: "MOSFET", pregunta: "¿Por qué minimizar Gate Loop?", opciones: ["Baja Vth", "Evitar ringing", "Sube RDS", "Aislar"], respuesta: 1, explicacion: "Evita oscilaciones LC parásitas." },
+            { id: 53, nivel: "avanzado", tema: "Transistores BJT", pregunta: "¿Qué es la distorsión de cruce en Clase B?", opciones: ["Ruido R", "Pase por cero (Vf)", "Saturación", "Desfase"], respuesta: 1, explicacion: "Zona muerta de transistores." },
+            { id: 54, nivel: "avanzado", tema: "Electrónica digital", pregunta: "¿Ventaja CMOS vs TTL?", opciones: ["Velocidad", "Menor consumo estático", "ESD", "5V"], respuesta: 1, explicacion: "Casi nulo consumo en espera." },
+            { id: 55, nivel: "avanzado", tema: "Diodos", pregunta: "¿Uso de Schottky en SMPS?", opciones: ["1000V", "Baja trr", "Precisión", "Sube Vf"], respuesta: 1, explicacion: "Conmutación rápida." },
+            { id: 56, nivel: "avanzado", tema: "Inductores", pregunta: "¿Saturación magnética ferrita?", opciones: ["Conductor", "Rompe", "Flujo no sube más con I", "L infinita"], respuesta: 2, explicacion: "Límite del dominio magnético." },
+            { id: 57, nivel: "avanzado", tema: "Instrumentación", pregunta: "¿Medir THD?", opciones: ["TRMS", "Analizador espectro", "Hz", "Watt"], respuesta: 1, explicacion: "Permite ver armónicos." },
+            { id: 58, nivel: "avanzado", tema: "Capacitores", pregunta: "¿Absorción dieléctrica?", opciones: ["Sube R", "Efecto memoria (residual)", "Explota", "Color"], respuesta: 1, explicacion: "Carga residual tras descarga." },
+            { id: 59, nivel: "avanzado", tema: "Seguridad eléctrica", pregunta: "¿Transformador aislamiento?", opciones: ["Elevar", "Bajar ruido", "Desvincular tierra", "Subir FP"], respuesta: 2, explicacion: "Aislamiento galvánico." },
+            { id: 60, nivel: "avanzado", tema: "Circuitos serie/paralelo", pregunta: "¿Resonancia RLC paralelo?", opciones: ["Z min", "Z max", "Imaginaria", "Solo C"], respuesta: 1, explicacion: "Las ramas reactivas se anulan." },
+            { id: 61, nivel: "basico", tema: "Ley de Ohm", pregunta: "R=1kΩ, V=5V. ¿Corriente?", opciones: ["50 mA", "5 mA", "0.5 mA", "500 µA"], respuesta: 1, explicacion: "5V/1000Ω = 5mA." },
+            { id: 62, nivel: "basico", tema: "Diodos", pregunta: "¿Hacia dónde apunta flecha diodo?", opciones: ["Ánodo", "Cátodo", "Base", "Emisor"], respuesta: 1, explicacion: "Apunta al cátodo." },
+            { id: 63, nivel: "basico", tema: "Capacitores", pregunta: "¿Función capacitor desacople?", opciones: ["Bloque DC", "Filtro ruido alta frec", "Amp", "Guardar meses"], respuesta: 1, explicacion: "Estabiliza el rizado local." },
+            { id: 64, nivel: "basico", tema: "Transistores BJT", pregunta: "¿Siglas BJT?", opciones: ["Binary", "Bipolar Junction Transistor", "Base", "Basic"], respuesta: 1, explicacion: "Bipolar Junction Transistor." },
+            { id: 65, nivel: "basico", tema: "Electrónica digital", pregunta: "¿Nivel TTL 0V?", opciones: ["Alto", "Bajo", "Hi-Z", "X"], respuesta: 1, explicacion: "Lógica '0'." },
+            { id: 66, nivel: "basico", tema: "Instrumentación", pregunta: "¿Qué mide escala continuidad?", opciones: ["Voltaje", "Resistencia ~0Ω", "C", "Hz"], respuesta: 1, explicacion: "Detecta caminos cerrados." },
+            { id: 67, nivel: "basico", tema: "Inductores", pregunta: "¿Unidad inductancia?", opciones: ["Ω", "F", "H", "T"], respuesta: 2, explicacion: "Henrios (H)." },
+            { id: 68, nivel: "basico", tema: "Seguridad eléctrica", pregunta: "¿Manos húmedas peligro?", opciones: ["Sube R", "Baja R de piel", "Mag", "Purifica"], respuesta: 1, explicacion: "Facilita electrocución." },
+            { id: 69, nivel: "basico", tema: "Circuitos serie/paralelo", pregunta: "Quito bombilla paralelo, ¿otras?", opciones: ["Off", "Brillan +", "Siguen igual", "Queman"], respuesta: 2, explicacion: "Independencia de ramas." },
+            { id: 70, nivel: "basico", tema: "MOSFET", pregunta: "¿Entrada Gate MOSFET?", opciones: ["Baja Z", "Alta Z (Aislada)", "Mucha I", "Ge"], respuesta: 1, explicacion: "Puerta aislada por óxido." },
+            { id: 71, nivel: "intermedio", tema: "Amplificadores operacionales", pregunta: "Comparador con histéresis es:", opciones: ["Seguidor", "Trigger Schmitt", "Integrador", "Sallen-Key"], respuesta: 1, explicacion: "Evita oscilaciones por ruido." }
         ];
 
-        // --- ESTADO DEL JUEGO ---
         let state = {
             lives: 3,
             stars: parseInt(localStorage.getItem('electro_pro_stars')) || 0,
             progress: parseInt(localStorage.getItem('electro_pro_prog')) || 1,
             currentLevel: null,
             selectedIdx: null,
-            isAnswering: false
+            isAnswering: false,
+            wrongStreak: 0
         };
 
-        // --- RENDERIZADO DEL MAPA ---
         function renderMap() {
             const container = document.getElementById('levels-container');
-            container.innerHTML = '';
-
+            container.innerHTML = '<div class="path-line" style="height: 100%"></div>';
             for (let i = 1; i <= 100; i++) {
                 const node = document.createElement('div');
                 const isLocked = i > state.progress;
                 const isDone = i < state.progress;
                 const isNext = i === state.progress;
-
-                node.className = `level-node rounded-2xl flex items-center justify-center font-bold text-lg 
-                                  ${isLocked ? 'locked bg-slate-800' : 'cursor-pointer'} 
-                                  ${isDone ? 'completed' : ''} 
-                                  ${isNext ? 'current' : 'text-slate-500 bg-slate-800/50'}`;
-                
-                node.innerHTML = isDone ? '<i class="fas fa-check"></i>' : (isLocked ? '<i class="fas fa-lock text-sm"></i>' : i);
-                
-                // Efecto de zigzag premium
-                const offset = Math.sin(i * 0.9) * 50;
-                node.style.transform = `translateX(${offset}px)`;
-
+                node.className = `level-node rounded-2xl flex items-center justify-center font-bold text-lg ${isLocked ? 'locked bg-slate-800' : 'cursor-pointer'} ${isDone ? 'completed shadow-lg' : ''} ${isNext ? 'current animate-pulse' : 'text-slate-500 bg-slate-800/50'}`;
+                node.innerHTML = isDone ? '<i class="fas fa-check"></i>' : (isLocked ? '<i class="fas fa-lock text-xs"></i>' : i);
+                const offset = Math.sin(i * 0.9) * (window.innerWidth < 640 ? 30 : 60);
+                node.style.left = `${offset}px`;
                 if (!isLocked) node.onclick = () => startQuiz(i);
                 container.appendChild(node);
             }
+            if (state.progress > 100) document.getElementById('cert-modal').style.display = 'flex';
         }
 
-        // --- CONTROLADOR DE QUIZ ---
         function startQuiz(id) {
-            if (state.lives <= 0) {
-                showLifeModal();
-                return;
+            if (state.lives <= 0) { showLifeModal(); return; }
+            let qData = database.find(l => l.id === id);
+            if (!qData) {
+                qData = { id, tema: "Física Electrónica", pregunta: `Desafío técnico Nv.${id}: ¿Qué partícula es la principal portadora de carga en un semiconductor tipo N?`, opciones: ["Huecos", "Electrones", "Protones", "Neutrones"], respuesta: 1, explicacion: "En tipo N (Negativo), los electrones son mayoritarios." };
             }
-
-            // Fallback para niveles no definidos aún en el demo
-            state.currentLevel = database.find(l => l.id === id) || {
-                ...database[0], 
-                id: id, 
-                pregunta: `Pregunta técnica avanzada de nivel ${id} (Módulo de expansión en desarrollo).`,
-                opciones: ["Opción A", "Opción B", "Opción C", "Opción D"],
-                respuesta: 0
-            };
-
-            state.selectedIdx = null;
-            state.isAnswering = false;
-
+            state.currentLevel = JSON.parse(JSON.stringify(qData));
+            state.selectedIdx = null; state.isAnswering = false;
             document.getElementById('view-map').classList.add('hidden');
             document.getElementById('view-quiz').classList.remove('hidden');
             document.getElementById('explanation').classList.add('hidden');
-            
             renderQuizContent();
+            window.scrollTo(0,0);
         }
 
         function renderQuizContent() {
@@ -295,52 +322,29 @@
             document.getElementById('category-tag').innerText = q.tema;
             document.getElementById('level-indicator').innerText = `LVL ${q.id.toString().padStart(2, '0')}`;
             document.getElementById('quiz-bar').style.width = `${(q.id / 100) * 100}%`;
-
             const grid = document.getElementById('options-grid');
             grid.innerHTML = '';
-
             q.opciones.forEach((opt, i) => {
                 const card = document.createElement('div');
-                card.className = "option-card glass p-5 rounded-2xl cursor-pointer flex items-center gap-4 text-slate-300 font-medium";
-                card.innerHTML = `
-                    <div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-xs font-mono border border-white/10">${i + 1}</div>
-                    <span>${opt}</span>
-                `;
+                card.className = "option-card glass p-5 rounded-2xl cursor-pointer flex items-center gap-4 text-slate-300";
+                card.innerHTML = `<div class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center font-mono border border-white/10 shrink-0">${String.fromCharCode(65 + i)}</div><span>${opt}</span>`;
                 card.onclick = () => selectOption(i);
                 grid.appendChild(card);
             });
-
             resetNextBtn();
         }
 
         function selectOption(idx) {
             if (state.isAnswering) return;
             state.selectedIdx = idx;
-            
-            document.querySelectorAll('.option-card').forEach((c, i) => {
-                c.classList.toggle('selected', i === idx);
-            });
-
+            document.querySelectorAll('.option-card').forEach((c, i) => c.classList.toggle('selected', i === idx));
             const btn = document.getElementById('btn-next');
-            btn.disabled = false;
-            btn.classList.replace('bg-slate-800', 'bg-blue-600');
-            btn.classList.replace('text-slate-500', 'text-white');
+            btn.disabled = false; btn.classList.replace('bg-slate-800', 'bg-blue-600'); btn.classList.replace('text-slate-500', 'text-white');
         }
 
         function handleMainAction() {
-            if (!state.isAnswering) {
-                checkAnswer();
-            } else {
-                if (state.lives > 0) {
-                    if (state.selectedIdx === state.currentLevel.respuesta) {
-                        exitQuiz();
-                    } else {
-                        startQuiz(state.currentLevel.id); // Reintentar mismo
-                    }
-                } else {
-                    exitQuiz();
-                }
-            }
+            if (!state.isAnswering) { checkAnswer(); }
+            else { if (state.lives > 0) { if (state.selectedIdx === state.currentLevel.respuesta) exitQuiz(); else startQuiz(state.currentLevel.id); } else { exitQuiz(); } }
         }
 
         function checkAnswer() {
@@ -348,36 +352,26 @@
             const isCorrect = state.selectedIdx === state.currentLevel.respuesta;
             const cards = document.querySelectorAll('.option-card');
             const btn = document.getElementById('btn-next');
-
+            cards.forEach(c => c.classList.add('disabled'));
             cards[state.selectedIdx].classList.add(isCorrect ? 'correct' : 'wrong');
             if (!isCorrect) cards[state.currentLevel.respuesta].classList.add('correct');
-
-            // Mostrar explicación
             document.getElementById('explanation-text').innerText = state.currentLevel.explicacion;
             document.getElementById('explanation').classList.remove('hidden');
-
             if (isCorrect) {
-                confetti({ particleCount: 50, spread: 60, colors: ['#3b82f6', '#10b981'] });
-                if (state.currentLevel.id === state.progress) {
-                    state.progress++;
-                    state.stars += 25;
-                    save();
-                }
-                btn.innerText = "Siguiente Nivel";
-                btn.classList.replace('bg-blue-600', 'bg-emerald-600');
+                confetti({ particleCount: 50, spread: 60 });
+                if (state.currentLevel.id === state.progress) { state.progress++; state.stars += 20; save(); }
+                btn.innerText = "Siguiente"; btn.classList.replace('bg-blue-600', 'bg-emerald-600');
             } else {
-                state.lives--;
-                updateHeader();
-                btn.innerText = state.lives > 0 ? "Reintentar Desafío" : "Sin Energía";
+                state.lives--; state.wrongStreak++; updateHeader();
+                btn.innerText = state.lives > 0 ? "Reintentar" : "Sin Energía";
                 btn.classList.replace('bg-blue-600', 'bg-red-600');
             }
         }
 
         function resetNextBtn() {
             const btn = document.getElementById('btn-next');
-            btn.innerText = "Comprobar Respuesta";
-            btn.disabled = true;
-            btn.className = "w-full py-5 bg-slate-800 text-slate-500 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3 tracking-widest uppercase";
+            btn.innerText = "Comprobar"; btn.disabled = true;
+            btn.className = "w-full py-5 bg-slate-800 text-slate-500 rounded-2xl font-black text-lg uppercase";
         }
 
         function exitQuiz() {
@@ -400,19 +394,15 @@
 
         function showLifeModal() {
             document.getElementById('life-modal').style.display = 'flex';
-            if (!document.querySelector('#paypal-container-V2J2E7EYWRR2U iframe')) {
-                PayPal.HostedButtons({ hostedButtonId: "V2J2E7EYWRR2U" }).render("#paypal-container-V2J2E7EYWRR2U");
-            }
+            const popScript = document.createElement('script');
+            popScript.src = "https://pl28961993.profitablecpmratenetwork.com/f7/f6/5a/f7f65acc8892891d3bd01cb99c6cdafb.js";
+            document.body.appendChild(popScript);
         }
 
-        function closeLifeModal() {
-            document.getElementById('life-modal').style.display = 'none';
-        }
+        function reviveWithAd() { state.lives = 1; updateHeader(); closeLifeModal(); }
+        function closeLifeModal() { document.getElementById('life-modal').style.display = 'none'; }
 
-        window.onload = () => {
-            renderMap();
-            updateHeader();
-        };
+        window.onload = () => { renderMap(); updateHeader(); };
     </script>
 </body>
 </html>
